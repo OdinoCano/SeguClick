@@ -1,0 +1,10 @@
+{
+  "name": "SeguClick",
+  "description": "Herramientas para el Asesor de Seguros",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "views/index.html",
+    "default_icon": "images/hello_extensions.png"
+  }
+}
