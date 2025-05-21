@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link href="styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="scripts/jquery-3.7.1.min.js"></script>
+    <link href="styles/main.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div id="customContextMenu" style="display:none; position:absolute; z-index:1000; background:#fff; border:1px solid #ccc; box-shadow:2px 2px 6px #aaa;">
+          <ul class="list-unstyled mb-0"></ul>
+            <li><a href="#" class="dropdown-item">Inicio</a></li>
+            <li><a href="#" class="dropdown-item">Perfil</a></li>
+            <li><a href="#" class="dropdown-item">Configuración</a></li>
+            <li><a href="#" class="dropdown-item">Salir</a></li>
+          </ul>
+        </div>
+        <!-- Main content -->
+        <main class="col-md-10 ms-sm-auto px-4">
+          <h1>Convertir Imágenes a PDF</h1>
+          <form id="imageToPdfForm" class="mb-4">
+            <div class="mb-3">
+          <label for="images" class="form-label">Selecciona una o varias imágenes</label>
+          <input class="form-control" type="file" id="images" name="images" accept="image/*" multiple required>
+            </div>
+            <button type="submit" class="btn btn-primary">Convertir a PDF</button>
+          </form>
+          <div id="pdfResult" class="mt-3"></div>
+        </main>
+      </div>
+    </div>
+    <!-- Bootstrap JS (optional, for some components) -->
+    <script src="scripts/bootstrap.bundle.5.3.6.min.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/jspdf.umd.3.0.1.min.js"></script>
+    <script src="scripts/image2pdf.js"></script>
+    <script>
+      // Ejemplo: Cambiar clase activa al hacer clic
+      $('#sidebarMenu .nav-link').on('click', function() {
+        $('#sidebarMenu .nav-link').removeClass('active');
+        $(this).addClass('active');
+      });
+    </script>
+  </body>
+</html>
