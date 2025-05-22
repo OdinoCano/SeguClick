@@ -4,29 +4,53 @@
     <meta charset="UTF-8">
     <!-- Bootstrap CSS -->
     <link href="styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/bootstrap-icons.1.13.1.min.css">
+    <!-- Estilo personalizado -->
+    <link href="styles/main.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="scripts/jquery-3.7.1.min.js"></script>
-    <link href="styles/main.css" rel="stylesheet">
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row">
-        <!-- Sidebar -->
-        <div id="customContextMenu" style="display:none; position:absolute; z-index:1000; background:#fff; border:1px solid #ccc; box-shadow:2px 2px 6px #aaa;">
-          <ul class="list-unstyled mb-0"></ul>
-            <li><a href="#" class="dropdown-item">Inicio</a></li>
-            <li><a href="#" class="dropdown-item">Perfil</a></li>
-            <li><a href="#" class="dropdown-item">Configuración</a></li>
-            <li><a href="#" class="dropdown-item">Salir</a></li>
-          </ul>
+      <div class="row flex-nowrap">
+        <div class="col-sm-auto bg-dark sticky-top">
+          <div class="d-flex flex-sm-column align-items-center align-items-sm-start flex-row flex-nowrap sticky-top min-vh-100">
+            <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+              <li class="nav-item">
+                <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                  <i class="bi-house fs-1"></i>
+                </a>
+              </li>
+              <li>
+                <a href="views/rfc.html" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                  <i class="bi-speedometer2 fs-1"></i>
+                </a>
+              </li>
+              <li>
+                  <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                      <i class="bi-table fs-1"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
+                      <i class="bi-heart fs-1"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                      <i class="bi-people fs-1"></i>
+                  </a>
+              </li>
+            </ul>
+          </div>
         </div>
         <!-- Main content -->
-        <main class="col-md-10 ms-sm-auto px-4">
+        <main class="col ms-sm-auto mt-3">
           <h1>Convertir Imágenes a PDF</h1>
           <form id="imageToPdfForm" class="mb-4">
             <div class="mb-3">
-          <label for="images" class="form-label">Selecciona una o varias imágenes</label>
-          <input class="form-control" type="file" id="images" name="images" accept="image/*" multiple required>
+              <label for="images" class="form-label">Selecciona una o varias imágenes</label>
+              <input class="form-control w-100" type="file" id="images" name="images" accept="image/*" multiple required style="max-width:100%;">
             </div>
             <button type="submit" class="btn btn-primary">Convertir a PDF</button>
           </form>
@@ -34,17 +58,10 @@
         </main>
       </div>
     </div>
-    <!-- Bootstrap JS (optional, for some components) -->
+    <!-- Scripts -->
     <script src="scripts/bootstrap.bundle.5.3.6.min.js"></script>
     <script src="scripts/menu.js"></script>
     <script src="scripts/jspdf.umd.3.0.1.min.js"></script>
     <script src="scripts/image2pdf.js"></script>
-    <script>
-      // Ejemplo: Cambiar clase activa al hacer clic
-      $('#sidebarMenu .nav-link').on('click', function() {
-        $('#sidebarMenu .nav-link').removeClass('active');
-        $(this).addClass('active');
-      });
-    </script>
   </body>
 </html>

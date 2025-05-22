@@ -1,3 +1,28 @@
+/* Estilo del sidebar */
+#sidebarMenu {
+  background-color: #1e293b;
+  padding-top: 1rem;
+}
+
+/* Estilo de enlaces del menú */
+#sidebarMenu .nav-link {
+  font-size: 0.95rem;
+  padding: 10px 15px;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+#sidebarMenu .nav-link:hover {
+  background-color: #334155;
+  color: #fff;
+}
+
+/* Estilo del enlace activo */
+#sidebarMenu .nav-link.active {
+  background-color: #2563eb;
+  color: #fff;
+}
+
 body {
     background-color: #f8f6f2;
     color: #22223b;
@@ -6,7 +31,10 @@ body {
     line-height: 1.7;
     min-height: 100vh;
     overflow: hidden;
-    width: 750px;
+    min-width: 750px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
     position: inherit;
 }
 
