@@ -3,9 +3,8 @@
   "description": "Herramientas para el Asesor de Seguros",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["contextMenus"],
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "views/index.html",
     "default_icon": "images/icon.png"
   },
   "icons": {

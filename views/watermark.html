@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agregar Marca de Agua a PDF</title>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f8fafc;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sube un PDF y agrega una marca de agua</h2>
+    <input type="file" id="pdfInput" accept="application/pdf"><br><br>
+    <input type="text" id="watermarkText" placeholder="Texto de la marca de agua"><br><br>
+    <button onclick="addWatermark()">Agregar Marca de Agua</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    async function addWatermark() {
+      const input = document.getElementById('pdfInput');
+      const watermark = document.getElementById('watermarkText').value;
+      const status = document.getElementById('status');
+
+      if (!input.files.length || !watermark.trim()) {
+        alert("Selecciona un archivo PDF y escribe una marca de agua.");
+        return;
+      }
+
+      const file = input.files[0];
+      const arrayBuffer = await file.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+
+      const pages = pdfDoc.getPages();
+      for (const page of pages) {
+        const { width, height } = page.getSize();
+        page.drawText(watermark, {
+          x: width / 2 - 100,
+          y: height / 2,
+          size: 36,
+          opacity: 0.2,
+          rotate: PDFLib.degrees(45),
+        });
+      }
+
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "pdf_con_marca_de_agua.pdf";
+      link.click();
+
+      status.textContent = "¡PDF generado con marca de agua!";
+    }
+  </script>
+</body>
+</html>

@@ -13,37 +13,8 @@
   <body>
     <div class="container-fluid">
       <div class="row flex-nowrap">
-        <div class="col-sm-auto bg-dark sticky-top">
-          <div class="d-flex flex-sm-column align-items-center align-items-sm-start flex-row flex-nowrap sticky-top min-vh-100">
-            <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
-              <li class="nav-item">
-                <a href="../index.html" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-                  <i class="bi-house fs-1"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-                  <i class="bi-speedometer2 fs-1"></i>
-                </a>
-              </li>
-              <li>
-                  <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
-                      <i class="bi-table fs-1"></i>
-                  </a>
-              </li>
-              <li>
-                  <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
-                      <i class="bi-heart fs-1"></i>
-                  </a>
-              </li>
-              <li>
-                  <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
-                      <i class="bi-people fs-1"></i>
-                  </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <!-- Sidebar -->
+        <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
         <!-- Main content -->
         <main class="col ms-sm-auto mt-3">
           <h1>Calcular RFC</h1>
@@ -178,6 +149,7 @@
     </div>
     <!-- Scripts -->
     <script src="../scripts/bootstrap.bundle.5.3.6.min.js"></script>
-    <script src="../scripts/rfc-generator.js"></script>
+    <script src="../scripts/menu.js"></script>
+    <script src="../scripts/utr-generator.js"></script>
   </body>
 </html>

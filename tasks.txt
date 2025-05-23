@@ -10,12 +10,9 @@ https://www.autocheck.com/consumer-api/meta/v1/summary/LCEPESLD4S6006006
 
 calcula rfc:
 - https://escolar.cele.unam.mx/rfc/calcula
-- script:
-
-flex-row flex-nowrap sticky-top
 
 
-
+MARCA DE AGUA
 
 
 
