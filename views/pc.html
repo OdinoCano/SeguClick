@@ -18,16 +18,69 @@
         <!-- Main content -->
         <main class="col ms-sm-auto mt-3">
           <h1 class="card-title mb-4">Buscar Código Postal (SEPOMEX)</h1>
+          <div id="resultado" class="m-3"></div>
           <form class="row g-3">
-            <div class="col-auto">
-              <label for="cp" class="form-label">Ingresa Código Postal:</label>
-              <input type="text" class="form-control" id="cp" maxlength="5" placeholder="Ej: 01000" />
+            <div class="col-md-3">
+              <label for="estado" class="form-label">Estado:</label>
+              <select class="form-select" id="estado">
+                <option value="">Seleccione un estado</option>
+                <option value="1">Aguascalientes</option>
+                <option value="2">Baja California</option>
+                <option value="3">Baja California Sur</option>
+                <option value="4">Campeche</option>
+                <option value="5">Coahuila de Zaragoza</option>
+                <option value="6">Colima</option>
+                <option value="7">Chiapas</option>
+                <option value="8">Chihuahua</option>
+                <option value="9">Ciudad de México</option>
+                <option value="10">Durango</option>
+                <option value="11">Guanajuato</option>
+                <option value="12">Guerrero</option>
+                <option value="13">Hidalgo</option>
+                <option value="14">Jalisco</option>
+                <option value="15">México</option>
+                <option value="16">Michoacán de Ocampo</option>
+                <option value="17">Morelos</option>
+                <option value="18">Nayarit</option>
+                <option value="19">Nuevo León</option>
+                <option value="20">Oaxaca</option>
+                <option value="21">Puebla</option>
+                <option value="22">Querétaro</option>
+                <option value="23">Quintana Roo</option>
+                <option value="24">San Luis Potosí</option>
+                <option value="25">Sinaloa</option>
+                <option value="26">Sonora</option>
+                <option value="27">Tabasco</option>
+                <option value="28">Tamaulipas</option>
+                <option value="29">Tlaxcala</option>
+                <option value="30">Veracruz de Ignacio de la Llave</option>
+                <option value="31">Yucatán</option>
+                <option value="32">Zacatecas</option>
+              </select>
+            </div>
+            <hr>
+            <div class="col-md-3">
+              <label for="ciudad" class="form-label">Ciudad:</label>
+              <input type="text" class="form-control" id="ciudad" placeholder="Ej: Ciudad de México" />
+            </div>
+            <div class="col-md-3">
+              <label for="colonia" class="form-label">Colonia:</label>
+              <input type="text" class="form-control" id="colonia" placeholder="Ej: Punta Contry" />
+            </div>
+            <div class="col-md-3">
+              <select class="form-select" id="cp" hidden></select>
+            </div>
+            <br>
+            ó
+            <br>
+            <div class="col-md-3">
+              <label for="municipio" class="form-label">Municipio/Delegación:</label>
+              <select class="form-select" id="municipio"></select>
             </div>
             <div class="col-auto align-self-end">
               <button type="button" class="btn btn-primary mb-3" id="buscarBtn">Buscar</button>
             </div>
           </form>
-          <div id="resultado" class="mt-3"></div>
         </main>
       </div>
     </div>

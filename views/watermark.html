@@ -1,66 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Agregar Marca de Agua a PDF</title>
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #f8fafc;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h2>Sube un PDF y agrega una marca de agua</h2>
-    <input type="file" id="pdfInput" accept="application/pdf"><br><br>
-    <input type="text" id="watermarkText" placeholder="Texto de la marca de agua"><br><br>
-    <button onclick="addWatermark()">Agregar Marca de Agua</button>
-    <p id="status"></p>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link href="../styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/bootstrap-icons.1.13.1.min.css">
+    <!-- Estilo personalizado -->
+    <link href="../styles/main.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="../scripts/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <!-- Sidebar -->
+        <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
+        <!-- Main content -->
+        <main class="col ms-sm-auto mt-3">
+          <h2 class="card-title mb-4">Subir PDF y agregar marca de agua</h2>
+          <div class="mb-3">
+            <label for="pdfInput" class="form-label">Selecciona un archivo PDF</label>
+            <input type="file" class="form-control" id="pdfInput" accept="application/pdf" />
+          </div>
+          <button id="watermarkBtn" class="btn btn-primary mb-3">Agregar Marca de Agua</button>
+          <br>
+          <a id="downloadLink" class="btn btn-success" style="display:none;" download="pdf_marca_agua.pdf">Descargar PDF</a>
+        </main>
+    </div>
   </div>
-
-  <script>
-    async function addWatermark() {
-      const input = document.getElementById('pdfInput');
-      const watermark = document.getElementById('watermarkText').value;
-      const status = document.getElementById('status');
-
-      if (!input.files.length || !watermark.trim()) {
-        alert("Selecciona un archivo PDF y escribe una marca de agua.");
-        return;
-      }
-
-      const file = input.files[0];
-      const arrayBuffer = await file.arrayBuffer();
-      const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-
-      const pages = pdfDoc.getPages();
-      for (const page of pages) {
-        const { width, height } = page.getSize();
-        page.drawText(watermark, {
-          x: width / 2 - 100,
-          y: height / 2,
-          size: 36,
-          opacity: 0.2,
-          rotate: PDFLib.degrees(45),
-        });
-      }
-
-      const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "pdf_con_marca_de_agua.pdf";
-      link.click();
-
-      status.textContent = "¡PDF generado con marca de agua!";
-    }
-  </script>
-</body>
+  <!-- Scripts -->
+  <script src="../scripts/bootstrap.bundle.5.3.6.min.js"></script>
+  <script src="../scripts/menu.js"></script>
+  <script src="../scripts/pdf-lib.1.17.1.min.js"></script>
+  <script src="../scripts/watermark.js"></script>
+  </body>
 </html>

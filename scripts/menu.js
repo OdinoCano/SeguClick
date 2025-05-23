@@ -1,11 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const menuContainer = document.getElementById("menu-container");
-  if (menuContainer) {
-    fetch("menu.html") // relativo a la ubicación del HTML que lo llama
-      .then(res => res.text())
-      .then(data => {
-        menuContainer.innerHTML = data;
+$(document).ready(function() {
+  const $menuContainer = $("#menu-container");
+  if ($menuContainer.length) {
+    $.get("menu.html")
+      .done(function(data) {
+        $menuContainer.html(data);
       })
-      .catch(err => console.error("Error al cargar el menú:", err));
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.error("Error al cargar el menú:", errorThrown);
+      });
   }
 });
