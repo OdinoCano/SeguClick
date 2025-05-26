@@ -12,7 +12,7 @@ $('#watermarkBtn').on('click', async function () {
 
     pages.forEach(page => {
       const { width, height } = page.getSize();
-      const text = "PRE-POLISA";
+      const text = "PRE-POLIZA";
       const fontSize = 78;
       const grades = 45;
 
