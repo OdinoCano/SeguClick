@@ -1,16 +1,19 @@
 {
-  "name": "SeguClick",
-  "description": "Herramientas para el Asesor de Seguros",
+  "name": "__MSG_chrome_extension_name__",
+  "description": "__MSG_chrome_extension_description__",
   "version": "1.0",
   "manifest_version": 3,
+  "default_locale": "es",
   "action": {
     "default_popup": "views/index.html",
     "default_icon": "images/icon.png"
   },
+  "permissions": [
+    "storage"
+  ],
   "icons": {
     "16": "images/icon.png",
     "48": "images/icon.png",
     "128": "images/icon.png"
-  },
-  "logo": "images/logo.png"
+  }
 }

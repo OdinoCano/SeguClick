@@ -1,0 +1,12 @@
+{
+  "chrome_extension_name": {
+    "message": "SeguClick"
+  },
+  "chrome_extension_description": {
+    "message": "Herramientas para el Asesor de Seguros"
+  },
+  "title_img2pdf":"Convertir Imágenes a PDF",
+  "description_img2pdf":"Selecciona una o varias imágenes",
+  "btn_convert_img2pdf":"Convertir a PDF",
+  "btn_dowload_img2pdf":"Descargar PDF"
+}
