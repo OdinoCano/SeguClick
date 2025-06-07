@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <!-- Bootstrap CSS -->
-    <link href="../styles/bootstrap.5.3.6.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/bootstrap-icons.1.13.1.min.css">
+    <link href="/styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.1.13.1.min.css">
     <!-- Estilo personalizado -->
-    <link href="../styles/main.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
     <!-- jQuery -->
-    <script src="../scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/general.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -20,9 +21,7 @@
           <!-- Bootstrap Button for PayPal Donation -->
           <form action="https://www.paypal.com/donate" method="post" target="_blank" class="text-center my-3">
             <input type="hidden" name="hosted_button_id" value="CTSUH7LH9DF5S" />
-            <button type="submit" class="btn btn-warning btn-lg">
-              ☕ Invítame un café con PayPal
-            </button>
+            <button id="btn_dnt" type="submit" class="btn btn-warning btn-lg">☕ </button>
           </form>
           <div class="text-center my-3">
             <img 
@@ -32,17 +31,14 @@
             />
           </div>
           <div class="text-center my-3">
-            <a href="https://www.paypal.com/donate/?hosted_button_id=CTSUH7LH9DF5S" target="_blank" class="text-decoration-none">
-              También puedes donar directamente aquí
-            </a>
+            <a id="link_dnt" href="https://www.paypal.com/donate/?hosted_button_id=CTSUH7LH9DF5S" target="_blank" class="text-decoration-none"></a>
           </div>
         </main>
       </div>
     </div>
     <!-- Scripts -->
-    <script src="../scripts/bootstrap.bundle.5.3.6.min.js"></script>
-    <script src="../scripts/menu.js"></script>
-    <script src="../scripts/jspdf.umd.3.0.1.min.js"></script>
-    <script src="../scripts/image2pdf.js"></script>
+    <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/donate.js"></script>
   </body>
 </html>

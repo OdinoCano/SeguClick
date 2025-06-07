@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link href="/styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.1.13.1.min.css">
+    <!-- Estilo personalizado -->
+    <link href="/styles/main.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="/scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/general.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <!-- Sidebar -->
+        <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
+        <!-- Main content -->
+        <main class="col ms-sm-auto mt-3">
+          <div class="row">
+            <form class="col-md-6" id="form">
+              <div class="accordion" id="qrAccordion">
+                <!-- Main Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingMain">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMain" aria-expanded="true" aria-controls="collapseMain">
+                      Main Options
+                    </button>
+                  </h2>
+                  <div id="collapseMain" class="accordion-collapse collapse show" aria-labelledby="headingMain" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3">
+                        <label for="form-data" class="form-label">Data</label>
+                        <textarea class="form-control" node="data" node-change-event="oninput" id="form-data" rows="2">https://qr-code-styling.com</textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-image-file" class="form-label">Image File</label>
+                        <div class="input-group">
+                          <input class="form-control" node="image" node-data-field="files" id="form-image-file" type="file">
+                          <button class="btn btn-outline-secondary" type="button" id="button-cancel">Cancel</button>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-width" class="form-label">Width</label>
+                        <input class="form-control" node="width" id="form-width" type="number" min="100" max="10000" value="300">
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-height" class="form-label">Height</label>
+                        <input class="form-control" node="height" id="form-height" type="number" min="100" max="10000" value="300">
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-margin" class="form-label">Margin</label>
+                        <input class="form-control" node="margin" id="form-margin" type="number" min="0" max="10000" value="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Dots Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingDots">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDots" aria-expanded="false" aria-controls="collapseDots">
+                      Dots Options
+                    </button>
+                  </h2>
+                  <div id="collapseDots" class="accordion-collapse collapse" aria-labelledby="headingDots" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3">
+                        <label for="form-dots-type" class="form-label">Dots Style</label>
+                        <select class="form-select" node="dotsOptions.type" id="form-dots-type">
+                          <option value="square">Square</option>
+                          <option value="dots">Dots</option>
+                          <option value="rounded">Rounded</option>
+                          <option value="extra-rounded" selected="">Extra rounded</option>
+                          <option value="classy">Classy</option>
+                          <option value="classy-rounded">Classy rounded</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Color Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.colorType.single" id="form-dots-color-type-single" type="radio" name="dots-color-type" checked="">
+                          <label class="form-check-label" for="form-dots-color-type-single">Single color</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.colorType.gradient" id="form-dots-color-type-gradient" type="radio" name="dots-color-type">
+                          <label class="form-check-label" for="form-dots-color-type-gradient">Color gradient</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 dotsOptionsHelper.colorType.single">
+                        <label for="form-dots-color" class="form-label">Dots Color</label>
+                        <input class="form-control form-control-color" node="dotsOptions.color" id="form-dots-color" type="color" value="#6a1a4c">
+                      </div>
+                      <!-- Gradient options (hidden by default, shown via JS) -->
+                      <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Gradient Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.gradient.linear" id="form-dots-gradient-type-linear" type="radio" name="dots-gradient-type" checked="">
+                          <label class="form-check-label" for="form-dots-gradient-type-linear">Linear</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.gradient.radial" id="form-dots-gradient-type-radial" type="radio" name="dots-gradient-type">
+                          <label class="form-check-label" for="form-dots-gradient-type-radial">Radial</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Dots Gradient</label>
+                        <div class="d-flex gap-2">
+                          <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color1" type="color" value="#6a1a4c">
+                          <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color2" type="color" value="#6a1a4c">
+                        </div>
+                      </div>
+                      <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
+                        <label for="form-dots-gradient-rotation" class="form-label">Rotation</label>
+                        <input class="form-control" node="dotsOptionsHelper.gradient.rotation" id="form-dots-gradient-rotation" type="number" min="0" max="360" value="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Corners Square Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingCornersSquare">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCornersSquare" aria-expanded="false" aria-controls="collapseCornersSquare">
+                          Corners Square Options
+                      </button>
+                  </h2>
+                  <div id="collapseCornersSquare" class="accordion-collapse collapse" aria-labelledby="headingCornersSquare" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3">
+                        <label for="form-corners-square-type" class="form-label">Corners Square Style</label>
+                        <select class="form-select" node="cornersSquareOptions.type" id="form-corners-square-type">
+                          <option value="">None</option>
+                          <option value="square">Square</option>
+                          <option value="dot">Dot</option>
+                          <option value="extra-rounded" selected="">Extra rounded</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Color Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.colorType.single" id="form-corners-square-color-type-single" type="radio" name="corners-square-color-type" checked="">
+                          <label class="form-check-label" for="form-corners-square-color-type-single">Single color</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.colorType.gradient" id="form-corners-square-color-type-gradient" type="radio" name="corners-square-color-type">
+                          <label class="form-check-label" for="form-corners-square-color-type-gradient">Color gradient</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 cornersSquareOptionsHelper.colorType.single">
+                        <label for="form-corners-square-color" class="form-label">Corners Square Color</label>
+                        <div class="input-group">
+                          <input class="form-control form-control-color" node="cornersSquareOptions.color" id="form-corners-square-color" type="color" value="#000000">
+                          <button class="btn btn-outline-secondary" type="button" id="button-clear-corners-square-color">Clear</button>
+                        </div>
+                      </div>
+                      <!-- Gradient options (hidden by default, shown via JS) -->
+                      <div class="mb-3 cornersSquareOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Gradient Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.gradient.linear" id="form-corners-square-gradient-type-linear" type="radio" name="corners-square-gradient-type" checked="">
+                          <label class="form-check-label" for="form-corners-square-gradient-type-linear">Linear</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.gradient.radial" id="form-corners-square-gradient-type-radial" type="radio" name="corners-square-gradient-type">
+                          <label class="form-check-label" for="form-corners-square-gradient-type-radial">Radial</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 cornersSquareOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Corners Square Gradient</label>
+                        <div class="d-flex gap-2">
+                          <input class="form-control form-control-color" node="cornersSquareOptionsHelper.gradient.color1" type="color" value="#000000">
+                          <input class="form-control form-control-color" node="cornersSquareOptionsHelper.gradient.color2" type="color" value="#000000">
+                        </div>
+                      </div>
+                      <div class="mb-3 cornersSquareOptionsHelper.colorType.gradient d-none">
+                        <label for="form-corners-square-gradient-rotation" class="form-label">Rotation</label>
+                        <input class="form-control" node="cornersSquareOptionsHelper.gradient.rotation" id="form-corners-square-gradient-rotation" type="number" min="0" max="360" value="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Corners Dot Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingCornersDot">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCornersDot" aria-expanded="false" aria-controls="collapseCornersDot">
+                      Corners Dot Options
+                    </button>
+                  </h2>
+                  <div id="collapseCornersDot" class="accordion-collapse collapse" aria-labelledby="headingCornersDot" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3">
+                        <label for="form-corners-dot-type" class="form-label">Corners Dot Style</label>
+                        <select class="form-select" node="cornersDotOptions.type" id="form-corners-dot-type">
+                          <option value="" selected="">None</option>
+                          <option value="square">Square</option>
+                          <option value="dot">Dot</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Color Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.colorType.single" id="form-corners-dot-color-type-single" type="radio" name="corners-dot-color-type" checked="">
+                          <label class="form-check-label" for="form-corners-dot-color-type-single">Single color</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.colorType.gradient" id="form-corners-dot-color-type-gradient" type="radio" name="corners-dot-color-type">
+                          <label class="form-check-label" for="form-corners-dot-color-type-gradient">Color gradient</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 cornersDotOptionsHelper.colorType.single">
+                        <label for="form-corners-dot-color" class="form-label">Corners Dot Color</label>
+                        <div class="input-group">
+                          <input class="form-control form-control-color" node="cornersDotOptions.color" id="form-corners-dot-color" type="color" value="#000000">
+                          <button class="btn btn-outline-secondary" type="button" id="button-clear-corners-dot-color">Clear</button>
+                        </div>
+                      </div>
+                      <!-- Gradient options (hidden by default, shown via JS) -->
+                      <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Gradient Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.gradient.linear" id="form-corners-dot-gradient-type-linear" type="radio" name="corners-dot-gradient-type" checked="">
+                          <label class="form-check-label" for="form-corners-dot-gradient-type-linear">Linear</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.gradient.radial" id="form-corners-dot-gradient-type-radial" type="radio" name="corners-dot-gradient-type">
+                          <label class="form-check-label" for="form-corners-dot-gradient-type-radial">Radial</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Corners Dot Gradient</label>
+                        <div class="d-flex gap-2">
+                          <input class="form-control form-control-color" node="cornersDotOptionsHelper.gradient.color1" type="color" value="#000000">
+                          <input class="form-control form-control-color" node="cornersDotOptionsHelper.gradient.color2" type="color" value="#000000">
+                        </div>
+                      </div>
+                      <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
+                        <label for="form-corners-dot-gradient-rotation" class="form-label">Rotation</label>
+                        <input class="form-control" node="cornersDotOptionsHelper.gradient.rotation" id="form-corners-dot-gradient-rotation" type="number" min="0" max="360" value="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Background Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingBackground">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackground" aria-expanded="false" aria-controls="collapseBackground">
+                      Background Options
+                    </button>
+                  </h2>
+                  <div id="collapseBackground" class="accordion-collapse collapse" aria-labelledby="headingBackground" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3">
+                        <label class="form-label">Color Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.colorType.single" id="form-background-color-type-single" type="radio" name="background-color-type" checked="">
+                          <label class="form-check-label" for="form-background-color-type-single">Single color</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.colorType.gradient" id="form-background-color-type-gradient" type="radio" name="background-color-type">
+                          <label class="form-check-label" for="form-background-color-type-gradient">Color gradient</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 backgroundOptionsHelper.colorType.single">
+                        <label for="form-background-color" class="form-label">Background Color</label>
+                        <input class="form-control form-control-color" node="backgroundOptions.color" id="form-background-color" type="color" value="#ffffff">
+                      </div>
+                      <!-- Gradient options (hidden by default, shown via JS) -->
+                      <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Gradient Type</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.gradient.linear" id="form-background-gradient-type-linear" type="radio" name="background-gradient-type" checked="">
+                          <label class="form-check-label" for="form-background-gradient-type-linear">Linear</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.gradient.radial" id="form-background-gradient-type-radial" type="radio" name="background-gradient-type">
+                          <label class="form-check-label" for="form-background-gradient-type-radial">Radial</label>
+                        </div>
+                      </div>
+                      <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
+                        <label class="form-label">Background Gradient</label>
+                        <div class="d-flex gap-2">
+                          <input class="form-control form-control-color" node="backgroundOptionsHelper.gradient.color1" type="color" value="#ffffff">
+                          <input class="form-control form-control-color" node="backgroundOptionsHelper.gradient.color2" type="color" value="#ffffff">
+                        </div>
+                      </div>
+                      <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
+                        <label for="form-background-gradient-rotation" class="form-label">Rotation</label>
+                        <input class="form-control" node="backgroundOptionsHelper.gradient.rotation" id="form-background-gradient-rotation" type="number" min="0" max="360" value="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Image Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingImage">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="false" aria-controls="collapseImage">
+                      Image Options
+                    </button>
+                  </h2>
+                  <div id="collapseImage" class="accordion-collapse collapse" aria-labelledby="headingImage" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3 form-check">
+                        <input class="form-check-input" node="imageOptions.hideBackgroundDots" node-data-field="checked" id="form-hide-background-dots" type="checkbox" checked="">
+                        <label class="form-check-label" for="form-hide-background-dots">Hide Background Dots</label>
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-image-size" class="form-label">Image Size</label>
+                        <input class="form-control" node="imageOptions.imageSize" id="form-image-size" type="number" min="0" max="1" step="0.1" value="0.4">
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-image-margin" class="form-label">Margin</label>
+                        <input class="form-control" node="imageOptions.margin" id="form-image-margin" type="number" min="0" max="10000" value="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- QR Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingQROptions">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQROptions" aria-expanded="false" aria-controls="collapseQROptions">
+                      QR Options
+                    </button>
+                  </h2>
+                  <div id="collapseQROptions" class="accordion-collapse collapse" aria-labelledby="headingQROptions" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3">
+                        <label for="form-qr-type-number" class="form-label">Type Number</label>
+                        <input class="form-control" node="qrOptions.typeNumber" id="form-qr-type-number" type="number" min="0" max="40" value="0">
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-qr-mode" class="form-label">Mode</label>
+                        <select class="form-select" node="qrOptions.mode" id="form-qr-mode">
+                          <option value="Numeric">Numeric</option>
+                          <option value="Alphanumeric">Alphanumeric</option>
+                          <option value="Byte" selected="">Byte</option>
+                          <option value="Kanji">Kanji</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="form-qr-error-correction-level" class="form-label">Error Correction Level</label>
+                        <select class="form-select" node="qrOptions.errorCorrectionLevel" id="form-qr-error-correction-level">
+                          <option value="L">L</option>
+                          <option value="M">M</option>
+                          <option value="Q" selected="">Q</option>
+                          <option value="H">H</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Export Options -->
+              <div class="mt-3">
+                <a class="btn btn-primary" id="export-options" href="data:text/json;charset=utf-8,%7B%22type%22%3A%22canvas%22%2C%22shape%22%3A%22square%22%2C%22width%22%3A300%2C%22height%22%3A300%2C%22data%22%3A%22https%3A%2F%2Fqr-code-styling.com%22%2C%22margin%22%3A0%2C%22qrOptions%22%3A%7B%22typeNumber%22%3A%220%22%2C%22mode%22%3A%22Byte%22%2C%22errorCorrectionLevel%22%3A%22Q%22%7D%2C%22imageOptions%22%3A%7B%22saveAsBlob%22%3Atrue%2C%22hideBackgroundDots%22%3Atrue%2C%22imageSize%22%3A0.4%2C%22margin%22%3A0%7D%2C%22dotsOptions%22%3A%7B%22type%22%3A%22extra-rounded%22%2C%22color%22%3A%22%236a1a4c%22%2C%22roundSize%22%3Atrue%7D%2C%22backgroundOptions%22%3A%7B%22round%22%3A0%2C%22color%22%3A%22%23ffffff%22%7D%2C%22image%22%3A%2210cc19bd484118dbcd0a7886a38ceddc.png%22%2C%22dotsOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%236a1a4c%22%2C%22color2%22%3A%22%236a1a4c%22%2C%22rotation%22%3A%220%22%7D%7D%2C%22cornersSquareOptions%22%3A%7B%22type%22%3A%22extra-rounded%22%2C%22color%22%3A%22%23000000%22%7D%2C%22cornersSquareOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%23000000%22%2C%22color2%22%3A%22%23000000%22%2C%22rotation%22%3A%220%22%7D%7D%2C%22cornersDotOptions%22%3A%7B%22type%22%3A%22%22%2C%22color%22%3A%22%23000000%22%7D%2C%22cornersDotOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%23000000%22%2C%22color2%22%3A%22%23000000%22%2C%22rotation%22%3A%220%22%7D%7D%2C%22backgroundOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%23ffffff%22%2C%22color2%22%3A%22%23ffffff%22%2C%22rotation%22%3A%220%22%7D%7D%7D" download="options.json">Export Options as JSON</a>
+              </div>
+            </form>
+            <div class="col-md-6 qr-code-container">
+              <div class="qr-code" id="qr-code-generated"><canvas width="300" height="300"></canvas></div>
+              <div class="qr-download-group mt-3">
+                <button class="btn btn-success" id="qr-download">Download</button>
+                <label class="form-label visually-hidden" for="qr-extension">Extension</label>
+                <select class="form-select w-auto d-inline-block ms-2" id="qr-extension">
+                  <option value="png" selected="">PNG</option>
+                  <option value="jpeg">JPEG</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/qr-code-styling.1.9.2.js"></script>
+    <script src="/scripts/qr-generator.js"></script>
+  </body>
+</html>

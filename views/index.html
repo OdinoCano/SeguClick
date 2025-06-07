@@ -9,47 +9,26 @@
     <link href="/styles/main.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="/scripts/jquery-3.7.1.min.js"></script>
-    <script src="/scripts/terms&conditions.js"></script>
+    <script src="/scripts/general.js"></script>
+    <script src="/scripts/popup.js"></script>
   </head>
   <body>
     <div class="container-fluid">
       <div class="row flex-nowrap">
         <!-- Main content -->
         <main class="col ms-sm-auto my-3">
-          <div class="mb-3 text-end">
-            <select id="languageSwitcher" class="form-select form-select-sm w-auto d-inline">
-              <option value="es">Español</option>
-              <option value="en">English</option>
-            </select>
-          </div>
-          <h1><i class="bi bi-files"></i> Términos y Condiciones del Servicio</h1>
-          <div class="card mb-4">
-            <div class="card-body" style="max-height: 300px; overflow-y: auto;">
-              <h5 class="card-title">
-                <i class="bi bi-file-earmark-text"></i> Términos
-              </h5>
-              <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. 
-              Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. 
-              Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-              </p>
-              <hr>
-              <h5 class="card-title mt-4">
-                <i class="bi bi-shield-check"></i> Condiciones
-              </h5>
-              <p>
-              (Agrega aquí las condiciones completas del servicio.)
-              </p>
-            </div>
+          <h1 id="title_tnc"><i class="bi bi-files"></i> </h1>
+          <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+            <p id="description_tnc"></p>
+            <hr>
+            <div id="terms_content"></div>
           </div>
           <form>
             <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" value="" id="acceptTerms" required>
-              <label class="form-check-label" for="acceptTerms">
-                Acepto los términos y condiciones del servicio
-              </label>
+              <input class="form-check-input" type="checkbox" value="" id="accept_terms" required>
+              <label id="cb_accept_terms" class="form-check-label" for="accept_terms"></label>
             </div>
-            <button id="termsForm" type="submit" class="btn btn-primary">Enviar</button>
+            <button id="terms_form" type="submit" class="btn btn-primary"></button>
           </form>
         </main>
       </div>
@@ -57,8 +36,6 @@
     <!-- Scripts -->
     <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
     <script src="/scripts/menu.js"></script>
-    <script src="/scripts/jspdf.umd.3.0.1.min.js"></script>
-    <script src="/scripts/image2pdf.js"></script>
-    <script src="/scripts/popup.js"></script>
+    <script src="/scripts/terms&conditions.js"></script>
   </body>
 </html>

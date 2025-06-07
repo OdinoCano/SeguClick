@@ -11,6 +11,20 @@ function message(type, msg, time) {
     }, time);
 }
 
-function getLanguage(){}
+function setText(id){
+    let text = chrome.i18n.getMessage(id)
+    $("#"+id).append(text)
+}
 
-function getText(){}
+const setFirstOptionText = (selectId, messageKey) => {
+    let text = chrome.i18n.getMessage(messageKey);
+    const $select = $('#' + selectId);
+    if ($select.length && $select.find('option').length > 0) {
+        $select.find('option').first().append(text);
+    }
+};
+
+const setPlaceholder = (selectId, messageKey) => {
+    const $select = $('#' + selectId);
+    $select.attr('placeholder', chrome.i18n.getMessage(messageKey));
+}

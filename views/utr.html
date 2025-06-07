@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <!-- Bootstrap CSS -->
-    <link href="../styles/bootstrap.5.3.6.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/bootstrap-icons.1.13.1.min.css">
+    <link href="/styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.1.13.1.min.css">
     <!-- Estilo personalizado -->
-    <link href="../styles/main.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
     <!-- jQuery -->
-    <script src="../scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/general.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -17,44 +18,31 @@
         <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
         <!-- Main content -->
         <main class="col ms-sm-auto mt-3">
-          <h1>Calcular RFC</h1>
-          <div id="creditos" class="col-12 my-3">
-            <div class="alert alert-info text-center mb-2" role="alert">
-              Esta herramienta es de carácter exclusivamente informativo.
-            </div>
-            <div class="alert alert-warning text-center mb-0" role="alert">
-              El resultado obtenido puede diferir del RFC oficial asignado por el SAT.
-            </div>
-          </div>
+          <h1 id="title_utr"></h1>
+          <div id="description_utr" class="col-12 my-3"></div>
           <form id="rfc_form" class="needs-validation" autocomplete="off" novalidate>
             <div class="row mb-3">
               <div class="col-md-4 mb-3">
-                <label for="nombre" class="form-label">Nombre(s):</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Escribe tu(s) nombre(s)" required>
-                <div class="invalid-feedback">
-                  Por favor ingresa tu(s) nombre(s).
-                </div>
+                <label id="label_nombre" for="nombre" class="form-label"></label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="" required>
+                <div class="invalid-feedback" id="error_nombre"></div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="ap_paterno" class="form-label">Apellido paterno:</label>
-                <input type="text" class="form-control" name="ap_paterno" id="ap_paterno" placeholder="Escribe tu apellido paterno" required>
-                <div class="invalid-feedback">
-                  Por favor ingresa tu apellido paterno.
-                </div>
+                <label id="label_ap_paterno" for="ap_paterno" class="form-label"></label>
+                <input type="text" class="form-control" name="ap_paterno" id="ap_paterno" placeholder="" required>
+                <div class="invalid-feedback" id="error_ap_paterno"></div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="ap_materno" class="form-label">Apellido materno:</label>
-                <input type="text" class="form-control" name="ap_materno" id="ap_materno" placeholder="Escribe tu apellido materno" required>
-                <div class="invalid-feedback">
-                  Por favor ingresa tu apellido materno.
-                </div>
+                <label id="label_ap_materno" for="ap_materno" class="form-label"></label>
+                <input type="text" class="form-control" name="ap_materno" id="ap_materno" placeholder="" required>
+                <div class="invalid-feedback" id="error_ap_materno"></div>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-4 mb-3">
-                <label for="dddays" class="form-label">Día</label>
+                <label id="label_dia" for="dddays" class="form-label"></label>
                 <select class="form-select" name="dddays" id="dddays" required>
-                  <option value="">Selecciona el día</option>
+                  <option value=""></option>
                   <option value="01">01</option>
                   <option value="02">02</option>
                   <option value="03">03</option>
@@ -87,64 +75,44 @@
                   <option value="30">30</option>
                   <option value="31">31</option>
                 </select>
-                <div class="invalid-feedback">
-                  Por favor selecciona el día.
-                </div>
+                <div class="invalid-feedback" id="error_dia"></div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="ddmonths" class="form-label">Mes</label>
+                <label id="label_mes" for="ddmonths" class="form-label"></label>
                 <select class="form-select" name="ddmonths" id="ddmonths" required>
-                  <option value="">Selecciona el mes</option>
-                  <option value="01">Enero</option>
-                  <option value="02">Febrero</option>
-                  <option value="03">Marzo</option>
-                  <option value="04">Abril</option>
-                  <option value="05">Mayo</option>
-                  <option value="06">Junio</option>
-                  <option value="07">Julio</option>
-                  <option value="08">Agosto</option>
-                  <option value="09">Septiembre</option>
-                  <option value="10">Octubre</option>
-                  <option value="11">Noviembre</option>
-                  <option value="12">Diciembre</option>
+                  <option value=""></option>
                 </select>
-                <div class="invalid-feedback">
-                  Por favor selecciona el mes.
-                </div>
+                <div class="invalid-feedback" id="error_mes"></div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="ddyears" class="form-label">Año</label>
+                <label id="label_ano" for="ddyears" class="form-label"></label>
                 <select class="form-select" name="ddyears" id="ddyears" required>
-                  <option value="">Selecciona el año</option>
+                  <option value=""></option>
                 </select>
-                <div class="invalid-feedback">
-                  Por favor selecciona el año.
-                </div>
+                <div class="invalid-feedback" id="error_ano"></div>
               </div>
             </div>
             <div class="text-center">
-              <button name="rfc_submitted" value="rfc_submitted" class="btn btn-primary" type="submit">
-                Calcular
-              </button>
+              <button id="btn_calcular" name="rfc_submitted" value="rfc_submitted" class="btn btn-primary" type="submit"></button>
             </div>
           </form>
           <br>
           <div id="result_rfc" style="display: block; opacity: 1;"><div style="display:flex;justify-content:center">
             <table class="ui striped table">
               <thead class="center aligned">
-                <tr><th colspan="3">RESULTADOS</th></tr>
+                <tr><th colspan="3" id="th_resultados"></th></tr>
               </thead>
               <tbody>
                 <tr>
-                  <td width="35%"><strong>Nombre:</strong></td>
+                  <td width="35%"><strong id="td_nombre_label"></strong></td>
                   <td id="name_rfc"></td>
                 </tr>
                 <tr>
-                  <td><strong>Fecha de nacimiento</strong></td>
+                  <td><strong id="td_dob_label"></strong></td>
                   <td id="dob_rfc"></td>
                 </tr>
                 <tr>
-                  <td><strong>RFC:</strong></td>
+                  <td><strong id="td_rfc_label"></strong></td>
                   <td style="display:flex;align-items:center">
                     <span id="rfc_result"></span>&nbsp;&nbsp;&nbsp;
                   </td>
@@ -156,8 +124,8 @@
       </div>
     </div>
     <!-- Scripts -->
-    <script src="../scripts/bootstrap.bundle.5.3.6.min.js"></script>
-    <script src="../scripts/menu.js"></script>
-    <script src="../scripts/utr-generator.js"></script>
+    <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/utr-generator.js"></script>
   </body>
 </html>

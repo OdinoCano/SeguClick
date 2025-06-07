@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <!-- Bootstrap CSS -->
-    <link href="../styles/bootstrap.5.3.6.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/bootstrap-icons.1.13.1.min.css">
+    <link href="/styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.1.13.1.min.css">
     <!-- Estilo personalizado -->
-    <link href="../styles/main.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
     <!-- jQuery -->
-    <script src="../scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/general.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -17,21 +18,21 @@
         <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
         <!-- Main content -->
         <main class="col ms-sm-auto mt-3">
-          <h2 class="card-title mb-4">Subir PDF y agregar marca de agua</h2>
+          <h2 id="title_wmk" class="card-title mb-4"></h2>
           <div class="mb-3">
-            <label for="pdfInput" class="form-label">Selecciona un archivo PDF</label>
+            <label id="description_wmk" for="pdfInput" class="form-label"></label>
             <input type="file" class="form-control" id="pdfInput" accept="application/pdf" />
           </div>
-          <button id="watermarkBtn" class="btn btn-primary mb-3">Agregar Marca de Agua</button>
+          <button id="btn_cnv_wmk" class="btn btn-primary mb-3"></button>
           <br>
-          <a id="downloadLink" class="btn btn-success" style="display:none;" download="pdf_marca_agua.pdf">Descargar PDF</a>
+          <a id="btn_dl_wmk" class="btn btn-success" style="display:none;" download="pdf_marca_agua.pdf"></a>
         </main>
     </div>
   </div>
   <!-- Scripts -->
-  <script src="../scripts/bootstrap.bundle.5.3.6.min.js"></script>
-  <script src="../scripts/menu.js"></script>
-  <script src="../scripts/pdf-lib.1.17.1.min.js"></script>
-  <script src="../scripts/watermark.js"></script>
+  <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
+  <script src="/scripts/menu.js"></script>
+  <script src="/scripts/pdf-lib.1.17.1.min.js"></script>
+  <script src="/scripts/watermark.js"></script>
   </body>
 </html>

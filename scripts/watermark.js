@@ -1,4 +1,4 @@
-$('#watermarkBtn').on('click', async function () {
+$('#btn_cnv_wmk').on('click', async function () {
   const file = $('#pdfInput')[0].files[0];
   if (!file) return alert("Selecciona un archivo PDF");
 
@@ -40,8 +40,14 @@ $('#watermarkBtn').on('click', async function () {
     const blob = new Blob([pdfBytes], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
 
-    $('#downloadLink').attr('href', url).show();
+    $('#btn_dl_wmk').attr('href', url).show();
   };
 
   reader.readAsArrayBuffer(file);
+});
+
+[
+  "title_wmk", "description_wmk", "btn_cnv_wmk", "btn_dl_wmk"
+].forEach(element => {
+    setText(element);
 });

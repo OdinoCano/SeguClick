@@ -1,3 +1,5 @@
+/*
+// MODELOS DE AUTOS
 (function() {
   var $select = $('#ddyears');
   var currentYear = new Date().getFullYear();
@@ -8,6 +10,45 @@
       value: y,
       text: y,
       selected: y === currentYear
+    });
+    $select.append($opt);
+  }
+})();*/
+(function() {
+  var $select = $('#ddmonths');
+  var months = [
+    { value: '01', name: 'Enero' },
+    { value: '02', name: 'Febrero' },
+    { value: '03', name: 'Marzo' },
+    { value: '04', name: 'Abril' },
+    { value: '05', name: 'Mayo' },
+    { value: '06', name: 'Junio' },
+    { value: '07', name: 'Julio' },
+    { value: '08', name: 'Agosto' },
+    { value: '09', name: 'Septiembre' },
+    { value: '10', name: 'Octubre' },
+    { value: '11', name: 'Noviembre' },
+    { value: '12', name: 'Diciembre' }
+  ];
+  months.forEach(function(month) {
+    var $opt = $('<option>', {
+      value: month.value,
+      text: month.name
+    });
+    $select.append($opt);
+  });
+})();
+
+(function() {
+  var $select = $('#ddyears');
+  var currentYear = new Date().getFullYear();
+  var startYear = currentYear - 61;
+  var endYear = currentYear - 17;
+  for (var y = startYear; y <= endYear; y++) {
+    var $opt = $('<option>', {
+      value: y,
+      text: y,
+      selected: y === endYear
     });
     $select.append($opt);
   }
@@ -29,13 +70,15 @@
     })
 })()
 
-function copyRFCtoClipBoard() { 
-  const rfcResultElement = document.getElementById('rfc_result');
-  if (!rfcResultElement) {
+function copyRFCtoClipBoard() {
+  const $rfcResult = $('#rfc_result');
+  if (!$rfcResult.length) {
     alert('Elemento "rfc_result" no encontrado');
     return;
   }
-  const text = rfcResultElement.textContent || '';
+
+  const text = $rfcResult.text() || '';
+
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text)
       .then(() => alert('RFC copiado al portapapeles'))
@@ -45,20 +88,20 @@ function copyRFCtoClipBoard() {
   }
 
   function fallbackCopy(text) {
-    const tempTextarea = document.createElement('textarea');
-    tempTextarea.value = text;
-    tempTextarea.style.position = 'fixed';
-    tempTextarea.style.opacity = '0';
-    document.body.appendChild(tempTextarea);
-    tempTextarea.focus();
-    tempTextarea.select();
+    const $tempTextarea = $('<textarea>').val(text)
+      .css({ position: 'fixed', opacity: '0' });
+
+    $('body').append($tempTextarea);
+    $tempTextarea.focus().select();
+
     try {
       document.execCommand('copy');
       alert('RFC copiado al portapapeles');
     } catch (e) {
       alert('No se pudo copiar el RFC');
     }
-    document.body.removeChild(tempTextarea);
+
+    $tempTextarea.remove();
   }
 }
 
@@ -67,27 +110,28 @@ function handleSubmit(event) {
   calcula() 
 }
 
+$('#rfc_form').on('submit', handleSubmit);
+
 function calcula() {
-  // Get form values and trim
-  const ap_paterno = document.getElementById("ap_paterno").value.trim();
-  const ap_materno = document.getElementById("ap_materno").value.trim();
-  const nombre = document.getElementById("nombre").value.trim();
-  const day = document.getElementById('dddays').value.trim();
-  const month = document.getElementById('ddmonths').value.trim();
-  const year = document.getElementById('ddyears').value.trim();
+  // Obtener valores del formulario y limpiar
+  const ap_paterno = $('#ap_paterno').val().trim();
+  const ap_materno = $('#ap_materno').val().trim();
+  const nombre = $('#nombre').val().trim();
+  const day = $('#dddays').val().trim();
+  const month = $('#ddmonths').val().trim();
+  const year = $('#ddyears').val().trim();
   const dteNacimiento = year.slice(-2) + month + day;
 
-  // Filtra acentos y palabras sobrantes
+  // Filtrar acentos y nombres
   let ap_pat_f = RFCFiltraNombres(RFCFiltraAcentos(ap_paterno.toLowerCase()));
   let ap_mat_f = RFCFiltraNombres(RFCFiltraAcentos(ap_materno.toLowerCase()));
   let nombre_f = RFCFiltraNombres(RFCFiltraAcentos(nombre.toLowerCase()));
 
-  // Guarda nombre original para homonimia
   const ap_pat_orig = ap_pat_f;
   const ap_mat_orig = ap_mat_f;
   const nombre_orig = nombre_f;
 
-  let rfc = "";
+  let rfc = '';
   if (ap_pat_f && ap_mat_f) {
     rfc = ap_pat_f.length < 3
       ? RFCApellidoCorto(ap_pat_f, ap_mat_f, nombre_f)
@@ -102,32 +146,28 @@ function calcula() {
   rfc = rfc.toUpperCase() + dteNacimiento + homonimia(ap_pat_orig, ap_mat_orig, nombre_orig);
   rfc = RFCDigitoVerificador(rfc);
 
-  // Update DOM
-  document.getElementById("name_rfc").textContent =
-    [ap_paterno, ap_materno, nombre].map(s => s.toUpperCase()).join(' ');
-  document.getElementById("dob_rfc").textContent =
-    `${day}/${month}/${year}`;
-  document.getElementById("rfc_result").textContent = rfc;
+  // Mostrar resultados en pantalla
+  $('#name_rfc').text(
+    [ap_paterno, ap_materno, nombre].map(s => s.toUpperCase()).join(' ')
+  );
+  $('#dob_rfc').text(`${day}/${month}/${year}`);
+  $('#rfc_result').text(rfc);
+
   fadeInElement("result_rfc");
   fadeOutElement("rfc_form_div");
 
-  // Responsive scroll for small screens
+  // Scroll para pantallas pequeñas
   if (window.innerWidth < 400) {
-    const targetDiv = document.getElementById('result_rfc');
-    if (targetDiv) {
-      window.scrollTo({
-        top: targetDiv.offsetTop,
-        behavior: 'smooth'
-      });
+    const $targetDiv = $('#result_rfc');
+    if ($targetDiv.length) {
+      $('html, body').animate({
+        scrollTop: $targetDiv.offset().top
+      }, 400);
     }
   }
 
   return false;
 }
-
-// Attach the form submit event listener
-let rfc_form = document.getElementById('rfc_form');
-rfc_form.addEventListener('submit', handleSubmit);
 
 function RFCDigitoVerificador(rfc) {
   const charMap = {
@@ -292,28 +332,33 @@ function homonimia(ap_paterno, ap_materno, nombre) {
   return homonimio;
 }
 
-function repeat(){
-  document.getElementById("name_rfc").innerHTML = "---";
-  document.getElementById("dob_rfc").innerHTML = "---";
-  document.getElementById("rfc_result").innerHTML = "---";
-  let rfc_form = document.getElementById("rfc_form");
-  rfc_form.reset();
+function repeat() {
+  $("#name_rfc, #dob_rfc, #rfc_result").html("---");
+  $("#rfc_form")[0].reset();
 
   fadeInElement("rfc_form_div");
   fadeOutElement("result_rfc");
 }
 
-
 function fadeInElement(id) {
-  let element = document.getElementById(id);
-  element.style.display = "block";
-  setTimeout(function() {
-  element.style.opacity = 1;
-  }, 10);
+  $('#' + id).fadeIn(200).css('opacity', 1);
 }
 
 function fadeOutElement(id) {
-  let element = document.getElementById(id);
-  element.style.opacity = 0;
-  element.style.display = "none";
+  $('#' + id).fadeOut(200).css('opacity', 0);
 }
+
+[
+  "title_utr","description_utr","label_nombre","error_nombre","label_ap_paterno",
+  "error_ap_paterno","label_ap_materno","error_ap_materno","label_dia","error_dia",
+  "label_mes","error_mes","label_ano","error_ano","btn_calcular",
+  "th_resultados","td_nombre_label","td_dob_label","td_rfc_label",
+].forEach(element => {
+    setText(element);
+});
+setFirstOptionText("dddays", "placeholder_dia");
+setFirstOptionText("ddmonths", "placeholder_mes");
+setFirstOptionText("ddyears", "placeholder_ano");
+setPlaceholder("nombre", "placeholder_nombre");
+setPlaceholder("ap_paterno", "placeholder_ap_paterno");
+setPlaceholder("ap_materno", "placeholder_ap_materno");

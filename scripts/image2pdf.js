@@ -38,8 +38,9 @@ $('#imageToPdfForm').on('submit', async function(e) {
 
     const pdfBlob = pdf.output('blob');
     const url = URL.createObjectURL(pdfBlob);
+    $('#btn_dl_img2pdf').show().attr('href', url);
+});
 
-    $('#pdfResult').html(
-        `<a href="${url}" download="imagenes.pdf" class="btn btn-success">Descargar PDF</a>`
-    );
+["btn_cnv_img2pdf","title_img2pdf","description_img2pdf","btn_dl_img2pdf"].forEach(element => {
+    setText(element);
 });

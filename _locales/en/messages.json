@@ -1,8 +1,48 @@
 {
-  "chrome_extension_name": {
-    "message": "SeguClick"
+  "chrome_extension_name": {"message": "SeguClick"},
+  "chrome_extension_description": {"message": "Tools for the Insurance Advisor"},
+  "title_img2pdf": {"message": "Convert Images to PDF"},
+  "description_img2pdf": {"message": "Select one or more images"},
+  "btn_cnv_img2pdf": {"message": "Convert to PDF"},
+  "button_dowload_img2pdf": {"message": "Download PDF"},
+  "title_tnc":{"message":"Terms and Conditions of Service"},
+  "description_tnc":{"message":"By installing and using this extension, you agree to the following terms:"},
+  "terms_content": {
+    "message": "<h5 class='card-title mt-3'><i class='bi bi-check-circle'></i> 1. Permitted Use</h5><p>This extension has been developed for personal use to <strong>assist sellers in their administrative management</strong>, locally in their browser. <br>Any <strong>commercial use</strong> is prohibited without express written permission from the author.</p><h5 class='card-title mt-4'><i class='bi bi-shield-lock'></i> 2. Privacy and Personal Data</h5><ul><li>This extension <strong>does not collect, store, or transmit any personal or sensitive data</strong> outside the user's device.</li><li>All information entered or processed using the extension <strong>remains on the user's device</strong>.</li><li>Any type of <strong>leakage of information</strong> will be the direct responsibility of the person who uses it or has modified it.</li></ul><h5 class='card-title mt-4'><i class='bi bi-arrow-repeat'></i> 3. Updates</h5><ul><li>The extension can consult an official source to see if a new version exists.</li><li>This process does not transmit personal data, it only compares the installed version.</li></ul><h5 class='card-title mt-4'><i class='bi bi-person-badge'></i> 4. User Responsibility</h5><ul><li>The user assumes full responsibility for the use of this extension.</li><li>The author will not be responsible for failures, errors, loss of information, or for direct or indirect damages arising from its use.</li></ul><h5 class='card-title mt-4'><i class='bi bi-exclamation-triangle'></i> 5. Unauthorized Modifications</h5><p>If If a modified extension is detected for commercial purposes, the author reserves the right to take legal or technical action to revoke its use.</p><hr><p class='fw-bold text-danger'>If you do not agree to these terms, do not use this extension.</p>"
   },
-  "chrome_extension_description": {
-    "message": "Tools for the Insurance Advisor"
-  }
+  "cb_accept_terms":{"message":"I accept the terms and conditions of service"},
+  "terms_form":{"message":"Submit"},
+  "title_utr":{"message":"Calculate RFC"},
+  "description_utr":{
+    "message":"<div class='alert alert-info text-center mb-2' role='alert'>This tool is for informational purposes only.</div><div class='alert alert-warning text-center mb-0' role='alert'>The result obtained may differ from the official RFC assigned by the SAT.</div>"
+  },
+  "label_nombre": {"message": "First name(s):"},
+  "label_ap_paterno": {"message": "Father's last name:"},
+  "label_ap_materno": {"message": "Mother's last name:"},
+  "label_dia": {"message": "Day"},
+  "label_mes": {"message": "Month"},
+  "label_ano": {"message": "Year"},
+  "placeholder_nombre": {"message": "Enter your first name(s)"},
+  "placeholder_ap_paterno": {"message": "Enter your father's last name"},
+  "placeholder_ap_materno": {"message": "Enter your mother's last name"},
+  "placeholder_dia": {"message": "Select the day"},
+  "placeholder_mes": {"message": "Select the month"},
+  "placeholder_ano": {"message": "Select the year"},
+  "error_nombre": {"message": "Please enter your first name(s)."},
+  "error_ap_paterno": {"message": "Please enter your last name."},
+  "error_ap_materno": {"message": "Please enter your last name."},
+  "error_dia": {"message": "Please select the day."},
+  "error_mes": {"message": "Please select the month."},
+  "error_ano": {"message": "Please select the year."},
+  "btn_calcular": {"message": "Calculate"},
+  "th_resultados": {"message": "RESULTS"},
+  "td_nombre_label": {"message": "Name:"},
+  "td_dob_label": {"message": "Date of birth:"},
+  "td_rfc_label": {"message": "RFC:"},
+  "title_wmk":{"message":"Upload PDF and add watermark"},
+  "description_wmk":{"message":"Select a PDF file"},
+  "btn_cnv_wmk":{"message":"Add Watermark"},
+  "btn_dl_wmk":{"message":"Download PDF"},
+  "btn_dnt":{"message":"Buy me a coffee with PayPal"},
+  "link_dnt":{"message":"You can also donate directly here"}
 }

@@ -7,6 +7,8 @@ $(document).ready(function() {
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         console.error("Error al cargar el menú:", errorThrown);
+        console.error(jqXHR);
+        console.error(textStatus);
       });
   }
 });

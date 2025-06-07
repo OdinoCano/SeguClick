@@ -2,9 +2,9 @@ var storage = chrome.storage.local;
 
 loadChanges();
 
-$("#termsForm").on("click",(e)=>{
+$("#terms_form").on("click",(e)=>{
   e.preventDefault();
-  if ($("#acceptTerms").is(":checked")) {
+  if ($("#accept_terms").is(":checked")) {
     saveChanges('t&c', {"date":new Date().toISOString(),'userAgent': navigator.userAgent});
   }
 })
@@ -22,3 +22,7 @@ function saveChanges(key, value) {
     window.location.href = "/views/img2pdf.html";
   });
 }
+
+["title_tnc","description_tnc","cb_accept_terms","terms_form","terms_content"].forEach(element => {
+    setText(element); 
+});
