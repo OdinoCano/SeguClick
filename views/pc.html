@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <!-- Bootstrap CSS -->
-    <link href="../styles/bootstrap.5.3.6.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/bootstrap-icons.1.13.1.min.css">
+    <link href="/styles/bootstrap.5.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.1.13.1.min.css">
     <!-- Estilo personalizado -->
-    <link href="../styles/main.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
     <!-- jQuery -->
-    <script src="../scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/jquery-3.7.1.min.js"></script>
+    <script src="/scripts/general.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -17,76 +18,50 @@
         <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
         <!-- Main content -->
         <main class="col ms-sm-auto mt-3">
-          <h1 class="card-title mb-4">Buscar Código Postal (SEPOMEX)</h1>
+          <h1 id="title_pc" class="card-title mb-4"></h1>
           <div id="resultado" class="m-3"></div>
           <form class="row g-3">
             <div class="col-md-3">
-              <label for="estado" class="form-label">Estado:</label>
-              <select class="form-select" id="estado">
-                <option value="">Seleccione un estado</option>
-                <option value="1">Aguascalientes</option>
-                <option value="2">Baja California</option>
-                <option value="3">Baja California Sur</option>
-                <option value="4">Campeche</option>
-                <option value="5">Coahuila de Zaragoza</option>
-                <option value="6">Colima</option>
-                <option value="7">Chiapas</option>
-                <option value="8">Chihuahua</option>
-                <option value="9">Ciudad de México</option>
-                <option value="10">Durango</option>
-                <option value="11">Guanajuato</option>
-                <option value="12">Guerrero</option>
-                <option value="13">Hidalgo</option>
-                <option value="14">Jalisco</option>
-                <option value="15">México</option>
-                <option value="16">Michoacán de Ocampo</option>
-                <option value="17">Morelos</option>
-                <option value="18">Nayarit</option>
-                <option value="19">Nuevo León</option>
-                <option value="20">Oaxaca</option>
-                <option value="21">Puebla</option>
-                <option value="22">Querétaro</option>
-                <option value="23">Quintana Roo</option>
-                <option value="24">San Luis Potosí</option>
-                <option value="25">Sinaloa</option>
-                <option value="26">Sonora</option>
-                <option value="27">Tabasco</option>
-                <option value="28">Tamaulipas</option>
-                <option value="29">Tlaxcala</option>
-                <option value="30">Veracruz de Ignacio de la Llave</option>
-                <option value="31">Yucatán</option>
-                <option value="32">Zacatecas</option>
+              <label id="country_pc" for="cntry_pc" class="form-label"></label>
+              <select class="form-select" id="cntry_pc">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label id="state_pc" for="st_pc" class="form-label"></label>
+              <select class="form-select" id="st_pc">
+                <option value=""></option>
               </select>
             </div>
             <hr>
             <div class="col-md-3">
-              <label for="ciudad" class="form-label">Ciudad:</label>
-              <input type="text" class="form-control" id="ciudad" placeholder="Ej: Ciudad de México" />
+              <label id="city_pc" for="cty_pc" class="form-label"></label>
+              <input type="text" class="form-control" id="cty_pc" placeholder="" />
             </div>
             <div class="col-md-3">
-              <label for="colonia" class="form-label">Colonia:</label>
-              <input type="text" class="form-control" id="colonia" placeholder="Ej: Punta Contry" />
+              <label id="colony_pc" for="colony_pc" class="form-label"></label>
+              <input type="text" class="form-control" id="col_pc" placeholder="" />
             </div>
             <div class="col-md-3">
               <select class="form-select" id="cp" hidden></select>
             </div>
             <br>
-            ó
+            <div id="or_pc"></div>
             <br>
             <div class="col-md-3">
-              <label for="municipio" class="form-label">Municipio/Delegación:</label>
-              <select class="form-select" id="municipio"></select>
+              <label id="municipality_pc" for="mun_pc" class="form-label"></label>
+              <select class="form-select" id="mun_pc"></select>
             </div>
             <div class="col-auto align-self-end">
-              <button type="button" class="btn btn-primary mb-3" id="buscarBtn">Buscar</button>
+              <button id="search_btn_pc" type="button" class="btn btn-primary mb-3"></button>
             </div>
           </form>
         </main>
       </div>
     </div>
     <!-- Scripts -->
-    <script src="../scripts/bootstrap.bundle.5.3.6.min.js"></script>
-    <script src="../scripts/menu.js"></script>
-    <script src="../scripts/pc.js"></script>
+    <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/pc.js"></script>
   </body>
 </html>
