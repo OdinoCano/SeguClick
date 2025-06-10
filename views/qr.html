@@ -19,7 +19,18 @@
         <!-- Main content -->
         <main class="col ms-sm-auto mt-3">
           <div class="row">
-            <form class="col-md-6" id="form">
+            <div class="col-md-6 d-flex flex-column align-items-center justify-content-center qr-code-container mb-3">
+              <div class="qr-code" id="qr-code-generated"><canvas width="300" height="300"></canvas></div>
+              <div class="qr-download-group mt-3 d-flex align-items-center">
+              <button class="btn btn-success" id="qr-download">Download</button>
+              <label class="form-label visually-hidden" for="qr-extension">Extension</label>
+              <select class="form-select w-auto d-inline-block ms-2" id="qr-extension">
+                <option value="png" selected="">PNG</option>
+                <option value="jpeg">JPEG</option>
+              </select>
+              </div>
+            </div>
+            <form class="col-md-6 mb-3" id="form">
               <div class="accordion" id="qrAccordion">
                 <!-- Main Options -->
                 <div class="accordion-item">
@@ -32,7 +43,7 @@
                     <div class="accordion-body">
                       <div class="mb-3">
                         <label for="form-data" class="form-label">Data</label>
-                        <textarea class="form-control" node="data" node-change-event="oninput" id="form-data" rows="2">https://qr-code-styling.com</textarea>
+                        <textarea class="form-control" node="data" node-change-event="oninput" id="form-data" rows="2">SeguClick</textarea>
                       </div>
                       <div class="mb-3">
                         <label for="form-image-file" class="form-label">Image File</label>
@@ -52,6 +63,70 @@
                       <div class="mb-3">
                         <label for="form-margin" class="form-label">Margin</label>
                         <input class="form-control" node="margin" id="form-margin" type="number" min="0" max="10000" value="0">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Border Options -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingBorder">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBorder" aria-expanded="false" aria-controls="collapseBorder">
+                      Border Options
+                    </button>
+                  </h2>
+                  <div id="collapseBorder" class="accordion-collapse collapse" aria-labelledby="headingBorder" data-bs-parent="#qrAccordion">
+                    <div class="accordion-body">
+                      <div class="mb-3 form-check">
+                        <input class="form-check-input" node="borderOptions.enabled" node-data-field="checked" id="form-border-enabled" type="checkbox">
+                        <label class="form-check-label" for="form-border-enabled">Enable Border</label>
+                      </div>
+                      <div id="border-options-section" class="d-none">
+                        <div class="mb-3">
+                          <label for="form-border-width" class="form-label">Border Width</label>
+                          <input class="form-control" node="borderOptions.width" id="form-border-width" type="number" min="1" max="50" value="10">
+                        </div>
+                        <div class="mb-3">
+                          <label for="form-border-radius" class="form-label">Border Radius</label>
+                          <input class="form-control" node="borderOptions.radius" id="form-border-radius" type="number" min="0" max="100" value="10">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Border Color Type</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.colorType.single" id="form-border-color-type-single" type="radio" name="border-color-type" checked="">
+                            <label class="form-check-label" for="form-border-color-type-single">Single color</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.colorType.gradient" id="form-border-color-type-gradient" type="radio" name="border-color-type">
+                            <label class="form-check-label" for="form-border-color-type-gradient">Color gradient</label>
+                          </div>
+                        </div>
+                        <div class="mb-3 borderOptionsHelper.colorType.single">
+                          <label for="form-border-color" class="form-label">Border Color</label>
+                          <input class="form-control form-control-color" node="borderOptions.color" id="form-border-color" type="color" value="#000000">
+                        </div>
+                        <!-- Border Gradient options (hidden by default) -->
+                        <div class="mb-3 borderOptionsHelper.colorType.gradient d-none">
+                          <label class="form-label">Gradient Type</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.gradient.linear" id="form-border-gradient-type-linear" type="radio" name="border-gradient-type" checked="">
+                            <label class="form-check-label" for="form-border-gradient-type-linear">Linear</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.gradient.radial" id="form-border-gradient-type-radial" type="radio" name="border-gradient-type">
+                            <label class="form-check-label" for="form-border-gradient-type-radial">Radial</label>
+                          </div>
+                        </div>
+                        <div class="mb-3 borderOptionsHelper.colorType.gradient d-none">
+                          <label class="form-label">Border Gradient</label>
+                          <div class="d-flex gap-2">
+                            <input class="form-control form-control-color" node="borderOptionsHelper.gradient.color1" type="color" value="#000000">
+                            <input class="form-control form-control-color" node="borderOptionsHelper.gradient.color2" type="color" value="#ff0000">
+                          </div>
+                        </div>
+                        <div class="mb-3 borderOptionsHelper.colorType.gradient d-none">
+                          <label for="form-border-gradient-rotation" class="form-label">Rotation</label>
+                          <input class="form-control" node="borderOptionsHelper.gradient.rotation" id="form-border-gradient-rotation" type="number" min="0" max="360" value="0">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -89,7 +164,7 @@
                       </div>
                       <div class="mb-3 dotsOptionsHelper.colorType.single">
                         <label for="form-dots-color" class="form-label">Dots Color</label>
-                        <input class="form-control form-control-color" node="dotsOptions.color" id="form-dots-color" type="color" value="#6a1a4c">
+                        <input class="form-control form-control-color" node="dotsOptions.color" id="form-dots-color" type="color" value="#0d6efd">
                       </div>
                       <!-- Gradient options (hidden by default, shown via JS) -->
                       <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
@@ -349,22 +424,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Export Options -->
-              <div class="mt-3">
-                <a class="btn btn-primary" id="export-options" href="data:text/json;charset=utf-8,%7B%22type%22%3A%22canvas%22%2C%22shape%22%3A%22square%22%2C%22width%22%3A300%2C%22height%22%3A300%2C%22data%22%3A%22https%3A%2F%2Fqr-code-styling.com%22%2C%22margin%22%3A0%2C%22qrOptions%22%3A%7B%22typeNumber%22%3A%220%22%2C%22mode%22%3A%22Byte%22%2C%22errorCorrectionLevel%22%3A%22Q%22%7D%2C%22imageOptions%22%3A%7B%22saveAsBlob%22%3Atrue%2C%22hideBackgroundDots%22%3Atrue%2C%22imageSize%22%3A0.4%2C%22margin%22%3A0%7D%2C%22dotsOptions%22%3A%7B%22type%22%3A%22extra-rounded%22%2C%22color%22%3A%22%236a1a4c%22%2C%22roundSize%22%3Atrue%7D%2C%22backgroundOptions%22%3A%7B%22round%22%3A0%2C%22color%22%3A%22%23ffffff%22%7D%2C%22image%22%3A%2210cc19bd484118dbcd0a7886a38ceddc.png%22%2C%22dotsOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%236a1a4c%22%2C%22color2%22%3A%22%236a1a4c%22%2C%22rotation%22%3A%220%22%7D%7D%2C%22cornersSquareOptions%22%3A%7B%22type%22%3A%22extra-rounded%22%2C%22color%22%3A%22%23000000%22%7D%2C%22cornersSquareOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%23000000%22%2C%22color2%22%3A%22%23000000%22%2C%22rotation%22%3A%220%22%7D%7D%2C%22cornersDotOptions%22%3A%7B%22type%22%3A%22%22%2C%22color%22%3A%22%23000000%22%7D%2C%22cornersDotOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%23000000%22%2C%22color2%22%3A%22%23000000%22%2C%22rotation%22%3A%220%22%7D%7D%2C%22backgroundOptionsHelper%22%3A%7B%22colorType%22%3A%7B%22single%22%3Atrue%2C%22gradient%22%3Afalse%7D%2C%22gradient%22%3A%7B%22linear%22%3Atrue%2C%22radial%22%3Afalse%2C%22color1%22%3A%22%23ffffff%22%2C%22color2%22%3A%22%23ffffff%22%2C%22rotation%22%3A%220%22%7D%7D%7D" download="options.json">Export Options as JSON</a>
-              </div>
             </form>
-            <div class="col-md-6 qr-code-container">
-              <div class="qr-code" id="qr-code-generated"><canvas width="300" height="300"></canvas></div>
-              <div class="qr-download-group mt-3">
-                <button class="btn btn-success" id="qr-download">Download</button>
-                <label class="form-label visually-hidden" for="qr-extension">Extension</label>
-                <select class="form-select w-auto d-inline-block ms-2" id="qr-extension">
-                  <option value="png" selected="">PNG</option>
-                  <option value="jpeg">JPEG</option>
-                </select>
-              </div>
-            </div>
           </div>
         </main>
       </div>
@@ -373,6 +433,7 @@
     <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
     <script src="/scripts/menu.js"></script>
     <script src="/scripts/qr-code-styling.1.9.2.js"></script>
+    <script src="/scripts/qr-border-plugin.0.1.1.js"></script>
     <script src="/scripts/qr-generator.js"></script>
   </body>
 </html>
