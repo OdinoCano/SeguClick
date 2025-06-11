@@ -2,8 +2,8 @@ const lang = chrome.i18n.getUILanguage()
 
 setFirstOptionText("cntry_pc", "placeholder_cntry");
 setFirstOptionText("st_pc", "placeholder_st");
-setPlaceholder("cty_pc", "placeholder_cty");
-setPlaceholder("col_pc", "placeholder_col");
+setSelectPlaceholder("cty_pc", "placeholder_cty");
+setSelectPlaceholder("col_pc", "placeholder_col");
 
 if (lang !== 'es-MX') {
   $("#municipality_pc").parent().hide();

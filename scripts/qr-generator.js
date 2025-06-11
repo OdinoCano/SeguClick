@@ -115,33 +115,88 @@ $(document).ready(async function () {
     }
   }
 
+  // Extracts options from the form
   function getBorderExtensionOptions() {
     const borderEnabled = $("#form-border-enabled").is(":checked");
     if (!borderEnabled) return null;
 
-    const borderIsGradient = $("#form-border-color-type-gradient").is(":checked");
-    const borderOptions = {
-      width: parseInt($("#form-border-width").val()) || 10,
-      radius: parseInt($("#form-border-radius").val()) || 10
+    const borderExtensionOptions = {
+      round: parseFloat($("#form-border-round").val()) || 1,
+      thickness: parseInt($("#form-border-thickness").val()) || 60,
+      color: $("#form-border-main-color").val() || "#000000",
+      decorations: {},
+      borderInner: {
+        color: $("#form-border-inner-color").val() || "#000000",
+        thickness: parseInt($("#form-border-inner-thickness").val()) || 10,
+      },
+      borderOuter: {
+        color: $("#form-border-outer-color").val() || "#000000",
+        thickness: parseInt($("#form-border-outer-thickness").val()) || 10,
+      },
     };
 
-    if (borderIsGradient) {
-      const gradient = getGradientConfig(
-        'border-gradient-type', 
-        'form-border-gradient-rotation', 
-        'borderOptionsHelper\\.colorType\\.gradient'
-      );
-      if (gradient) {
-        borderOptions.gradient = gradient;
-      }
-    } else {
-      const borderColor = $("#form-border-color").val();
-      if (borderColor) {
-        borderOptions.color = borderColor;
+    // Top decoration
+    if ($("#form-decoration-top-enabled").is(":checked")) {
+      const topType = $("#form-decoration-top-type").val() || "text";
+      if (topType === "text") {
+        const topText = $("#form-decoration-top-text").val();
+        const topFontSize = $("#form-decoration-top-font-size").val() || "30";
+        const topFontFamily = $("#form-decoration-top-font-family").val() || "sans-serif";
+        const topColor = $("#form-decoration-top-color").val() || "#D5B882";
+        if (topText) {
+          borderExtensionOptions.decorations.top = {
+            type: "text",
+            value: topText,
+            style: `font: ${topFontSize}px ${topFontFamily}; fill: ${topColor};`,
+          };
+        }
+      } else if (topType === "image") {
+        const topImageUrl = $("#form-decoration-top-image").val();
+        if (topImageUrl) {
+          borderExtensionOptions.decorations.top = {
+            type: "image",
+            value: topImageUrl,
+            width: parseInt($("#form-decoration-top-image-width").val()) || 100,
+            height: parseInt($("#form-decoration-top-image-height").val()) || 50,
+          };
+        }
       }
     }
 
-    return borderOptions;
+    // Bottom decoration
+    if ($("#form-decoration-bottom-enabled").is(":checked")) {
+      const bottomType = $("#form-decoration-bottom-type").val() || "text";
+      if (bottomType === "text") {
+        const bottomText = $("#form-decoration-bottom-text").val();
+        const bottomFontSize = $("#form-decoration-bottom-font-size").val() || "30";
+        const bottomFontFamily = $("#form-decoration-bottom-font-family").val() || "sans-serif";
+        const bottomColor = $("#form-decoration-bottom-color").val() || "#D5B882";
+        if (bottomText) {
+          borderExtensionOptions.decorations.bottom = {
+            type: "text",
+            value: bottomText,
+            style: `font: ${bottomFontSize}px ${bottomFontFamily}; fill: ${bottomColor};`,
+          };
+        }
+      } else if (bottomType === "image") {
+        const bottomImageUrl = $("#form-decoration-bottom-image").val();
+        if (bottomImageUrl) {
+          borderExtensionOptions.decorations.bottom = {
+            type: "image",
+            value: bottomImageUrl,
+            width: parseInt($("#form-decoration-bottom-image-width").val()) || 100,
+            height: parseInt($("#form-decoration-bottom-image-height").val()) || 50,
+          };
+        }
+      }
+    }
+
+    // Remove decorations if empty
+    if (Object.keys(borderExtensionOptions.decorations).length === 0) {
+      delete borderExtensionOptions.decorations;
+    }
+
+    return borderExtensionOptions;
   }
 
   function getQRCodeOptions() {
@@ -168,11 +223,15 @@ $(document).ready(async function () {
         throw new Error('La altura debe estar entre 100 y 2000 píxeles');
       }
 
+      // Obtener forma (shape) desde el switch
+      const shape = $("#form-shape").is(":checked") ? "circle" : "square";
+
       const options = {
         width: width || 300,
         height: height || 300,
         data: data,
         margin: Math.max(0, parseInt($("#form-margin").val()) || 0),
+        shape: shape, // <-- add shape to options
         dotsOptions: {
           type: $("#form-dots-type").val() || "square"
         },
@@ -275,6 +334,11 @@ $(document).ready(async function () {
     }
   }
 
+  // Update label text based on switch state
+  $('#form-shape').on('change', function() {
+    $('#shp_typ_qr').html('').text(this.checked ? setTextById("shp_typ_qr","cir_qr") : setTextById("shp_typ_qr","squ_qr"));
+  }).trigger('change');
+
   async function renderQRCode() {
     try {
       showLoading(true);
@@ -304,7 +368,6 @@ $(document).ready(async function () {
       }
 
       qrCode.append(document.getElementById("qr-code-generated"));
-      
     } catch (error) {
       console.error("Error generating QR code:", error);
       showError(`Error al generar el código QR: ${error.message}`);
@@ -452,7 +515,7 @@ $(document).ready(async function () {
   });
 
   // Descarga del QR
-  $("#qr-download").on("click", function () {
+  $("#dl_qr").on("click", function () {
     try {
       const extension = $("#qr-extension").val() || "png";
       if (qrCode) {
@@ -471,7 +534,7 @@ $(document).ready(async function () {
   });
 
   // Cancelar imagen
-  $("#button-cancel").on("click", function () {
+  $("#btn_canc_qr").on("click", function () {
     $("#form-image-file").val("");
     currentImageData = null;
     $("#image-preview").empty().hide();
@@ -528,3 +591,44 @@ $(document).ready(async function () {
     }
   });
 });
+[
+  "title_qr","dl_qr","ext_qr","main_options_qr","data_qr",
+  "image_file_qr","btn_canc_qr","width_qr","height_qr","margin_qr",
+  "shape_qr","border_options_qr","enb_bdr_qr","bdr_thk_qr","bdr_rd_qr",
+  "inner_bdr_thk_qr"
+  //"placeholder_data","placeholder_width","placeholder_height",
+  //"placeholder_margin","placeholder_dots_type","placeholder_corners_square_type",
+  //"placeholder_corners_dot_type","placeholder_background_color","placeholder_image_size",
+  //"placeholder_image_margin","placeholder_qr_type_number","placeholder_qr_mode",
+  //"placeholder_qr_error_correction_level","placeholder_border_enabled","placeholder_border_round",
+  //"placeholder_border_thickness","placeholder_border_main_color","placeholder_border_inner_color",
+  //"placeholder_border_inner_thickness","placeholder_border_outer_color","placeholder_border_outer_thickness",
+  //"placeholder_decoration_top_enabled","placeholder_decoration_top_type","placeholder_decoration_top_text",
+  //"placeholder_decoration_top_font_size","placeholder_decoration_top_font_family",
+  //"placeholder_decoration_top_color","placeholder_decoration_top_image","placeholder_decoration_top_image_width",
+  //"placeholder_decoration_top_image_height","placeholder_decoration_bottom_enabled",
+  //"placeholder_decoration_bottom_type","placeholder_decoration_bottom_text",
+  //"placeholder_decoration_bottom_font_size","placeholder_decoration_bottom_font_family",
+  //"placeholder_decoration_bottom_color","placeholder_decoration_bottom_image",
+  //"placeholder_decoration_bottom_image_width","placeholder_decoration_bottom_image_height",
+  //"placeholder_dots_gradient_type","placeholder_dots_gradient_rotation","placeholder_dots_color",
+  //"placeholder_corners_square_gradient_type","placeholder_corners_square_gradient_rotation",
+  //"placeholder_corners_square_color","placeholder_corners_dot_gradient_type",
+  //"placeholder_corners_dot_gradient_rotation","placeholder_corners_dot_color",
+  //"placeholder_background_gradient_type","placeholder_background_gradient_rotation",
+  //"placeholder_background_color","placeholder_image_file","placeholder_image_preview",
+  //"placeholder_image_size","placeholder_image_margin","placeholder_qr_extension",
+  //"placeholder_border_color_type_gradient","placeholder_border_color_type_single",
+].forEach(element => {
+    setText(element);
+});
+setTextById("shp_typ_qr","cir_qr");
+setFirstOptionText();
+setFirstOptionText("dddays", "placeholder_dia");
+[
+  {id:"width_qr", ph:"placeholder_hundred_teenk_qr"},
+  {id:"height_qr", ph:"placeholder_hundred_teenk_qr"},
+  {id:"margin_qr", ph:"placeholder_zero_teenk_qr"},
+  {id:"bdr_thk_qr", ph:"placeholder_one_two_hundred_qr"},
+  {id:"bdr_rd_qr", ph:"placeholder_zero_one_qr"}
+].forEach(({id, ph}) => setInputPlaceholder(id, ph));

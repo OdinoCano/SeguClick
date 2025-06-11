@@ -359,6 +359,6 @@ function fadeOutElement(id) {
 setFirstOptionText("dddays", "placeholder_dia");
 setFirstOptionText("ddmonths", "placeholder_mes");
 setFirstOptionText("ddyears", "placeholder_ano");
-setPlaceholder("nombre", "placeholder_nombre");
-setPlaceholder("ap_paterno", "placeholder_ap_paterno");
-setPlaceholder("ap_materno", "placeholder_ap_materno");
+setSelectPlaceholder("nombre", "placeholder_nombre");
+setSelectPlaceholder("ap_paterno", "placeholder_ap_paterno");
+setSelectPlaceholder("ap_materno", "placeholder_ap_materno");

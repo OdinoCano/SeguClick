@@ -18,16 +18,21 @@
         <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
         <!-- Main content -->
         <main class="col ms-sm-auto mt-3">
+          <h1 id="title_qr" class="card-title mb-4"></h1>
           <div class="row">
             <div class="col-md-6 d-flex flex-column align-items-center justify-content-center qr-code-container mb-3">
               <div class="qr-code" id="qr-code-generated"><canvas width="300" height="300"></canvas></div>
-              <div class="qr-download-group mt-3 d-flex align-items-center">
-              <button class="btn btn-success" id="qr-download">Download</button>
-              <label class="form-label visually-hidden" for="qr-extension">Extension</label>
-              <select class="form-select w-auto d-inline-block ms-2" id="qr-extension">
-                <option value="png" selected="">PNG</option>
-                <option value="jpeg">JPEG</option>
-              </select>
+              <div class="qr-download-group mt-3 d-flex align-items-center w-100">
+                <div class="col-6 d-flex flex-column align-items-center">
+                  <button id="dl_qr" class="btn btn-success"></button>
+                </div>
+                <div class="col-6 d-flex flex-column align-items-center">
+                  <label id="ext_qr" class="form-label mx-2" for="qr-extension"></label>
+                  <select class="form-select w-auto d-inline-block ms-2" id="qr-extension">
+                  <option value="png" selected="">PNG</option>
+                  <option value="jpeg">JPEG</option>
+                  </select>
+                </div>
               </div>
             </div>
             <form class="col-md-6 mb-3" id="form">
@@ -35,34 +40,39 @@
                 <!-- Main Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingMain">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMain" aria-expanded="true" aria-controls="collapseMain">
-                      Main Options
-                    </button>
+                    <button id="main_options_qr" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMain" aria-expanded="true" aria-controls="collapseMain"></button>
                   </h2>
                   <div id="collapseMain" class="accordion-collapse collapse show" aria-labelledby="headingMain" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3">
-                        <label for="form-data" class="form-label">Data</label>
+                        <label id="data_qr" for="form-data" class="form-label"></label>
                         <textarea class="form-control" node="data" node-change-event="oninput" id="form-data" rows="2">SeguClick</textarea>
                       </div>
                       <div class="mb-3">
-                        <label for="form-image-file" class="form-label">Image File</label>
+                        <label id="image_file_qr" for="form-image-file" class="form-label"></label>
                         <div class="input-group">
                           <input class="form-control" node="image" node-data-field="files" id="form-image-file" type="file">
-                          <button class="btn btn-outline-secondary" type="button" id="button-cancel">Cancel</button>
+                          <button class="btn btn-outline-secondary" type="button" id="btn_canc_qr"></button>
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label for="form-width" class="form-label">Width</label>
+                        <label id="width_qr" for="form-width" class="form-label"></label>
                         <input class="form-control" node="width" id="form-width" type="number" min="100" max="10000" value="300">
                       </div>
                       <div class="mb-3">
-                        <label for="form-height" class="form-label">Height</label>
+                        <label id="height_qr" for="form-height" class="form-label"></label>
                         <input class="form-control" node="height" id="form-height" type="number" min="100" max="10000" value="300">
                       </div>
                       <div class="mb-3">
-                        <label for="form-margin" class="form-label">Margin</label>
+                        <label id="margin_qr" for="form-margin" class="form-label"></label>
                         <input class="form-control" node="margin" id="form-margin" type="number" min="0" max="10000" value="0">
+                      </div>
+                      <div class="mb-3">
+                        <label id="shape_qr" for="form-shape" class="form-label me-2"></label>
+                        <div class="form-check form-switch d-inline-block align-middle">
+                          <input class="form-check-input" type="checkbox" id="form-shape" node-data-field="checked">
+                          <label id="shp_typ_qr" class="form-check-label" for="form-shape"></label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -70,62 +80,191 @@
                 <!-- Border Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingBorder">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBorder" aria-expanded="false" aria-controls="collapseBorder">
-                      Border Options
-                    </button>
+                    <button id="border_options_qr" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBorder" aria-expanded="false" aria-controls="collapseBorder"></button>
                   </h2>
                   <div id="collapseBorder" class="accordion-collapse collapse" aria-labelledby="headingBorder" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3 form-check">
                         <input class="form-check-input" node="borderOptions.enabled" node-data-field="checked" id="form-border-enabled" type="checkbox">
-                        <label class="form-check-label" for="form-border-enabled">Enable Border</label>
+                        <label id="enb_bdr_qr" class="form-check-label" for="form-border-enabled"></label>
                       </div>
                       <div id="border-options-section" class="d-none">
-                        <div class="mb-3">
-                          <label for="form-border-width" class="form-label">Border Width</label>
-                          <input class="form-control" node="borderOptions.width" id="form-border-width" type="number" min="1" max="50" value="10">
-                        </div>
-                        <div class="mb-3">
-                          <label for="form-border-radius" class="form-label">Border Radius</label>
-                          <input class="form-control" node="borderOptions.radius" id="form-border-radius" type="number" min="0" max="100" value="10">
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label">Border Color Type</label>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.colorType.single" id="form-border-color-type-single" type="radio" name="border-color-type" checked="">
-                            <label class="form-check-label" for="form-border-color-type-single">Single color</label>
+                        <!-- Main Border Settings -->
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label id="bdr_thk_qr" for="form-border-thickness" class="form-label"></label>
+                            <input type="number" class="form-control" id="form-border-thickness" value="60" min="1" max="200">
                           </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.colorType.gradient" id="form-border-color-type-gradient" type="radio" name="border-color-type">
-                            <label class="form-check-label" for="form-border-color-type-gradient">Color gradient</label>
+                          <div class="col-md-4">
+                            <label id="bdr_rd_qr" for="form-border-round" class="form-label"></label>
+                            <input type="number" class="form-control" id="form-border-round" value="1" min="0" max="1" step="0.1">
+                          </div>
+                          <div class="col-md-4">
+                            <label id="m_bdr_col" for="form-border-main-color" class="form-label"></label>
+                            <input type="color" class="form-control form-control-color" id="form-border-main-color" value="#000000">
                           </div>
                         </div>
-                        <div class="mb-3 borderOptionsHelper.colorType.single">
-                          <label for="form-border-color" class="form-label">Border Color</label>
-                          <input class="form-control form-control-color" node="borderOptions.color" id="form-border-color" type="color" value="#000000">
-                        </div>
-                        <!-- Border Gradient options (hidden by default) -->
-                        <div class="mb-3 borderOptionsHelper.colorType.gradient d-none">
-                          <label class="form-label">Gradient Type</label>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.gradient.linear" id="form-border-gradient-type-linear" type="radio" name="border-gradient-type" checked="">
-                            <label class="form-check-label" for="form-border-gradient-type-linear">Linear</label>
+
+                        <!-- Inner Border -->
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label id="inner_bdr_thk_qr" for="form-border-inner-thickness" class="form-label"></label>
+                            <input type="number" class="form-control" id="form-border-inner-thickness" value="10" min="0" max="50">
                           </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" node-data-field="checked" node="borderOptionsHelper.gradient.radial" id="form-border-gradient-type-radial" type="radio" name="border-gradient-type">
-                            <label class="form-check-label" for="form-border-gradient-type-radial">Radial</label>
+                          <div class="col-md-6">
+                            <label id="inner_bdr_col_qr" for="form-border-inner-color" class="form-label"></label>
+                            <input type="color" class="form-control form-control-color" id="form-border-inner-color" value="#000000">
                           </div>
                         </div>
-                        <div class="mb-3 borderOptionsHelper.colorType.gradient d-none">
-                          <label class="form-label">Border Gradient</label>
-                          <div class="d-flex gap-2">
-                            <input class="form-control form-control-color" node="borderOptionsHelper.gradient.color1" type="color" value="#000000">
-                            <input class="form-control form-control-color" node="borderOptionsHelper.gradient.color2" type="color" value="#ff0000">
+
+                        <!-- Outer Border -->
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label id="outr_bdr_thk_qr" for="form-border-outer-thickness" class="form-label"></label>
+                            <input type="number" class="form-control" id="form-border-outer-thickness" value="10" min="0" max="50">
+                          </div>
+                          <div class="col-md-6">
+                            <label id="outr_bdr_col_qr" for="form-border-outer-color" class="form-label"></label>
+                            <input type="color" class="form-control form-control-color" id="form-border-outer-color" value="#000000">
                           </div>
                         </div>
-                        <div class="mb-3 borderOptionsHelper.colorType.gradient d-none">
-                          <label for="form-border-gradient-rotation" class="form-label">Rotation</label>
-                          <input class="form-control" node="borderOptionsHelper.gradient.rotation" id="form-border-gradient-rotation" type="number" min="0" max="360" value="0">
+
+                        <!-- Top Decoration -->
+                        <div class="card mb-3">
+                          <div class="card-header">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="form-decoration-top-enabled">
+                              <label id="en_top_deco_qr" class="form-check-label" for="form-decoration-top-enabled"></label>
+                            </div>
+                          </div>
+                          <div class="card-body" id="top-decoration-options">
+                            <div class="mb-3">
+                              <label id="deco_typ_qr" for="form-decoration-top-type" class="form-label"></label>
+                              <select class="form-select" id="form-decoration-top-type">
+                                <option value="text">Text</option>
+                                <option value="image">Image</option>
+                              </select>
+                            </div>
+
+                            <!-- Text Options -->
+                            <div id="top-text-options">
+                              <div class="row mb-3">
+                                <div class="col-md-6">
+                                  <label for="form-decoration-top-text" class="form-label">Text</label>
+                                  <input type="text" class="form-control" id="form-decoration-top-text" placeholder="SEE WHY IT'S SUPER">
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="form-decoration-top-font-size" class="form-label">Font Size</label>
+                                  <input type="number" class="form-control" id="form-decoration-top-font-size" value="30" min="8" max="72">
+                                </div>
+                              </div>
+                              <div class="row mb-3">
+                                <div class="col-md-6">
+                                  <label for="form-decoration-top-font-family" class="form-label">Font Family</label>
+                                  <select class="form-select" id="form-decoration-top-font-family">
+                                    <option value="sans-serif">Sans Serif</option>
+                                    <option value="serif">Serif</option>
+                                    <option value="monospace">Monospace</option>
+                                    <option value="Arial">Arial</option>
+                                    <option value="Georgia">Georgia</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="form-decoration-top-color" class="form-label">Text Color</label>
+                                  <input type="color" class="form-control form-control-color" id="form-decoration-top-color" value="#D5B882">
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Image Options -->
+                            <div id="top-image-options" class="d-none">
+                              <div class="mb-3">
+                                <label for="form-decoration-top-image" class="form-label">Image URL</label>
+                                <input type="url" class="form-control" id="form-decoration-top-image" placeholder="https://example.com/image.png">
+                              </div>
+                              <div class="row mb-3">
+                                <div class="col-md-6">
+                                  <label for="form-decoration-top-image-width" class="form-label">Image Width</label>
+                                  <input type="number" class="form-control" id="form-decoration-top-image-width" value="100" min="10" max="500">
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="form-decoration-top-image-height" class="form-label">Image Height</label>
+                                  <input type="number" class="form-control" id="form-decoration-top-image-height" value="50" min="10" max="500">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Bottom Decoration -->
+                        <div class="card mb-3">
+                          <div class="card-header">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="form-decoration-bottom-enabled">
+                              <label class="form-check-label" for="form-decoration-bottom-enabled">
+                                Enable Bottom Decoration
+                              </label>
+                            </div>
+                          </div>
+                          <div class="card-body" id="bottom-decoration-options">
+                            <div class="mb-3">
+                              <label for="form-decoration-bottom-type" class="form-label">Decoration Type</label>
+                              <select class="form-select" id="form-decoration-bottom-type">
+                                <option value="text">Text</option>
+                                <option value="image">Image</option>
+                              </select>
+                            </div>
+
+                            <!-- Text Options -->
+                            <div id="bottom-text-options">
+                              <div class="row mb-3">
+                                <div class="col-md-6">
+                                  <label for="form-decoration-bottom-text" class="form-label">Text</label>
+                                  <input type="text" class="form-control" id="form-decoration-bottom-text" placeholder="SCAN ME">
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="form-decoration-bottom-font-size" class="form-label">Font Size</label>
+                                  <input type="number" class="form-control" id="form-decoration-bottom-font-size" value="30" min="8" max="72">
+                                </div>
+                              </div>
+                              <div class="row mb-3">
+                                <div class="col-md-6">
+                                  <label for="form-decoration-bottom-font-family" class="form-label">Font Family</label>
+                                  <select class="form-select" id="form-decoration-bottom-font-family">
+                                    <option value="sans-serif">Sans Serif</option>
+                                    <option value="serif">Serif</option>
+                                    <option value="monospace">Monospace</option>
+                                    <option value="Arial">Arial</option>
+                                    <option value="Georgia">Georgia</option>
+                                    <option value="Times New Roman">Times New Roman</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="form-decoration-bottom-color" class="form-label">Text Color</label>
+                                  <input type="color" class="form-control form-control-color" id="form-decoration-bottom-color" value="#D5B882">
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Image Options -->
+                            <div id="bottom-image-options" class="d-none">
+                              <div class="mb-3">
+                                <label for="form-decoration-bottom-image" class="form-label">Image URL</label>
+                                <input type="url" class="form-control" id="form-decoration-bottom-image" placeholder="https://example.com/image.png">
+                              </div>
+                              <div class="row mb-3">
+                                <div class="col-md-6">
+                                  <label for="form-decoration-bottom-image-width" class="form-label">Image Width</label>
+                                  <input type="number" class="form-control" id="form-decoration-bottom-image-width" value="100" min="10" max="500">
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="form-decoration-bottom-image-height" class="form-label">Image Height</label>
+                                  <input type="number" class="form-control" id="form-decoration-bottom-image-height" value="50" min="10" max="500">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -181,12 +320,12 @@
                       <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
                         <label class="form-label">Dots Gradient</label>
                         <div class="d-flex gap-2">
-                          <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color1" type="color" value="#6a1a4c">
-                          <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color2" type="color" value="#6a1a4c">
+                          <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color1" type="color" value="#0d6efd">
+                          <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color2" type="color" value="#0d6efd">
                         </div>
                       </div>
                       <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
-                        <label for="form-dots-gradient-rotation" class="form-label">Rotation</label>
+                        <label for="form-dots-gradient-rotation" class="form-label">Rotation max 360</label>
                         <input class="form-control" node="dotsOptionsHelper.gradient.rotation" id="form-dots-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
@@ -248,7 +387,7 @@
                         </div>
                       </div>
                       <div class="mb-3 cornersSquareOptionsHelper.colorType.gradient d-none">
-                        <label for="form-corners-square-gradient-rotation" class="form-label">Rotation</label>
+                        <label for="form-corners-square-gradient-rotation" class="form-label">Rotation max 360</label>
                         <input class="form-control" node="cornersSquareOptionsHelper.gradient.rotation" id="form-corners-square-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
@@ -309,7 +448,7 @@
                         </div>
                       </div>
                       <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
-                        <label for="form-corners-dot-gradient-rotation" class="form-label">Rotation</label>
+                        <label for="form-corners-dot-gradient-rotation" class="form-label">Rotation max 360</label>
                         <input class="form-control" node="cornersDotOptionsHelper.gradient.rotation" id="form-corners-dot-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
@@ -359,7 +498,7 @@
                         </div>
                       </div>
                       <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
-                        <label for="form-background-gradient-rotation" class="form-label">Rotation</label>
+                        <label for="form-background-gradient-rotation" class="form-label">Rotation Max 360</label>
                         <input class="form-control" node="backgroundOptionsHelper.gradient.rotation" id="form-background-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
@@ -379,11 +518,11 @@
                         <label class="form-check-label" for="form-hide-background-dots">Hide Background Dots</label>
                       </div>
                       <div class="mb-3">
-                        <label for="form-image-size" class="form-label">Image Size</label>
+                        <label for="form-image-size" class="form-label">Image Size max 1</label>
                         <input class="form-control" node="imageOptions.imageSize" id="form-image-size" type="number" min="0" max="1" step="0.1" value="0.4">
                       </div>
                       <div class="mb-3">
-                        <label for="form-image-margin" class="form-label">Margin</label>
+                        <label for="form-image-margin" class="form-label">Margin max 10000</label>
                         <input class="form-control" node="imageOptions.margin" id="form-image-margin" type="number" min="0" max="10000" value="0">
                       </div>
                     </div>
@@ -399,7 +538,7 @@
                   <div id="collapseQROptions" class="accordion-collapse collapse" aria-labelledby="headingQROptions" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3">
-                        <label for="form-qr-type-number" class="form-label">Type Number</label>
+                        <label for="form-qr-type-number" class="form-label">Type Number Max 40</label>
                         <input class="form-control" node="qrOptions.typeNumber" id="form-qr-type-number" type="number" min="0" max="40" value="0">
                       </div>
                       <div class="mb-3">

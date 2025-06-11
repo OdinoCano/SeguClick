@@ -16,6 +16,15 @@ function setText(id){
     $("#"+id).append(text)
 }
 
+function setTextById(id, messageKey) {
+    let text = chrome.i18n.getMessage(messageKey);
+    if (!text) {
+        console.warn(`No translation found for message key: ${messageKey}`);
+        return;
+    }
+    $("#"+id).append(text)
+}
+
 const setFirstOptionText = (selectId, messageKey) => {
     let text = chrome.i18n.getMessage(messageKey);
     const $select = $('#' + selectId);
@@ -24,7 +33,14 @@ const setFirstOptionText = (selectId, messageKey) => {
     }
 };
 
-const setPlaceholder = (selectId, messageKey) => {
+const setInputPlaceholder = (labelId, messageKey) => {
+  const $label = $('#' + labelId);
+  const inputId = $label.attr('for');
+  $("#" + inputId).attr('placeholder', chrome.i18n.getMessage(messageKey));
+};
+
+
+const setSelectPlaceholder = (selectId, messageKey) => {
     const $select = $('#' + selectId);
     $select.attr('placeholder', chrome.i18n.getMessage(messageKey));
 }
