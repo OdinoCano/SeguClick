@@ -139,28 +139,25 @@
                           </div>
                           <div class="card-body" id="top-decoration-options">
                             <div class="mb-3">
-                              <label id="deco_typ_qr" for="form-decoration-top-type" class="form-label"></label>
-                              <select class="form-select" id="form-decoration-top-type">
-                                <option value="text">Text</option>
-                                <option value="image">Image</option>
-                              </select>
+                              <label id="top_bdr_deco_typ_qr" for="form-decoration-top-type" class="form-label"></label>
+                              <select class="form-select" id="form-decoration-top-type"></select>
                             </div>
 
                             <!-- Text Options -->
                             <div id="top-text-options">
                               <div class="row mb-3">
                                 <div class="col-md-6">
-                                  <label for="form-decoration-top-text" class="form-label">Text</label>
-                                  <input type="text" class="form-control" id="form-decoration-top-text" placeholder="SEE WHY IT'S SUPER">
+                                  <label id="top_bdr_text_qr" for="form-decoration-top-text" class="form-label"></label>
+                                  <input type="text" class="form-control" id="form-decoration-top-text">
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="form-decoration-top-font-size" class="form-label">Font Size</label>
+                                  <label id="top_bdr_font_sz_qr" for="form-decoration-top-font-size" class="form-label"></label>
                                   <input type="number" class="form-control" id="form-decoration-top-font-size" value="30" min="8" max="72">
                                 </div>
                               </div>
                               <div class="row mb-3">
                                 <div class="col-md-6">
-                                  <label for="form-decoration-top-font-family" class="form-label">Font Family</label>
+                                  <label id="top_bdr_font_fam_qr" for="form-decoration-top-font-family" class="form-label"></label>
                                   <select class="form-select" id="form-decoration-top-font-family">
                                     <option value="sans-serif">Sans Serif</option>
                                     <option value="serif">Serif</option>
@@ -171,7 +168,7 @@
                                   </select>
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="form-decoration-top-color" class="form-label">Text Color</label>
+                                  <label id="top_bdr_txt_col_qr" for="form-decoration-top-color" class="form-label"></label>
                                   <input type="color" class="form-control form-control-color" id="form-decoration-top-color" value="#D5B882">
                                 </div>
                               </div>
@@ -180,16 +177,16 @@
                             <!-- Image Options -->
                             <div id="top-image-options" class="d-none">
                               <div class="mb-3">
-                                <label for="form-decoration-top-image" class="form-label">Image URL</label>
-                                <input type="url" class="form-control" id="form-decoration-top-image" placeholder="https://example.com/image.png">
+                                <label id="top_bdr_img_url_qr" for="form-decoration-top-image" class="form-label"></label>
+                                <input type="url" class="form-control" id="form-decoration-top-image">
                               </div>
                               <div class="row mb-3">
                                 <div class="col-md-6">
-                                  <label for="form-decoration-top-image-width" class="form-label">Image Width</label>
+                                  <label id="top_bdr_img_w_qr" for="form-decoration-top-image-width" class="form-label"></label>
                                   <input type="number" class="form-control" id="form-decoration-top-image-width" value="100" min="10" max="500">
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="form-decoration-top-image-height" class="form-label">Image Height</label>
+                                  <label id="top_bdr_img_h_qr" for="form-decoration-top-image-height" class="form-label"></label>
                                   <input type="number" class="form-control" id="form-decoration-top-image-height" value="50" min="10" max="500">
                                 </div>
                               </div>
@@ -202,35 +199,30 @@
                           <div class="card-header">
                             <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="form-decoration-bottom-enabled">
-                              <label class="form-check-label" for="form-decoration-bottom-enabled">
-                                Enable Bottom Decoration
-                              </label>
+                              <label id="en_bottom_deco_qr" class="form-check-label" for="form-decoration-bottom-enabled"></label>
                             </div>
                           </div>
                           <div class="card-body" id="bottom-decoration-options">
                             <div class="mb-3">
-                              <label for="form-decoration-bottom-type" class="form-label">Decoration Type</label>
-                              <select class="form-select" id="form-decoration-bottom-type">
-                                <option value="text">Text</option>
-                                <option value="image">Image</option>
-                              </select>
+                              <label id="btm_bdr_deco_typ_qr" for="form-decoration-bottom-type" class="form-label"></label>
+                              <select class="form-select" id="form-decoration-bottom-type"></select>
                             </div>
 
                             <!-- Text Options -->
                             <div id="bottom-text-options">
                               <div class="row mb-3">
                                 <div class="col-md-6">
-                                  <label for="form-decoration-bottom-text" class="form-label">Text</label>
-                                  <input type="text" class="form-control" id="form-decoration-bottom-text" placeholder="SCAN ME">
+                                  <label id="btm_bdr_text_qr" for="form-decoration-bottom-text" class="form-label"></label>
+                                  <input type="text" class="form-control" id="form-decoration-bottom-text">
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="form-decoration-bottom-font-size" class="form-label">Font Size</label>
+                                  <label id="btm_bdr_font_sz_qr" for="form-decoration-bottom-font-size" class="form-label"></label>
                                   <input type="number" class="form-control" id="form-decoration-bottom-font-size" value="30" min="8" max="72">
                                 </div>
                               </div>
                               <div class="row mb-3">
                                 <div class="col-md-6">
-                                  <label for="form-decoration-bottom-font-family" class="form-label">Font Family</label>
+                                  <label id="btm_bdr_font_fam_qr" for="form-decoration-bottom-font-family" class="form-label"></label>
                                   <select class="form-select" id="form-decoration-bottom-font-family">
                                     <option value="sans-serif">Sans Serif</option>
                                     <option value="serif">Serif</option>
@@ -241,7 +233,7 @@
                                   </select>
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="form-decoration-bottom-color" class="form-label">Text Color</label>
+                                  <label id="btm_bdr_txt_col_qr" for="form-decoration-bottom-color" class="form-label"></label>
                                   <input type="color" class="form-control form-control-color" id="form-decoration-bottom-color" value="#D5B882">
                                 </div>
                               </div>
@@ -250,16 +242,16 @@
                             <!-- Image Options -->
                             <div id="bottom-image-options" class="d-none">
                               <div class="mb-3">
-                                <label for="form-decoration-bottom-image" class="form-label">Image URL</label>
+                                <label id="btm_bdr_img_url_qr" for="form-decoration-bottom-image" class="form-label"></label>
                                 <input type="url" class="form-control" id="form-decoration-bottom-image" placeholder="https://example.com/image.png">
                               </div>
                               <div class="row mb-3">
                                 <div class="col-md-6">
-                                  <label for="form-decoration-bottom-image-width" class="form-label">Image Width</label>
+                                  <label id="btm_bdr_img_w_qr" for="form-decoration-bottom-image-width" class="form-label"></label>
                                   <input type="number" class="form-control" id="form-decoration-bottom-image-width" value="100" min="10" max="500">
                                 </div>
                                 <div class="col-md-6">
-                                  <label for="form-decoration-bottom-image-height" class="form-label">Image Height</label>
+                                  <label id="btm_bdr_img_h_qr" for="form-decoration-bottom-image-height" class="form-label"></label>
                                   <input type="number" class="form-control" id="form-decoration-bottom-image-height" value="50" min="10" max="500">
                                 </div>
                               </div>
@@ -273,36 +265,27 @@
                 <!-- Dots Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingDots">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDots" aria-expanded="false" aria-controls="collapseDots">
-                      Dots Options
-                    </button>
+                    <button id="dots_options_qr" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDots" aria-expanded="false" aria-controls="collapseDots"></button>
                   </h2>
                   <div id="collapseDots" class="accordion-collapse collapse" aria-labelledby="headingDots" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3">
-                        <label for="form-dots-type" class="form-label">Dots Style</label>
-                        <select class="form-select" node="dotsOptions.type" id="form-dots-type">
-                          <option value="square">Square</option>
-                          <option value="dots">Dots</option>
-                          <option value="rounded">Rounded</option>
-                          <option value="extra-rounded" selected="">Extra rounded</option>
-                          <option value="classy">Classy</option>
-                          <option value="classy-rounded">Classy rounded</option>
-                        </select>
+                        <label id="dots_st_qr" for="form-dots-type" class="form-label"></label>
+                        <select class="form-select" node="dotsOptions.type" id="form-dots-type"></select>
                       </div>
                       <div class="mb-3">
-                        <label class="form-label">Color Type</label>
+                        <label id="col_typ_qr" class="form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.colorType.single" id="form-dots-color-type-single" type="radio" name="dots-color-type" checked="">
-                          <label class="form-check-label" for="form-dots-color-type-single">Single color</label>
+                          <label id="sg_col_qr" class="form-check-label" for="form-dots-color-type-single"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.colorType.gradient" id="form-dots-color-type-gradient" type="radio" name="dots-color-type">
-                          <label class="form-check-label" for="form-dots-color-type-gradient">Color gradient</label>
+                          <label id="col_grad_qr" class="form-check-label" for="form-dots-color-type-gradient"></label>
                         </div>
                       </div>
                       <div class="mb-3 dotsOptionsHelper.colorType.single">
-                        <label for="form-dots-color" class="form-label">Dots Color</label>
+                        <label id="dot_col_qr" for="form-dots-color" class="form-label"></label>
                         <input class="form-control form-control-color" node="dotsOptions.color" id="form-dots-color" type="color" value="#0d6efd">
                       </div>
                       <!-- Gradient options (hidden by default, shown via JS) -->
