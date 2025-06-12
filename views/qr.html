@@ -372,14 +372,12 @@
                 <!-- Corners Dot Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingCornersDot">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCornersDot" aria-expanded="false" aria-controls="collapseCornersDot">
-                      Corners Dot Options
-                    </button>
+                    <button id="cors_dot_opt_qr" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCornersDot" aria-expanded="false" aria-controls="collapseCornersDot"></button>
                   </h2>
                   <div id="collapseCornersDot" class="accordion-collapse collapse" aria-labelledby="headingCornersDot" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3">
-                        <label for="form-corners-dot-type" class="form-label">Corners Dot Style</label>
+                        <label id="cors_dot_st_qr" for="form-corners-dot-type" class="form-label"></label>
                         <select class="form-select" node="cornersDotOptions.type" id="form-corners-dot-type"></select>
                       </div>
                       <div class="mb-3">
@@ -394,7 +392,7 @@
                         </div>
                       </div>
                       <div class="mb-3 cornersDotOptionsHelper.colorType.single">
-                        <label for="form-corners-dot-color" class="form-label">Corners Dot Color</label>
+                        <label id="cors_dot_col_qr" for="form-corners-dot-color" class="form-label"></label>
                         <div class="input-group">
                           <input class="form-control form-control-color" node="cornersDotOptions.color" id="form-corners-dot-color" type="color" value="#000000">
                           <button class="clear btn btn-outline-secondary" type="button" id="button-clear-corners-dot-color"></button>
@@ -413,7 +411,7 @@
                         </div>
                       </div>
                       <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Corners Dot Gradient</label>
+                        <label id="cors_dot_grad_qr" class="form-label"></label>
                         <div class="d-flex gap-2">
                           <input class="form-control form-control-color" node="cornersDotOptionsHelper.gradient.color1" type="color" value="#000000">
                           <input class="form-control form-control-color" node="cornersDotOptionsHelper.gradient.color2" type="color" value="#000000">
@@ -429,9 +427,7 @@
                 <!-- Background Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingBackground">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackground" aria-expanded="false" aria-controls="collapseBackground">
-                      Background Options
-                    </button>
+                    <button id="bkgd_opt_qr" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackground" aria-expanded="false" aria-controls="collapseBackground"></button>
                   </h2>
                   <div id="collapseBackground" class="accordion-collapse collapse" aria-labelledby="headingBackground" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
@@ -447,7 +443,7 @@
                         </div>
                       </div>
                       <div class="mb-3 backgroundOptionsHelper.colorType.single">
-                        <label for="form-background-color" class="form-label">Background Color</label>
+                        <label id="bkgd_col_qr" for="form-background-color" class="form-label"></label>
                         <input class="form-control form-control-color" node="backgroundOptions.color" id="form-background-color" type="color" value="#ffffff">
                       </div>
                       <!-- Gradient options (hidden by default, shown via JS) -->
@@ -463,7 +459,7 @@
                         </div>
                       </div>
                       <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Background Gradient</label>
+                        <label id="bkgd_grad_qr" class="form-label"></label>
                         <div class="d-flex gap-2">
                           <input class="form-control form-control-color" node="backgroundOptionsHelper.gradient.color1" type="color" value="#ffffff">
                           <input class="form-control form-control-color" node="backgroundOptionsHelper.gradient.color2" type="color" value="#ffffff">
@@ -479,22 +475,20 @@
                 <!-- Image Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingImage">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="false" aria-controls="collapseImage">
-                      Image Options
-                    </button>
+                    <button id="img_opt_qr" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImage" aria-expanded="false" aria-controls="collapseImage"></button>
                   </h2>
                   <div id="collapseImage" class="accordion-collapse collapse" aria-labelledby="headingImage" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3 form-check">
                         <input class="form-check-input" node="imageOptions.hideBackgroundDots" node-data-field="checked" id="form-hide-background-dots" type="checkbox" checked="">
-                        <label class="form-check-label" for="form-hide-background-dots">Hide Background Dots</label>
+                        <label id="hide_bkgd_dot_qr" class="form-check-label" for="form-hide-background-dots"></label>
                       </div>
                       <div class="mb-3">
-                        <label for="form-image-size" class="form-label">Image Size max 1</label>
+                        <label id="img_sz_qr" for="form-image-size" class="form-label"></label>
                         <input class="form-control" node="imageOptions.imageSize" id="form-image-size" type="number" min="0" max="1" step="0.1" value="0.4">
                       </div>
                       <div class="mb-3">
-                        <label for="form-image-margin" class="form-label">Margin max 10000</label>
+                        <label id="margin" for="form-image-margin" class="form-label"></label>
                         <input class="form-control" node="imageOptions.margin" id="form-image-margin" type="number" min="0" max="10000" value="0">
                       </div>
                     </div>
@@ -503,33 +497,21 @@
                 <!-- QR Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingQROptions">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQROptions" aria-expanded="false" aria-controls="collapseQROptions">
-                      QR Options
-                    </button>
+                    <button id="opt_qr" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQROptions" aria-expanded="false" aria-controls="collapseQROptions"></button>
                   </h2>
                   <div id="collapseQROptions" class="accordion-collapse collapse" aria-labelledby="headingQROptions" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3">
-                        <label for="form-qr-type-number" class="form-label">Type Number Max 40</label>
+                        <label id="typ_num_qr" for="form-qr-type-number" class="form-label"></label>
                         <input class="form-control" node="qrOptions.typeNumber" id="form-qr-type-number" type="number" min="0" max="40" value="0">
                       </div>
                       <div class="mb-3">
-                        <label for="form-qr-mode" class="form-label">Mode</label>
-                        <select class="form-select" node="qrOptions.mode" id="form-qr-mode">
-                          <option value="Numeric">Numeric</option>
-                          <option value="Alphanumeric">Alphanumeric</option>
-                          <option value="Byte" selected="">Byte</option>
-                          <option value="Kanji">Kanji</option>
-                        </select>
+                        <label id="mode" for="form-qr-mode" class="form-label"></label>
+                        <select class="form-select" node="qrOptions.mode" id="form-qr-mode"></select>
                       </div>
                       <div class="mb-3">
-                        <label for="form-qr-error-correction-level" class="form-label">Error Correction Level</label>
-                        <select class="form-select" node="qrOptions.errorCorrectionLevel" id="form-qr-error-correction-level">
-                          <option value="L">L</option>
-                          <option value="M">M</option>
-                          <option value="Q" selected="">Q</option>
-                          <option value="H">H</option>
-                        </select>
+                        <label id="err_corr_lvl_qr" for="form-qr-error-correction-level" class="form-label"></label>
+                        <select class="form-select" node="qrOptions.errorCorrectionLevel" id="form-qr-error-correction-level"></select>
                       </div>
                     </div>
                   </div>
