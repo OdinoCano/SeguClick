@@ -20,9 +20,9 @@ $(document).ready(async function () {
   await waitForQRBorderPlugin();
 
   // Set the license key for QR Border Plugin (replace with your actual key)
-  if (window.QRBorderPlugin && window.QRBorderPlugin.setKey) {
-    QRBorderPlugin.setKey("your-license-key-here");
-  }
+  //if (window.QRBorderPlugin && window.QRBorderPlugin.setKey) {
+  //  QRBorderPlugin.setKey("your-license-key-here");
+  //}
 
   let qrCode = null;
   let currentImageData = null; // Para almacenar la imagen cargada
@@ -97,7 +97,6 @@ $(document).ready(async function () {
       const colors = $(`.${colorClass} input[type='color']`);
       
       if (colors.length < 2) {
-        console.warn(`No se encontraron suficientes colores para el gradiente ${gradientType}`);
         return null;
       }
 
@@ -110,16 +109,17 @@ $(document).ready(async function () {
         ]
       };
     } catch (error) {
-      console.error(`Error obteniendo configuración de gradiente ${gradientType}:`, error);
+      console.error(`Error getting gradient configuration for ${gradientType}:`, error);
       return null;
     }
   }
 
   // Extracts options from the form
-  function getBorderExtensionOptions() {
+  async function getBorderExtensionOptions() {
     const borderEnabled = $("#form-border-enabled").is(":checked");
-    if (!borderEnabled) return null;
-
+    if (!borderEnabled) {
+      return null;
+    }
     const borderExtensionOptions = {
       round: parseFloat($("#form-border-round").val()) || 1,
       thickness: parseInt($("#form-border-thickness").val()) || 60,
@@ -134,7 +134,7 @@ $(document).ready(async function () {
         thickness: parseInt($("#form-border-outer-thickness").val()) || 10,
       },
     };
-
+  
     // Top decoration
     if ($("#form-decoration-top-enabled").is(":checked")) {
       const topType = $("#form-decoration-top-type").val() || "text";
@@ -153,16 +153,22 @@ $(document).ready(async function () {
       } else if (topType === "image") {
         const topImageUrl = $("#form-decoration-top-image").val();
         if (topImageUrl) {
+          const cirqBord = parseInt($("#form-border-thickness").val()) || 60;
+          const imageWidth = parseInt($("#form-decoration-top-image-width").val()) || 100;
+          const imageHeight = parseInt($("#form-decoration-top-image-height").val()) || 50;
+          const dataURL = await toDataURL(topImageUrl);
+          const qrWidth = parseInt($("#form-width").val()) || 300;
+          const y = Math.max(0, (cirqBord - imageHeight) / 2);
           borderExtensionOptions.decorations.top = {
             type: "image",
-            value: topImageUrl,
-            width: parseInt($("#form-decoration-top-image-width").val()) || 100,
-            height: parseInt($("#form-decoration-top-image-height").val()) || 50,
+            value: dataURL,
+            style: `width: ${imageWidth}px; height: ${imageHeight}px; x: ${(qrWidth - imageWidth) / 2}px; y: ${y}px;`
           };
+          // transform: translate(-50%, 0);
         }
       }
     }
-
+  
     // Bottom decoration
     if ($("#form-decoration-bottom-enabled").is(":checked")) {
       const bottomType = $("#form-decoration-bottom-type").val() || "text";
@@ -181,21 +187,28 @@ $(document).ready(async function () {
       } else if (bottomType === "image") {
         const bottomImageUrl = $("#form-decoration-bottom-image").val();
         if (bottomImageUrl) {
+          const cirqBord = parseInt($("#form-border-thickness").val()) || 60;
+          const imageWidth = parseInt($("#form-decoration-bottom-image-width").val()) || 100;
+          const imageHeight = parseInt($("#form-decoration-bottom-image-height").val()) || 50;
+          const dataURL = await toDataURL(bottomImageUrl);
+          const qrWidth = parseInt($("#form-width").val()) || 300;
+          const qrHeight = parseInt($("#form-height").val()) || 300;
+          const y = qrHeight - cirqBord + Math.max(0, (cirqBord - imageHeight) / 2);
           borderExtensionOptions.decorations.bottom = {
             type: "image",
-            value: bottomImageUrl,
-            width: parseInt($("#form-decoration-bottom-image-width").val()) || 100,
-            height: parseInt($("#form-decoration-bottom-image-height").val()) || 50,
+            value: dataURL,
+            style: `width: ${imageWidth}px; height: ${imageHeight}px; x: ${(qrWidth - imageWidth) / 2}px; y: ${y}px;`
           };
         }
       }
     }
-
+  
     // Remove decorations if empty
     if (Object.keys(borderExtensionOptions.decorations).length === 0) {
       delete borderExtensionOptions.decorations;
     }
-
+  
+    console.log('Border options built:', borderExtensionOptions);
     return borderExtensionOptions;
   }
 
@@ -381,31 +394,27 @@ $(document).ready(async function () {
       hideError();
       
       const options = getQRCodeOptions();
-
-      // Limpiar QR anterior
-      if (qrCode) {
-        $("#qr-code-generated").empty();
-      }
-
+    
+      // IMPORTANTE: Siempre limpiar y recrear el QR Code para evitar que se peguen extensiones
+      $("#qr-code-generated").empty();
+      qrCode = null; // Limpiar referencia anterior
+    
       // Create QR Code instance
       qrCode = new QRCodeStyling(options);
-
+    
       // Apply QR Border Plugin if available and border is enabled
-      const borderExtensionOptions = getBorderExtensionOptions();
+      const borderExtensionOptions = await getBorderExtensionOptions();
+      
       if (borderExtensionOptions && window.QRBorderPlugin) {
         try {
-          // Apply the border extension with options
           qrCode.applyExtension(QRBorderPlugin(borderExtensionOptions));
-          console.log('QR Border Plugin applied successfully');
         } catch (pluginError) {
-          console.warn('Failed to apply QR Border Plugin:', pluginError);
           showError('Advertencia: No se pudo aplicar el plugin de bordes. Verifique la licencia.');
         }
       }
-
+    
       qrCode.append(document.getElementById("qr-code-generated"));
     } catch (error) {
-      console.error("Error generating QR code:", error);
       showError(`Error al generar el código QR: ${error.message}`);
     } finally {
       showLoading(false);
@@ -413,25 +422,31 @@ $(document).ready(async function () {
   }
 
   async function updateQR() {
+    // CAMBIO IMPORTANTE: Siempre regenerar cuando hay cambios en el borde
+    const borderEnabled = $("#form-border-enabled").is(":checked");
+    
     if (!qrCode) {
       await renderQRCode();
       return;
     }
-    
+
     try {
       hideError();
 
-      // For updates with border plugin, it's safer to regenerate
-      const borderEnabled = $("#form-border-enabled").is(":checked");
-      if (borderEnabled && window.QRBorderPlugin) {
-        await renderQRCode(); // Regenerate when border options change
+      // Si el borde está habilitado O si había un borde antes, regenerar completamente
+      // Esto es necesario porque el plugin de bordes modifica la estructura del QR
+      if (borderEnabled || qrCode._previouslyHadBorder) {
+        await renderQRCode();
+        qrCode._previouslyHadBorder = borderEnabled; // Marcar estado del borde
         return;
       }
 
+      // Solo hacer update simple si no hay cambios de borde
       const options = getQRCodeOptions();
       qrCode.update(options);
+      qrCode._previouslyHadBorder = false;
+
     } catch (error) {
-      console.error("Error updating QR code:", error);
       showError(`Error al actualizar el código QR: ${error.message}`);
       // Fallback: regenerar completamente
       await renderQRCode();
@@ -501,7 +516,6 @@ $(document).ready(async function () {
       $("#image-preview").html(preview).show();
       
     } catch (error) {
-      console.error("Error handling image upload:", error);
       showError(error.message);
       $("#form-image-file").val("");
       currentImageData = null;
@@ -521,16 +535,14 @@ $(document).ready(async function () {
   // Toggle border options
   $("#form-border-enabled").on("change", function () {
     toggleBorderOptions();
-    updateQR();
+    renderQRCode();
   });
 
   // Border-related inputs should trigger regeneration
-  $("#form-border-width, #form-border-radius, #form-border-color, input[name='border-gradient-type'], #form-border-gradient-rotation").on("input change", function () {
+  $("#form-border-round, #form-border-thickness, #form-border-main-color, #form-border-inner-color, #form-border-inner-thickness, #form-border-outer-color, #form-border-outer-thickness, input[name='border-gradient-type'], #form-border-gradient-rotation, #form-decoration-top-enabled, #form-decoration-bottom-enabled").on("input change", function () {
     const borderEnabled = $("#form-border-enabled").is(":checked");
     if (borderEnabled) {
       renderQRCode(); // Regenerate for border changes
-    } else {
-      updateQR();
     }
   });
 
@@ -564,7 +576,6 @@ $(document).ready(async function () {
         showError("Primero debe generar un código QR");
       }
     } catch (error) {
-      console.error("Error downloading QR:", error);
       showError("Error al descargar el código QR");
     }
   });
@@ -604,10 +615,7 @@ $(document).ready(async function () {
 
   // Check if QR Border Plugin is loaded
   function checkPluginStatus() {
-    if (window.QRBorderPlugin) {
-      console.log('QR Border Plugin is available');
-    } else {
-      console.warn('QR Border Plugin not found. Make sure to include the plugin script.');
+    if (!window.QRBorderPlugin) {
       showError('Advertencia: Plugin de bordes no encontrado. Algunos efectos de borde podrían no funcionar.');
     }
   }
@@ -629,22 +637,33 @@ $(document).ready(async function () {
 
   // Add options to top decoration type select
   $('#form-decoration-top-type')
-    .append('<option value="text">' + (setText("text") || "Text") + '</option>')
-    .append('<option value="image">' + (setText("img") || "Image") + '</option>');
+    .append('<option value="text">' + (getText("text") || "Text") + '</option>')
+    .append('<option value="image">' + (getText("img") || "Image") + '</option>');
 
   // Add options to bottom decoration type select
   $('#form-decoration-bottom-type')
-    .append('<option value="text">' + (setText("text") || "Text") + '</option>')
-    .append('<option value="image">' + (setText("img") || "Image") + '</option>');
+    .append('<option value="text">' + (getText("text") || "Text") + '</option>')
+    .append('<option value="image">' + (getText("img") || "Image") + '</option>');
   
   $("#form-dots-type")
-    .append('<option value="square">' + (setText("squ") || "Square") + '</option>')
-    .append('<option value="dots">' + (setText("dot") || "Dots") + '</option>')
-    .append('<option value="rounded">' + (setText("rnd") || "Rounded") + '</option>')
-    .append('<option value="extra-rounded">' + (setText("xtra_rnd") || "Extra rounded") + '</option>')
-    .append('<option value="classy">' + (setText("cls") || "Classy") + '</option>')
-    .append('<option value="classy-rounded">' + (setText("cls_rnd") || "Classy rounded") + '</option>');
-});
+    .append('<option value="square">' + (getText("squ") || "Square") + '</option>')
+    .append('<option value="dots">' + (getText("dots") || "Dots") + '</option>')
+    .append('<option value="rounded">' + (getText("rnd") || "Rounded") + '</option>')
+    .append('<option value="extra-rounded">' + (getText("xtra_rnd") || "Extra rounded") + '</option>')
+    .append('<option value="classy">' + (getText("cls") || "Classy") + '</option>')
+    .append('<option value="classy-rounded">' + (getText("cls_rnd") || "Classy rounded") + '</option>');
+
+  $("#form-corners-square-type")
+    .append('<option value="">' + (getText("none") || "None") + '</option>')
+    .append('<option value="square">' + (getText("squ") || "Square") + '</option>')
+    .append('<option value="dots">' + (getText("dot") || "Dot") + '</option>')
+    .append('<option value="extra-rounded">' + (getText("xtra_rnd") || "Extra rounded") + '</option>')
+  
+  $("#form-corners-dot-type")
+    .append('<option value="">' + (getText("none") || "None") + '</option>')
+    .append('<option value="square">' + (getText("squ") || "Square") + '</option>')
+    .append('<option value="dots">' + (getText("dot") || "Dot") + '</option>');
+
 [
   "title_qr","dl_qr","ext_qr","main_options_qr","data_qr",
   "image_file_qr","btn_canc_qr","width_qr","height_qr","margin_qr",
@@ -655,11 +674,20 @@ $(document).ready(async function () {
   "btm_bdr_deco_typ_qr","btm_bdr_text_qr","btm_bdr_font_sz_qr","btm_bdr_font_fam_qr","btm_bdr_font_fam_qr",
   "btm_bdr_txt_col_qr","btm_bdr_img_url_qr","btm_bdr_img_w_qr","btm_bdr_img_h_qr","dots_options_qr",
   "dots_st_qr","col_typ_qr","sg_col_qr","col_grad_qr","dot_col_qr",
+  "dot_grad_qr","cors_squ_opt_qr","cors_squ_st_qr","cors_squ_col_qr","cors_squ_grad_qr",
 ].forEach(element => {
     setText(element);
 });
 setTextById("shp_typ_qr","cir_qr");
-
+[
+  "col_typ_qr","sg_col_qr","col_grad_qr","grad_typ_qr","linear",
+  "radial","rotation","clear"
+].forEach(type => {
+  setTextByClass(type)
+});
+[
+  {cls:"rotation", ph:"placeholder_zero_three_hundred_sixty_qr"},
+].forEach(({cls, ph}) => setInputPlaceholderByClass(cls, ph));
 [
   {id:"width_qr", ph:"placeholder_hundred_teenk_qr"},
   {id:"height_qr", ph:"placeholder_hundred_teenk_qr"},
@@ -679,3 +707,4 @@ setTextById("shp_typ_qr","cir_qr");
   {id:"btm_bdr_img_w_qr", ph:"placeholder_ten_five_hundred"},
   {id:"btm_bdr_img_h_qr", ph:"placeholder_ten_five_hundred"},
 ].forEach(({id, ph}) => setInputPlaceholder(id, ph));
+});

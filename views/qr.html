@@ -274,14 +274,14 @@
                         <select class="form-select" node="dotsOptions.type" id="form-dots-type"></select>
                       </div>
                       <div class="mb-3">
-                        <label id="col_typ_qr" class="form-label"></label>
+                        <label class="col_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.colorType.single" id="form-dots-color-type-single" type="radio" name="dots-color-type" checked="">
-                          <label id="sg_col_qr" class="form-check-label" for="form-dots-color-type-single"></label>
+                          <label class="sg_col_qr form-check-label" for="form-dots-color-type-single"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.colorType.gradient" id="form-dots-color-type-gradient" type="radio" name="dots-color-type">
-                          <label id="col_grad_qr" class="form-check-label" for="form-dots-color-type-gradient"></label>
+                          <label class="col_grad_qr form-check-label" for="form-dots-color-type-gradient"></label>
                         </div>
                       </div>
                       <div class="mb-3 dotsOptionsHelper.colorType.single">
@@ -290,25 +290,25 @@
                       </div>
                       <!-- Gradient options (hidden by default, shown via JS) -->
                       <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Gradient Type</label>
+                        <label class="grad_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.gradient.linear" id="form-dots-gradient-type-linear" type="radio" name="dots-gradient-type" checked="">
-                          <label class="form-check-label" for="form-dots-gradient-type-linear">Linear</label>
+                          <label class="linear form-check-label" for="form-dots-gradient-type-linear"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="dotsOptionsHelper.gradient.radial" id="form-dots-gradient-type-radial" type="radio" name="dots-gradient-type">
-                          <label class="form-check-label" for="form-dots-gradient-type-radial">Radial</label>
+                          <label class="radial form-check-label" for="form-dots-gradient-type-radial"></label>
                         </div>
                       </div>
                       <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Dots Gradient</label>
+                        <label id="dot_grad_qr" class="form-label"></label>
                         <div class="d-flex gap-2">
                           <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color1" type="color" value="#0d6efd">
                           <input class="form-control form-control-color" node="dotsOptionsHelper.gradient.color2" type="color" value="#0d6efd">
                         </div>
                       </div>
                       <div class="mb-3 dotsOptionsHelper.colorType.gradient d-none">
-                        <label for="form-dots-gradient-rotation" class="form-label">Rotation max 360</label>
+                        <label for="form-dots-gradient-rotation" class="rotation form-label"></label>
                         <input class="form-control" node="dotsOptionsHelper.gradient.rotation" id="form-dots-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
@@ -317,60 +317,53 @@
                 <!-- Corners Square Options -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingCornersSquare">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCornersSquare" aria-expanded="false" aria-controls="collapseCornersSquare">
-                          Corners Square Options
-                      </button>
+                    <button id="cors_squ_opt_qr" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCornersSquare" aria-expanded="false" aria-controls="collapseCornersSquare"></button>
                   </h2>
                   <div id="collapseCornersSquare" class="accordion-collapse collapse" aria-labelledby="headingCornersSquare" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3">
-                        <label for="form-corners-square-type" class="form-label">Corners Square Style</label>
-                        <select class="form-select" node="cornersSquareOptions.type" id="form-corners-square-type">
-                          <option value="">None</option>
-                          <option value="square">Square</option>
-                          <option value="dot">Dot</option>
-                          <option value="extra-rounded" selected="">Extra rounded</option>
-                        </select>
+                        <label id="cors_squ_st_qr" for="form-corners-square-type" class="form-label"></label>
+                        <select class="form-select" node="cornersSquareOptions.type" id="form-corners-square-type"></select>
                       </div>
                       <div class="mb-3">
-                        <label class="form-label">Color Type</label>
+                        <label class="col_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.colorType.single" id="form-corners-square-color-type-single" type="radio" name="corners-square-color-type" checked="">
-                          <label class="form-check-label" for="form-corners-square-color-type-single">Single color</label>
+                          <label class="sg_col_qr form-check-label" for="form-corners-square-color-type-single"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.colorType.gradient" id="form-corners-square-color-type-gradient" type="radio" name="corners-square-color-type">
-                          <label class="form-check-label" for="form-corners-square-color-type-gradient">Color gradient</label>
+                          <label class="col_grad_qr form-check-label" for="form-corners-square-color-type-gradient"></label>
                         </div>
                       </div>
                       <div class="mb-3 cornersSquareOptionsHelper.colorType.single">
-                        <label for="form-corners-square-color" class="form-label">Corners Square Color</label>
+                        <label id="cors_squ_col_qr" for="form-corners-square-color" class="form-label"></label>
                         <div class="input-group">
                           <input class="form-control form-control-color" node="cornersSquareOptions.color" id="form-corners-square-color" type="color" value="#000000">
-                          <button class="btn btn-outline-secondary" type="button" id="button-clear-corners-square-color">Clear</button>
+                          <button class="clear btn btn-outline-secondary" type="button" id="button-clear-corners-square-color"></button>
                         </div>
                       </div>
                       <!-- Gradient options (hidden by default, shown via JS) -->
                       <div class="mb-3 cornersSquareOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Gradient Type</label>
+                        <label class="grad_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.gradient.linear" id="form-corners-square-gradient-type-linear" type="radio" name="corners-square-gradient-type" checked="">
-                          <label class="form-check-label" for="form-corners-square-gradient-type-linear">Linear</label>
+                          <label class="linear form-check-label" for="form-corners-square-gradient-type-linear"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersSquareOptionsHelper.gradient.radial" id="form-corners-square-gradient-type-radial" type="radio" name="corners-square-gradient-type">
-                          <label class="form-check-label" for="form-corners-square-gradient-type-radial">Radial</label>
+                          <label class="radial form-check-label" for="form-corners-square-gradient-type-radial"></label>
                         </div>
                       </div>
                       <div class="mb-3 cornersSquareOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Corners Square Gradient</label>
+                        <label id="cors_squ_grad_qr" class="form-label"></label>
                         <div class="d-flex gap-2">
                           <input class="form-control form-control-color" node="cornersSquareOptionsHelper.gradient.color1" type="color" value="#000000">
                           <input class="form-control form-control-color" node="cornersSquareOptionsHelper.gradient.color2" type="color" value="#000000">
                         </div>
                       </div>
                       <div class="mb-3 cornersSquareOptionsHelper.colorType.gradient d-none">
-                        <label for="form-corners-square-gradient-rotation" class="form-label">Rotation max 360</label>
+                        <label for="form-corners-square-gradient-rotation" class="rotation form-label"></label>
                         <input class="form-control" node="cornersSquareOptionsHelper.gradient.rotation" id="form-corners-square-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
@@ -387,40 +380,36 @@
                     <div class="accordion-body">
                       <div class="mb-3">
                         <label for="form-corners-dot-type" class="form-label">Corners Dot Style</label>
-                        <select class="form-select" node="cornersDotOptions.type" id="form-corners-dot-type">
-                          <option value="" selected="">None</option>
-                          <option value="square">Square</option>
-                          <option value="dot">Dot</option>
-                        </select>
+                        <select class="form-select" node="cornersDotOptions.type" id="form-corners-dot-type"></select>
                       </div>
                       <div class="mb-3">
-                        <label class="form-label">Color Type</label>
+                        <label class="col_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.colorType.single" id="form-corners-dot-color-type-single" type="radio" name="corners-dot-color-type" checked="">
-                          <label class="form-check-label" for="form-corners-dot-color-type-single">Single color</label>
+                          <label class="sg_col_qr form-check-label" for="form-corners-dot-color-type-single"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.colorType.gradient" id="form-corners-dot-color-type-gradient" type="radio" name="corners-dot-color-type">
-                          <label class="form-check-label" for="form-corners-dot-color-type-gradient">Color gradient</label>
+                          <label class="col_grad_qr form-check-label" for="form-corners-dot-color-type-gradient"></label>
                         </div>
                       </div>
                       <div class="mb-3 cornersDotOptionsHelper.colorType.single">
                         <label for="form-corners-dot-color" class="form-label">Corners Dot Color</label>
                         <div class="input-group">
                           <input class="form-control form-control-color" node="cornersDotOptions.color" id="form-corners-dot-color" type="color" value="#000000">
-                          <button class="btn btn-outline-secondary" type="button" id="button-clear-corners-dot-color">Clear</button>
+                          <button class="clear btn btn-outline-secondary" type="button" id="button-clear-corners-dot-color"></button>
                         </div>
                       </div>
                       <!-- Gradient options (hidden by default, shown via JS) -->
                       <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Gradient Type</label>
+                        <label class="grad_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.gradient.linear" id="form-corners-dot-gradient-type-linear" type="radio" name="corners-dot-gradient-type" checked="">
-                          <label class="form-check-label" for="form-corners-dot-gradient-type-linear">Linear</label>
+                          <label class="linear form-check-label" for="form-corners-dot-gradient-type-linear"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="cornersDotOptionsHelper.gradient.radial" id="form-corners-dot-gradient-type-radial" type="radio" name="corners-dot-gradient-type">
-                          <label class="form-check-label" for="form-corners-dot-gradient-type-radial">Radial</label>
+                          <label class="radial form-check-label" for="form-corners-dot-gradient-type-radial"></label>
                         </div>
                       </div>
                       <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
@@ -431,7 +420,7 @@
                         </div>
                       </div>
                       <div class="mb-3 cornersDotOptionsHelper.colorType.gradient d-none">
-                        <label for="form-corners-dot-gradient-rotation" class="form-label">Rotation max 360</label>
+                        <label for="form-corners-dot-gradient-rotation" class="rotation form-label"></label>
                         <input class="form-control" node="cornersDotOptionsHelper.gradient.rotation" id="form-corners-dot-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
@@ -447,14 +436,14 @@
                   <div id="collapseBackground" class="accordion-collapse collapse" aria-labelledby="headingBackground" data-bs-parent="#qrAccordion">
                     <div class="accordion-body">
                       <div class="mb-3">
-                        <label class="form-label">Color Type</label>
+                        <label class="col_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.colorType.single" id="form-background-color-type-single" type="radio" name="background-color-type" checked="">
-                          <label class="form-check-label" for="form-background-color-type-single">Single color</label>
+                          <label class="sg_col_qr form-check-label" for="form-background-color-type-single"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.colorType.gradient" id="form-background-color-type-gradient" type="radio" name="background-color-type">
-                          <label class="form-check-label" for="form-background-color-type-gradient">Color gradient</label>
+                          <label class="col_grad_qr form-check-label" for="form-background-color-type-gradient"></label>
                         </div>
                       </div>
                       <div class="mb-3 backgroundOptionsHelper.colorType.single">
@@ -463,14 +452,14 @@
                       </div>
                       <!-- Gradient options (hidden by default, shown via JS) -->
                       <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
-                        <label class="form-label">Gradient Type</label>
+                        <label class="grad_typ_qr form-label"></label>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.gradient.linear" id="form-background-gradient-type-linear" type="radio" name="background-gradient-type" checked="">
-                          <label class="form-check-label" for="form-background-gradient-type-linear">Linear</label>
+                          <label class="linear form-check-label" for="form-background-gradient-type-linear"></label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" node-data-field="checked" node="backgroundOptionsHelper.gradient.radial" id="form-background-gradient-type-radial" type="radio" name="background-gradient-type">
-                          <label class="form-check-label" for="form-background-gradient-type-radial">Radial</label>
+                          <label class="radial form-check-label" for="form-background-gradient-type-radial"></label>
                         </div>
                       </div>
                       <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
@@ -481,7 +470,7 @@
                         </div>
                       </div>
                       <div class="mb-3 backgroundOptionsHelper.colorType.gradient d-none">
-                        <label for="form-background-gradient-rotation" class="form-label">Rotation Max 360</label>
+                        <label for="form-background-gradient-rotation" class="rotation form-label"></label>
                         <input class="form-control" node="backgroundOptionsHelper.gradient.rotation" id="form-background-gradient-rotation" type="number" min="0" max="360" value="0">
                       </div>
                     </div>
