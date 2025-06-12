@@ -22,13 +22,16 @@ if (lang !== 'es-MX') {
   // Código para México
   $('#country_pc').parent().hide();
   
-  // Llenar estados de México
-  const mexicoStates = zippopotamData.mx.states || [];
   const $estados = $('#st_pc');
   $estados.html('<option value="">Selecciona un estado</option>');
-  
-  mexicoStates.forEach(({ code, name }) => {
-    $estados.append(`<option value="${code}">${name}</option>`);
+
+  $.getJSON('/json/country.json', function(data) {
+    const mexicoStates = data.mx.states || [];
+    mexicoStates.forEach(({ name, num }) => {
+      $estados.append(`<option value="${num}">${name}</option>`);
+    });
+  }).fail(function() {
+    $('#cntry_pc').html('<option>Error al cargar países</option>');
   });
 }
 

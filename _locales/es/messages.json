@@ -129,7 +129,6 @@
   "opt_qr": {"message": "Opciones de QR"},
   "typ_num_qr": {"message": "Tipo de Número"},
   "err_corr_lvl_qr": {"message": "Nivel de Corrección de Errores"},
-  
   "placeholder_hundred_teenk_qr":{"message": "min:100 max:10000"},
   "placeholder_zero_teenk_qr": {"message": "min:0 max:10000"},
   "placeholder_one_two_hundred_qr": {"message": "min:1 max:200"},
