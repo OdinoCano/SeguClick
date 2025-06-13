@@ -12,7 +12,7 @@ $('#btn_cnv_wmk').on('click', async function () {
 
     pages.forEach(page => {
       const { width, height } = page.getSize();
-      const text = "PRE-POLIZA";
+      const text = $("#watermarkText").val().trim();
       const fontSize = 78;
       const grades = 45;
 
@@ -47,7 +47,8 @@ $('#btn_cnv_wmk').on('click', async function () {
 });
 
 [
-  "title_wmk", "description_wmk", "btn_cnv_wmk", "btn_dl_wmk"
+  "title_wmk","description_wmk","txt_wmk","btn_cnv_wmk","btn_dl_wmk"
 ].forEach(element => {
     setText(element);
 });
+setInputPlaceholder("txt_wmk","txt_wmk");

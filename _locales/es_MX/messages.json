@@ -155,6 +155,7 @@
   "search_btn_pc":{"message":"Buscar"},
   "title_wmk":{"message":"Subir PDF y agregar marca de agua"},
   "description_wmk":{"message":"Selecciona un archivo PDF"},
+  "txt_wmk":{"message":"Texto de marca de agua"},
   "btn_cnv_wmk":{"message":"Agregar Marca de Agua"},
   "btn_dl_wmk":{"message":"Descargar PDF"},
   "btn_dnt":{"message":"Inv&iacute;tame un café con PayPal"}, 

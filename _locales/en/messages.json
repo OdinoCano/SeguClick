@@ -155,6 +155,7 @@
   "search_btn_pc":{"message":"Search"},
   "title_wmk":{"message":"Upload PDF and add watermark"},
   "description_wmk":{"message":"Select a PDF file"},
+  "txt_wmk":{"message":"Watermark text"},
   "btn_cnv_wmk":{"message":"Add Watermark"},
   "btn_dl_wmk":{"message":"Download PDF"},
   "btn_dnt":{"message":"Buy me a coffee with PayPal"},
