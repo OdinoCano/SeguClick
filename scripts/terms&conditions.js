@@ -12,14 +12,14 @@ $("#terms_form").on("click",(e)=>{
 function loadChanges() {
   storage.get('t&c', function(items) {
     if (items['t&c']) {
-      window.location.href = "/views/img2pdf.html";
+      window.location.href = "/views/qr.html";
     }
   });
 }
 
 function saveChanges(key, value) {
   storage.set({ [key] : value}, function() {
-    window.location.href = "/views/img2pdf.html";
+    window.location.href = "/views/qr.html";
   });
 }
 
