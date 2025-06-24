@@ -98,6 +98,7 @@ class UniversalContextDetector {
     this.isServiceWorker = typeof importScripts === 'function';
     this.testId = 0;
     this.keepAlivePort = null;
+    this.isTestingInProgress = false; // Evitar múltiples pruebas simultáneas
   }
 
   mantenerContextoActivo() {
@@ -110,35 +111,61 @@ class UniversalContextDetector {
   }
 
   detectarPerdidaContexto(callback) {
+    // Evitar múltiples pruebas simultáneas
+    if (this.isTestingInProgress) {
+      callback(false, { motivo: "Prueba ya en progreso", testId: this.testId });
+      return;
+    }
+
+    this.isTestingInProgress = true;
     this.mantenerContextoActivo();
     const testId = ++this.testId;
     const startTime = performance.now();
     
-    if (typeof document === 'undefined') {
-      callback(true, {motivo: "Sin documento", testId});
+    // Si no hay documento, definitivamente hay problema
+    if (typeof document === 'undefined' || !document.body) {
+      this.isTestingInProgress = false;
+      callback(true, {motivo: "Sin documento o body", testId});
+      return;
+    }
+
+    // Verificar si ya perdimos el contexto básico
+    try {
+      const testDiv = document.createElement("div");
+      document.body.appendChild(testDiv);
+      document.body.removeChild(testDiv);
+    } catch (error) {
+      this.isTestingInProgress = false;
+      callback(true, {motivo: "No se puede manipular DOM", error: error.message, testId});
       return;
     }
 
     const input = document.createElement("input");
     input.type = "file";
-    input.style.cssText = "position:absolute;left:-9999px;opacity:0;pointer-events:none;";
-    document.body.appendChild(input);
-
+    input.style.cssText = "position:absolute;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;";
+    
     let eventoRecibido = false;
     let timeoutId;
+    let interactionTimeout;
 
     const finalizar = (perdido, detalles = {}) => {
       if (eventoRecibido) return;
       eventoRecibido = true;
+      this.isTestingInProgress = false;
       
       clearTimeout(timeoutId);
-      try {
-        document.body.removeChild(input);
-      } catch (e) {}
+      clearTimeout(interactionTimeout);
       
-      if (this.keepAlivePort) {
-        this.keepAlivePort.disconnect();
-        this.keepAlivePort = null;
+      // Limpiar event listeners
+      window.removeEventListener('blur', blurHandler);
+      window.removeEventListener('focus', focusHandler);
+      
+      try {
+        if (input.parentNode) {
+          document.body.removeChild(input);
+        }
+      } catch (e) {
+        console.warn("Error removiendo input:", e);
       }
       
       callback(perdido, {
@@ -148,41 +175,102 @@ class UniversalContextDetector {
       });
     };
 
-    // Eventos de éxito
-    input.addEventListener('change', () => finalizar(false, {evento: 'change'}), {once: true});
-    
-    // Detectar cancelación (universal)
-    const cancelHandler = () => setTimeout(() => {
-      if (!eventoRecibido) finalizar(false, {evento: 'cancel'});
-    }, 300);
-    
-    window.addEventListener('blur', cancelHandler, {once: true});
-    window.addEventListener('focus', cancelHandler, {once: true});
+    let userInteracted = false;
+    let blurDetected = false;
 
-    // Timeout para pérdida de contexto
+    // Detectar interacción del usuario
+    const blurHandler = () => {
+      blurDetected = true;
+      // Dar tiempo para que aparezca el diálogo
+      interactionTimeout = setTimeout(() => {
+        if (!userInteracted && !eventoRecibido) {
+          // Si hay blur pero no hay cambio en el input, el usuario canceló
+          finalizar(false, {evento: 'user_cancelled', blur: true});
+        }
+      }, 500); // Tiempo más generoso para la interacción
+    };
+
+    const focusHandler = () => {
+      if (blurDetected && !userInteracted) {
+        // Usuario regresó sin seleccionar archivo = cancelación
+        setTimeout(() => {
+          if (!userInteracted && !eventoRecibido) {
+            finalizar(false, {evento: 'focus_return_cancel'});
+          }
+        }, 100);
+      }
+    };
+
+    // Eventos de éxito - usuario seleccionó archivo
+    input.addEventListener('change', (e) => {
+      userInteracted = true;
+      finalizar(false, {evento: 'change', files: e.target.files.length});
+    }, {once: true});
+
+    // Detectar cancelación por otros medios
+    input.addEventListener('cancel', () => {
+      userInteracted = true;
+      finalizar(false, {evento: 'cancel_event'});
+    }, {once: true});
+
+    window.addEventListener('blur', blurHandler);
+    window.addEventListener('focus', focusHandler);
+
+    // Timeout más largo para dar tiempo real al usuario
     timeoutId = setTimeout(() => {
       const visible = document.visibilityState === 'visible';
-      finalizar(true, {
-        motivo: visible ? "Timeout con documento visible" : "Contexto cerrado",
-        visibilityState: document.visibilityState
-      });
-    }, 1000); // 3s es suficiente para sistemas rápidos
+      const hasBody = !!document.body;
+      
+      // Solo considerar contexto perdido si hay evidencia real
+      if (!hasBody || document.visibilityState === 'hidden') {
+        finalizar(true, {
+          motivo: "Contexto realmente perdido",
+          visibilityState: document.visibilityState,
+          hasBody
+        });
+      } else {
+        // Si el documento sigue visible y funcional, probablemente el usuario solo tardó
+        finalizar(false, {
+          motivo: "Timeout pero contexto aparentemente funcional",
+          visibilityState: document.visibilityState
+        });
+      }
+    }, 5000); // Timeout más generoso
 
-    // Intentar abrir selector
+    // Agregar el input al DOM antes de hacer click
     try {
-      input.click();
+      document.body.appendChild(input);
+      
+      // Pequeña pausa para asegurar que el elemento esté en el DOM
+      setTimeout(() => {
+        try {
+          input.click();
+        } catch (error) {
+          finalizar(true, {motivo: "Error al abrir selector", error: error.message});
+        }
+      }, 50);
+      
     } catch (error) {
-      finalizar(true, {motivo: "Error al abrir selector", error: error.message});
+      finalizar(true, {motivo: "Error agregando input al DOM", error: error.message});
     }
   }
 }
 
-// Función optimizada para tu caso de uso
+// Función optimizada con mejor lógica
 function probarSelectorArchivos(callback) {
   const detector = new UniversalContextDetector();
   
   detector.detectarPerdidaContexto((perdido, detalles) => {
-    console.log(`Resultado prueba: ${perdido ? "CONTEXTO PERDIDO" : "Éxito"}`, detalles);
-    callback(!perdido);
+    console.log(`🔍 Prueba contexto: ${perdido ? "❌ PERDIDO" : "✅ FUNCIONAL"}`, detalles);
+    
+    // Solo reportar contexto perdido si hay evidencia real
+    const realmentePerdido = perdido && (
+      detalles.motivo.includes("Sin documento") ||
+      detalles.motivo.includes("manipular DOM") ||
+      detalles.motivo.includes("Error al") ||
+      detalles.visibilityState === 'hidden'
+    );
+    
+    callback(!realmentePerdido);
   });
 }

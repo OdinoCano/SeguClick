@@ -7,28 +7,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Solo ejecutar la prueba si NO estamos en una ventana de fallback
   if (!isFallbackWindow) {
+    console.log("🚀 Iniciando verificación de contexto...");
+    
     probarSelectorArchivos((funciona) => {
-      if (!funciona) {
-        console.warn("⚠️ El contexto actual se perdió. Creando ventana segura...");
+      if (funciona) {
+        console.log("✅ Contexto funcional - continuando en ventana actual");
+        // El contexto funciona, continuar normalmente
+        main.show();
+      } else {
+        console.warn("⚠️ Contexto perdido confirmado. Creando ventana segura...");
         main.hide();
+        
         // Crear nueva ventana con marca de fallback
         chrome.windows.create({
           url: chrome.runtime.getURL("/views/cnv_img2pdf.html") + "?fallback=true",
           type: "popup",
           width: 600,
           height: 700,
-          left: Math.floor(screen.width - 650)
+          left: Math.floor((screen.width - 600) / 2), // Centrar mejor
+          top: Math.floor((screen.height - 700) / 2)
         }, (newWindow) => {
-        // Conéctate al background script para mantenerlo activo
-        const port = chrome.runtime.connect({ name: "fallbackWindow" });
-        
-        // Cuando la ventana se cierre, desconecta
-        window.addEventListener("beforeunload", () => {
-          port.disconnect();
+          if (newWindow) {
+            console.log("🆕 Ventana de fallback creada:", newWindow.id);
+            
+            // Conectar al background script para mantenerlo activo
+            const port = chrome.runtime.connect({ name: "fallbackWindow" });
+            
+            // Cuando esta ventana se cierre, desconectar
+            window.addEventListener("beforeunload", () => {
+              port.disconnect();
+            });
+            
+            // Cerrar la ventana actual después de un momento
+            setTimeout(() => {
+              window.close();
+            }, 1000);
+          }
         });
-      });
       }
     });
+  } else {
+    console.log("📱 Ejecutando en ventana de fallback");
+    main.show(); // Mostrar contenido en ventana de fallback
   }
 
   $('#imageToPdfForm').on('submit', async function(e) {
