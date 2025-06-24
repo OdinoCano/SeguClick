@@ -1,4 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Verificar si estamos en una ventana de fallback
+  const isFallbackWindow = window.location.search.includes('fallback=true');
+  
+  // Elemento principal
+  const main = $("#main");
+
+  // Solo ejecutar la prueba si NO estamos en una ventana de fallback
+  if (!isFallbackWindow) {
+    probarSelectorArchivos((funciona) => {
+      if (!funciona) {
+        console.warn("⚠️ El contexto actual se perdió. Creando ventana segura...");
+        main.hide();
+        // Crear nueva ventana con marca de fallback
+        chrome.windows.create({
+          url: chrome.runtime.getURL("/views/cnv_img2pdf.html") + "?fallback=true",
+          type: "popup",
+          width: 600,
+          height: 700,
+          left: Math.floor(screen.width - 650)
+        }, (newWindow) => {
+        // Conéctate al background script para mantenerlo activo
+        const port = chrome.runtime.connect({ name: "fallbackWindow" });
+        
+        // Cuando la ventana se cierre, desconecta
+        window.addEventListener("beforeunload", () => {
+          port.disconnect();
+        });
+      });
+      }
+    });
+  }
+
   $('#imageToPdfForm').on('submit', async function(e) {
     e.preventDefault();
     const files = $('#images')[0].files;
@@ -70,22 +102,5 @@ document.addEventListener("DOMContentLoaded", function () {
     s.src = src;
     s.defer = true;
     document.head.appendChild(s);
-  });
-
-  probarSelectorArchivos((funciona) => {
-    const main = $("#main");
-    const fileInput = (main.length > 0) ? main[0] : null;
-    const file = fileInput && fileInput.files ? fileInput.files[0] : null;
-    console.log('Archivo seleccionado:', file);
-    if (!funciona) {
-      console.warn("⚠️ El popup o script perdió el hilo al abrir el selector.");
-      main.hide();
-      chrome.windows.create({
-        url: "/views/cnv_img2pdf.html",
-        type: "popup",
-        width: 600,
-        height: 700
-      });
-    }
   });
 });
