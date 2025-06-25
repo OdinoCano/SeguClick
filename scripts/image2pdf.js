@@ -6,10 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const main = $("#main");
 
   // Solo ejecutar la prueba si NO estamos en una ventana de fallback
+  /*
   if (!isFallbackWindow) {
     console.log("🚀 Iniciando verificación de contexto...");
     
     probarSelectorArchivos((funciona) => {
+      console.log(funciona)
       if (funciona) {
         console.log("✅ Contexto funcional - continuando en ventana actual");
         // El contexto funciona, continuar normalmente
@@ -46,10 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     });
-  } else {
-    console.log("📱 Ejecutando en ventana de fallback");
-    main.show(); // Mostrar contenido en ventana de fallback
-  }
+  }//*/
 
   $('#imageToPdfForm').on('submit', async function(e) {
     e.preventDefault();

@@ -110,8 +110,7 @@ class UniversalContextDetector {
     }
   }
 
-  detectarPerdidaContexto(callback) {
-    // Evitar múltiples pruebas simultáneas
+  async detectarPerdidaContexto(callback) {
     if (this.isTestingInProgress) {
       callback(false, { motivo: "Prueba ya en progreso", testId: this.testId });
       return;
@@ -121,25 +120,27 @@ class UniversalContextDetector {
     this.mantenerContextoActivo();
     const testId = ++this.testId;
     const startTime = performance.now();
-    
-    // Si no hay documento, definitivamente hay problema
+
     if (typeof document === 'undefined' || !document.body) {
       this.isTestingInProgress = false;
-      callback(true, {motivo: "Sin documento o body", testId});
+      callback(true, { motivo: "Sin documento o body", testId });
       return;
     }
 
-    // Verificar si ya perdimos el contexto básico
     try {
       const testDiv = document.createElement("div");
       document.body.appendChild(testDiv);
       document.body.removeChild(testDiv);
     } catch (error) {
       this.isTestingInProgress = false;
-      callback(true, {motivo: "No se puede manipular DOM", error: error.message, testId});
+      callback(true, { motivo: "No se puede manipular DOM", error: error.message, testId });
       return;
     }
 
+    // Nuevo: Esperar a una interacción del usuario
+    await this.waitForUserInteraction();
+
+    // Resto del código original (creación del input y lógica de eventos)
     const input = document.createElement("input");
     input.type = "file";
     input.style.cssText = "position:absolute;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;";
@@ -240,23 +241,26 @@ class UniversalContextDetector {
     // Agregar el input al DOM antes de hacer click
     try {
       document.body.appendChild(input);
-      
-      // Pequeña pausa para asegurar que el elemento esté en el DOM
-      setTimeout(() => {
-        try {
-          input.click();
-        } catch (error) {
-          finalizar(true, {motivo: "Error al abrir selector", error: error.message});
-        }
-      }, 50);
-      
+      input.click(); // Ahora se ejecuta después de una interacción
     } catch (error) {
-      finalizar(true, {motivo: "Error agregando input al DOM", error: error.message});
+      finalizar(true, { motivo: "Error al abrir selector", error: error.message });
     }
+  }
+
+  waitForUserInteraction() {
+    return new Promise((resolve) => {
+      const handleInteraction = () => {
+        document.removeEventListener('click', handleInteraction);
+        document.removeEventListener('keydown', handleInteraction);
+        resolve();
+      };
+
+      document.addEventListener('click', handleInteraction, { once: true });
+      document.addEventListener('keydown', handleInteraction, { once: true });
+    });
   }
 }
 
-// Función optimizada con mejor lógica
 function probarSelectorArchivos(callback) {
   const detector = new UniversalContextDetector();
   
