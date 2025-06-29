@@ -1,4 +1,19 @@
 $(document).ready(async function () {
+  const scripts = [
+    "/scripts/bootstrap.bundle.5.3.6.min.js",
+    "/scripts/lottie-web.5.13.0.min.js",
+    "/scripts/menu.js",
+    "/scripts/qr-code-styling.1.9.2.js",
+    "/scripts/qr-border-plugin.0.1.1.js"
+  ];
+
+  scripts.forEach(src => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.defer = true;
+    document.head.appendChild(s);
+  });
+
   const waitForQRCode = () => new Promise(resolve => {
     const check = () => {
       if (window.QRCodeStyling) resolve();

@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const scripts = [
     "/scripts/bootstrap.bundle.5.3.6.min.js",
+    "/scripts/lottie-web.5.13.0.min.js",
     "/scripts/menu.js",
     "/scripts/jspdf.umd.3.0.1.min.js",
     "/scripts/background.js",

@@ -1,28 +1,43 @@
-var storage = chrome.storage.local;
+document.addEventListener("DOMContentLoaded", function () {
+  var storage = chrome.storage.local;
 
-loadChanges();
+  loadChanges();
 
-$("#terms_form").on("click",(e)=>{
-  e.preventDefault();
-  if ($("#accept_terms").is(":checked")) {
-    saveChanges('t&c', {"date":new Date().toISOString(),'userAgent': navigator.userAgent});
-  }
-})
-
-function loadChanges() {
-  storage.get('t&c', function(items) {
-    if (items['t&c']) {
-      window.location.href = "/views/qr.html";
+  $("#terms_form").on("click",(e)=>{
+    e.preventDefault();
+    if ($("#accept_terms").is(":checked")) {
+      saveChanges('t&c', {"date":new Date().toISOString(),'userAgent': navigator.userAgent});
     }
-  });
-}
+  })
 
-function saveChanges(key, value) {
-  storage.set({ [key] : value}, function() {
-    window.location.href = "/views/qr.html";
-  });
-}
+  function loadChanges() {
+    storage.get('t&c', function(items) {
+      if (items['t&c']) {
+        window.location.href = "/views/qr.html";
+      }
+    });
+  }
 
-["title_tnc","description_tnc","cb_accept_terms","terms_form","terms_content"].forEach(element => {
-    setText(element); 
+  function saveChanges(key, value) {
+    storage.set({ [key] : value}, function() {
+      window.location.href = "/views/qr.html";
+    });
+  }
+
+  ["title_tnc","description_tnc","cb_accept_terms","terms_form","terms_content"].forEach(element => {
+      setText(element);
+  });
+
+  const scripts = [
+    "/scripts/bootstrap.bundle.5.3.6.min.js",
+    "/scripts/lottie-web.5.13.0.min.js",
+    "/scripts/menu.js",
+  ];
+
+  scripts.forEach(src => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.defer = true;
+    document.head.appendChild(s);
+  });
 });

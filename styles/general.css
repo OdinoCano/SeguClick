@@ -1,0 +1,354 @@
+/* Modern QR Generator Styles */
+
+/* Variables CSS para consistencia de colores */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.15);
+  --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.25);
+  --border-radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fondo del body con gradiente animado */
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Efecto glassmorphism para el contenedor principal */
+.container-fluid {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Sidebar moderno con efecto glass */
+#menu-container {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+}
+
+#menu-container .nav-link {
+  border-radius: var(--border-radius);
+  margin: 0.5rem;
+  transition: var(--transition);
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+#menu-container .nav-link:hover {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  transform: translateX(5px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Título principal con efecto de texto moderno */
+#title_qr {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+#title_qr::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+/* Contenedor del QR con efecto de cristal */
+.qr-code-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+}
+
+.qr-code-container:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Estilo del canvas QR */
+#qr-code-generated canvas {
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+}
+
+#qr-code-generated canvas:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Botones modernos con gradientes */
+.btn-success {
+  background: var(--success-gradient);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  background: var(--success-gradient);
+}
+
+.btn-outline-secondary {
+  border: 2px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.btn-outline-secondary:hover {
+  background: var(--secondary-gradient);
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+/* Form controls modernos */
+.form-control, .form-select {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  transition: var(--transition);
+  color: #333;
+}
+
+.form-control:focus, .form-select:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  transform: translateY(-1px);
+}
+
+.form-control::placeholder {
+  color: rgba(51, 51, 51, 0.6);
+}
+
+/* Accordion moderno */
+.accordion {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.accordion-item {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  margin-bottom: 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.accordion-button {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  color: #333;
+  transition: var(--transition);
+}
+
+.accordion-button:not(.collapsed) {
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+}
+
+.accordion-body {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+}
+
+/* Cards para decoraciones */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+  background: rgba(102, 126, 234, 0.1);
+  border-bottom: 1px solid var(--glass-border);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* Form checks y switches modernos */
+.form-check-input {
+  border-radius: 8px;
+  border: 2px solid var(--glass-border);
+  background: var(--glass-bg);
+  transition: var(--transition);
+}
+
+.form-check-input:checked {
+  background: var(--primary-gradient);
+  border-color: transparent;
+}
+
+.form-switch .form-check-input {
+  border-radius: 2rem;
+  background: var(--glass-bg);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--success-gradient);
+}
+
+/* Labels y texto */
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+/* Input groups */
+.input-group {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.input-group .form-control {
+  border-right: none;
+  border-radius: 0;
+}
+
+.input-group .btn {
+  border-radius: 0;
+}
+
+/* Color inputs especiales */
+.form-control-color {
+  width: 60px;
+  height: 45px;
+  border-radius: 12px;
+  border: 2px solid var(--glass-border);
+  transition: var(--transition);
+}
+
+.form-control-color:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Spinner de carga */
+.spinner-border {
+  color: #667eea;
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Efectos de hover generales */
+.btn, .form-control, .form-select, .card {
+  cursor: pointer;
+}
+
+/* Animaciones suaves para todos los elementos interactivos */
+* {
+  transition: var(--transition);
+}
+
+/* Responsividad mejorada */
+@media (max-width: 768px) {
+  #title_qr {
+    font-size: 2rem;
+  }
+  
+  .qr-code-container {
+    padding: 1rem;
+  }
+  
+  #menu-container {
+    position: relative;
+    background: var(--glass-bg) !important;
+  }
+}
+
+/* Efectos adicionales para mejor UX */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--glass-bg);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-gradient);
+}
