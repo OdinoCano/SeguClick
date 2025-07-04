@@ -13,7 +13,7 @@ $(document).ready(function() {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            path: '/images/img2pdf.json' // the path to the animation json
+            path: '/json/img2pdf.json' // the path to the animation json
           });
           // ▶️ Reproducir cuando pasa el cursor
           $img2pdf.addEventListener('mouseenter', () => {
@@ -34,7 +34,7 @@ $(document).ready(function() {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            path: '/images/utr.json' // the path to the animation json
+            path: '/json/utr.json' // the path to the animation json
           });
           // ▶️ Reproducir cuando pasa el cursor
           $utr.addEventListener('mouseenter', () => {
@@ -55,7 +55,7 @@ $(document).ready(function() {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            path: '/images/qr.json', // the path to the animation json
+            path: '/json/qr_white.json', // the path to the animation json
             rendererSettings: {
               scaleMode: 'noScale',
               preserveAspectRatio: 'xMidYMid meet',
@@ -86,7 +86,7 @@ $(document).ready(function() {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            path: '/images/pc.json' // the path to the animation json
+            path: '/json/pc.json' // the path to the animation json
           });
           // ▶️ Reproducir cuando pasa el cursor
           $pc.addEventListener('mouseenter', () => {
@@ -107,7 +107,7 @@ $(document).ready(function() {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            path: '/images/watermark.json' // the path to the animation json
+            path: '/json/watermark.json' // the path to the animation json
           });
           // ▶️ Reproducir cuando pasa el cursor
           $watermark.addEventListener('mouseenter', () => {
@@ -128,7 +128,7 @@ $(document).ready(function() {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            path: '/images/comments.json' // the path to the animation json
+            path: '/json/comments.json' // the path to the animation json
           });
           // ▶️ Reproducir cuando pasa el cursor
           $comments.addEventListener('mouseenter', () => {
@@ -149,7 +149,7 @@ $(document).ready(function() {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            path: '/images/donate.json' // the path to the animation json
+            path: '/json/donate.json' // the path to the animation json
           });
           // ▶️ Reproducir cuando pasa el cursor
           $donate.addEventListener('mouseenter', () => {
