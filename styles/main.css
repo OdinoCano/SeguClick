@@ -1,44 +1,4 @@
-/* Estilo del sidebar */
-#sidebarMenu {
-  background-color: #1e293b;
-  padding-top: 1rem;
-}
-
-/* Estilo de enlaces del menú */
-#sidebarMenu .nav-link {
-  font-size: 0.95rem;
-  padding: 10px 15px;
-  border-radius: 0.25rem;
-  transition: background-color 0.3s ease;
-}
-
-#sidebarMenu .nav-link:hover {
-  background-color: #334155;
-  color: #fff;
-}
-
-/* Estilo del enlace activo */
-#sidebarMenu .nav-link.active {
-  background-color: #2563eb;
-  color: #fff;
-}
-
-body {
-    background-color: #fcfbfa;
-    color: #22223b;
-    font-family: "Georgia", "Times New Roman", Times, serif;
-    font-size: 100%;
-    line-height: 1.7;
-    min-height: 100vh;
-    overflow: hidden;
-    min-width: 750px;
-    width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    position: inherit;
-}
-
-/* Paleta de colores formal y elegante */
+/* Paleta de colores neumórfica moderna */
 :root {
     color-scheme: light;
     --color-gray-100: #22223b;
@@ -46,4 +6,306 @@ body {
     --color-accent-2: #9a8c98;
     --color-accent-3: #c9ada7;
     --color-accent-4: #f2e9e4;
+    
+    /* Efectos neumórficos */
+    --neu-shadow-light: #ffffff;
+    --neu-shadow-dark: #c2c8d0;
+    --neu-shadow-main: 10px 10px 30px var(--neu-shadow-dark), -10px -10px 30px var(--neu-shadow-light);
+    --neu-shadow-small: 6px 6px 10px var(--neu-shadow-dark), -6px -6px 10px var(--neu-shadow-light);
+    --neu-shadow-inset: inset 4px 4px 6px #c8ccd1, inset -4px -4px 6px #f0f5fa;
+    --neu-shadow-active: inset 2px 2px 5px #bec4cb, inset -2px -2px 5px #f0f5fa;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #e0e5ec;
+    color: var(--color-gray-100);
+    font-size: 100%;
+    line-height: 1.7;
+    min-height: 100vh;
+    min-width: 750px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Estilo del sidebar con neumorfismo */
+#sidebarMenu {
+    background: #e0e5ec;
+    padding-top: 1rem;
+    box-shadow: var(--neu-shadow-main);
+    border-radius: 0 20px 20px 0;
+    position: fixed;
+    min-height: 100vh;
+    width: 250px;
+    z-index: 1000;
+}
+
+/* Estilo de enlaces del menú */
+#sidebarMenu .nav-link {
+    font-size: 0.95rem;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    color: var(--color-gray-100);
+    background: #e0e5ec;
+    border: none;
+    box-shadow: var(--neu-shadow-small);
+    margin: 4px 8px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+#sidebarMenu .nav-link:hover {
+    background: #d6dce4;
+    color: var(--color-gray-100);
+    transform: translateY(-2px);
+}
+
+/* Estilo del enlace activo */
+#sidebarMenu .nav-link.active {
+    background: #d1d9e6;
+    color: var(--color-gray-100);
+    font-weight: 600;
+    box-shadow: var(--neu-shadow-active);
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    min-height: 100vh;
+    background: #e0e5ec;
+}
+
+/* Contenedores neumórficos */
+.container {
+    background: #e0e5ec;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--neu-shadow-main);
+    margin: 20px 0;
+    width: auto;
+}
+
+/* Tabs neumórficos */
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #e0e5ec;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
+    color: var(--color-gray-100);
+    box-shadow: var(--neu-shadow-small);
+    margin: 0 2px;
+}
+
+.tabs button.active {
+    background: #d1d9e6;
+    box-shadow: var(--neu-shadow-active);
+}
+
+.tabs button:hover {
+    background: #d6dce4;
+}
+
+/* Formularios */
+.form {
+    display: none;
+    flex-direction: column;
+}
+
+.form.active {
+    display: flex;
+}
+
+/* Inputs neumórficos */
+input, select, textarea {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #e0e5ec;
+    box-shadow: var(--neu-shadow-inset);
+    color: var(--color-gray-100);
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    box-shadow: var(--neu-shadow-inset), 0 0 0 3px rgba(74, 78, 105, 0.2);
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--color-accent-2);
+}
+
+/* Botones neumórficos */
+.btn {
+    margin-top: 10px;
+    padding: 12px;
+    background: #e0e5ec;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: var(--neu-shadow-small);
+    transition: 0.3s;
+    color: var(--color-gray-100);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    background: #d6dce4;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    box-shadow: var(--neu-shadow-active);
+    transform: translateY(0);
+}
+
+/* Separador */
+.or {
+    text-align: center;
+    margin: 15px 0 10px;
+    font-size: 0.85em;
+    color: var(--color-accent-2);
+}
+
+/* Botones sociales */
+.socials {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.social {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #e0e5ec;
+    box-shadow: var(--neu-shadow-small);
+    font-size: 1.2em;
+    cursor: pointer;
+    color: var(--color-gray-100);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social:hover {
+    background: #d6dce4;
+    transform: translateY(-2px);
+}
+
+.social:active {
+    box-shadow: var(--neu-shadow-active);
+    transform: translateY(0);
+}
+
+/* Cards con estilo neumórfico */
+.card {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: var(--neu-shadow-main);
+    border: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: #e0e5ec;
+    padding: 1.5rem;
+    font-weight: 600;
+    color: var(--color-gray-100);
+    border-bottom: 1px solid var(--color-accent-4);
+    box-shadow: var(--neu-shadow-inset);
+}
+
+.card-body {
+    padding: 1.5rem;
+    background: #e0e5ec;
+}
+
+/* Tablas neumórficas */
+.table {
+    background: #e0e5ec;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--neu-shadow-main);
+    border: none;
+}
+
+.table th {
+    background: #e0e5ec;
+    border: none;
+    color: var(--color-gray-100);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    box-shadow: var(--neu-shadow-inset);
+}
+
+.table td {
+    border: none;
+    padding: 1rem;
+    color: var(--color-gray-100);
+    background: #e0e5ec;
+}
+
+.table-hover tbody tr:hover {
+    background: #d6dce4;
+    transform: scale(1.01);
+}
+
+/* Badges neumórficos */
+.badge {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: var(--neu-shadow-small);
+    background: #e0e5ec;
+    color: var(--color-gray-100);
+    border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #sidebarMenu {
+        margin-left: -250px;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .container {
+        width: 90%;
+        max-width: 300px;
+        margin: 20px auto;
+    }
 }

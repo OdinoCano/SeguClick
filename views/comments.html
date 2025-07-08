@@ -2,30 +2,132 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- Bootstrap CSS -->
     <link href="/styles/bootstrap.5.3.6.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/bootstrap-icons.1.13.1.min.css">
     <!-- Estilo personalizado -->
-    <link href="/styles/general.css" rel="stylesheet">
     <link href="/styles/main.css" rel="stylesheet">
+    <link href="/styles/general.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="/scripts/jquery-3.7.1.min.js"></script>
     <script src="/scripts/general.js"></script>
+    <style>
+      iframe {
+        position: relative;
+        height: 100vh;  /* Altura ajustable */
+        overflow: hidden;
+        background: var(--neu-bg);
+        border-radius: 20px;
+        box-shadow: inset 6px 6px 12px var(--neu-shadow-dark), 
+                    inset -6px -6px 12px var(--neu-shadow-light);
+        margin: 10px;
+      }
+
+      main iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        position: relative;
+        z-index: 5;
+      }
+
+      main {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        min-height: 500px;
+      }
+      
+      /* Wrapper del loader */
+      main.loading::before {
+        content: '';
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.8); /* semitransparente */
+        z-index: 10;
+      }
+      
+      /* Contenedor del contenido del loader */
+      main.loading::after {
+        content: 'Cargando…';
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: bold;
+        font-size: 1rem;
+        color: var(--color-gray-100);
+        z-index: 11;
+        font-family: inherit;
+      }
+      
+      /* Círculo animado centrado */
+      main.loading .loader-circle {
+        content: '';
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--main-bg, #e0e5ec);
+        box-shadow: 4px 4px 8px var(--neu-shadow-dark, #c2c8d0),
+                    -4px -4px 8px var(--neu-shadow-light, #ffffff);
+        animation: pulse 1.5s infinite;
+        z-index: 11;
+      }
+
+      .loader-circle {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--main-bg, #e0e5ec);
+        box-shadow: 4px 4px 8px var(--neu-shadow-dark, #c2c8d0),
+                    -4px -4px 8px var(--neu-shadow-light, #ffffff);
+        z-index: 11;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      #loader_lottie {
+        width: 40px;
+        height: 40px;
+      }
+      
+      @keyframes pulse {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.5; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      }
+    </style>
   </head>
   <body>
     <div class="container-fluid">
       <div class="row flex-nowrap">
-        <!-- Sidebar -->
         <div id="menu-container" class="col-sm-auto bg-dark sticky-top"></div>
-        <!-- Main content -->
-        <main class="col ms-sm-auto mt-3">
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc6skRqxQSNHdghHfAuinUGmAG6YlYaQ2PyjMjMHSFtcLf3xQ/viewform?embedded=true" width="640" height="100%" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+        <main class="col ms-sm-auto p-3 loading"> <!-- Padding en lugar de margin -->
+          <div class="loader-circle">
+            <div id="loader_lottie" style="width: 40px; height: 40px;"></div>
+          </div>
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSc6skRqxQSNHdghHfAuinUGmAG6YlYaQ2PyjMjMHSFtcLf3xQ/viewform?embedded=true"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            loading = "lazy">
+          </iframe>
         </main>
       </div>
     </div>
-    <!-- Scripts -->
     <script src="/scripts/bootstrap.bundle.5.3.6.min.js"></script>
     <script src="/scripts/lottie-web.5.13.0.min.js"></script>
     <script src="/scripts/menu.js"></script>
+    <script src="/scripts/comments.js"></script>
   </body>
 </html>
