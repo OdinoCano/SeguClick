@@ -309,3 +309,145 @@ input::placeholder, textarea::placeholder {
         margin: 20px auto;
     }
 }
+
+/* Menú Neuromorphic para Bootstrap 5 */
+.d-flex.flex-sm-column.min-vh-100 {
+    background: #e0e5ec;
+    border-radius: 20px;
+    box-shadow: var(--neu-shadow-main);
+    padding: 20px 15px;
+    margin: 15px;
+    width: auto;
+    max-width: 280px;
+    min-width: 80px;
+    transition: all 0.3s ease;
+}
+
+.nav-pills {
+    --bs-nav-pills-border-radius: 50px;
+    --bs-nav-pills-link-active-color: var(--color-gray-100);
+    --bs-nav-pills-link-active-bg: transparent;
+    gap: 15px;
+}
+
+.nav-pills .nav-link {
+    background: #e0e5ec;
+    border: none;
+    border-radius: 50px;
+    box-shadow: var(--neu-shadow-small);
+    color: var(--color-accent-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    min-width: 50px;
+    padding: 5px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-pills .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-pills .nav-link:hover {
+    color: var(--color-accent-2);
+    box-shadow: var(--neu-shadow-inset);
+    transform: translateY(-2px);
+}
+
+.nav-pills .nav-link:hover::before {
+    opacity: 1;
+}
+
+.nav-pills .nav-link:active,
+.nav-pills .nav-link.active {
+    color: var(--color-accent-1);
+    box-shadow: var(--neu-shadow-active);
+    transform: translateY(1px);
+}
+
+.nav-pills .nav-link:focus {
+    outline: none;
+    box-shadow: var(--neu-shadow-small), 0 0 0 4px rgba(74, 78, 105, 0.2);
+}
+
+/* Iconos dentro del menú */
+.nav-pills .nav-link div[id$="_ico"] {
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link:hover div[id$="_ico"] {
+    transform: scale(1.1);
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.15));
+}
+
+/* Animaciones adicionales */
+@keyframes neuPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.nav-pills .nav-link:active {
+    animation: neuPress 0.2s ease;
+}
+
+/* Efecto de pulso para elementos activos */
+.nav-pills .nav-link.active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--color-accent-2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(154, 140, 152, 0.5);
+}
+
+/* Tooltip personalizado neuromorphic */
+.tooltip .tooltip-inner {
+    background: #e0e5ec;
+    color: var(--color-gray-100);
+    border-radius: 10px;
+    box-shadow: var(--neu-shadow-small);
+    border: none;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tooltip.bs-tooltip-right .tooltip-arrow::before {
+    border-right-color: #e0e5ec;
+}
+
+.tooltip.bs-tooltip-left .tooltip-arrow::before {
+    border-left-color: #e0e5ec;
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: #e0e5ec;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: #e0e5ec;
+}
