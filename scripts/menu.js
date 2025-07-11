@@ -1,173 +1,67 @@
-//importar lottie-web.5.13.0.min.js
 $(document).ready(function() {
   const $menuContainer = $("#menu-container");
-  if ($menuContainer.length) {
-    $.get("menu.html")
-      .done(function(data) {
-        $menuContainer.html(data);
+  if (!$menuContainer.length) return;
 
-        const $img2pdf = document.getElementById('img2pdf_ico');
-        if ($img2pdf) {
-          const anim1 = lottie.loadAnimation({
-            container: $img2pdf,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            path: '/json/img2pdf.json' // the path to the animation json
-          });
-          // ▶️ Reproducir cuando pasa el cursor
-          $img2pdf.addEventListener('mouseenter', () => {
-            anim1.play();
-          });
+  // Configuración de animaciones
+  const animationConfigs = [
+    { id: 'img2pdf_ico', path: '/json/img2pdf.json' },
+    { id: 'utr_ico', path: '/json/utr.json' },
+    { 
+      id: 'qr_ico', 
+      path: '/json/qr_white.json',
+      rendererSettings: {
+        scaleMode: 'noScale',
+        preserveAspectRatio: 'xMidYMid meet',
+        clearCanvas: false,
+        progressiveLoad: false,
+        hideOnTransparent: true
+      },
+      customStyles: {
+        transformOrigin: 'top left',
+        width: '48px',
+        height: '48px'
+      }
+    },
+    { id: 'pc_ico', path: '/json/pc.json' },
+    { id: 'watermark_ico', path: '/json/watermark.json' },
+    { id: 'comments_ico', path: '/json/comments.json' },
+    { id: 'donate_ico', path: '/json/donate.json' }
+  ];
 
-          // ⏹️ Detener cuando sale el cursor
-          $img2pdf.addEventListener('mouseleave', () => {
-            anim1.stop(); // o anim.goToAndStop(0, true); para reiniciar
-          });
-        } else {
-          console.warn("No se encontró #img2pdf_ico después de cargar el menú");
-        }
-        const $utr = document.getElementById('utr_ico');
-        if ($utr) {
-          const anim2 = lottie.loadAnimation({
-            container: $utr,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            path: '/json/utr.json' // the path to the animation json
-          });
-          // ▶️ Reproducir cuando pasa el cursor
-          $utr.addEventListener('mouseenter', () => {
-            anim2.play();
-          });
+  // Función para crear animación
+  function createAnimation(config) {
+    const element = document.getElementById(config.id);
+    if (!element) {
+      console.warn(`No se encontró #${config.id} después de cargar el menú`);
+      return;
+    }
 
-          // ⏹️ Detener cuando sale el cursor
-          $utr.addEventListener('mouseleave', () => {
-            anim2.stop(); // o anim.goToAndStop(0, true); para reiniciar
-          });
-        } else {
-          console.warn("No se encontró #utr_ico después de cargar el menú");
-        }
-        const $qr = document.getElementById('qr_ico');
-        if ($qr) {
-          const anim3 = lottie.loadAnimation({
-            container: $qr,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            path: '/json/qr_white.json', // the path to the animation json
-            rendererSettings: {
-              scaleMode: 'noScale',
-              preserveAspectRatio: 'xMidYMid meet',
-              clearCanvas: false,
-              progressiveLoad: false,
-              hideOnTransparent: true
-            }
-          });
-          $qr.style.transformOrigin = 'top left'; // o 'center' si prefieres centrar
-          $qr.style.width = '48px';
-          $qr.style.height = '48px';
-          // ▶️ Reproducir cuando pasa el cursor
-          $qr.addEventListener('mouseenter', () => {
-            anim3.play();
-          });
+    const animation = lottie.loadAnimation({
+      container: element,
+      renderer: 'svg',
+      loop: true,
+      autoplay: false,
+      path: config.path,
+      ...(config.rendererSettings && { rendererSettings: config.rendererSettings })
+    });
 
-          // ⏹️ Detener cuando sale el cursor
-          $qr.addEventListener('mouseleave', () => {
-            anim3.stop(); // o anim.goToAndStop(0, true); para reiniciar
-          });
-        } else {
-          console.warn("No se encontró #qr_ico después de cargar el menú");
-        }
-        const $pc = document.getElementById('pc_ico');
-        if ($pc) {
-          const anim4 = lottie.loadAnimation({
-            container: $pc,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            path: '/json/pc.json' // the path to the animation json
-          });
-          // ▶️ Reproducir cuando pasa el cursor
-          $pc.addEventListener('mouseenter', () => {
-            anim4.play();
-          });
+    // Aplicar estilos personalizados si existen
+    if (config.customStyles) {
+      Object.assign(element.style, config.customStyles);
+    }
 
-          // ⏹️ Detener cuando sale el cursor
-          $pc.addEventListener('mouseleave', () => {
-            anim4.stop(); // o anim.goToAndStop(0, true); para reiniciar
-          });
-        } else {
-          console.warn("No se encontró #pc_ico después de cargar el menú");
-        }
-        const $watermark = document.getElementById('watermark_ico');
-        if ($watermark) {
-          const anim5 = lottie.loadAnimation({
-            container: $watermark,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            path: '/json/watermark.json' // the path to the animation json
-          });
-          // ▶️ Reproducir cuando pasa el cursor
-          $watermark.addEventListener('mouseenter', () => {
-            anim5.play();
-          });
-
-          // ⏹️ Detener cuando sale el cursor
-          $watermark.addEventListener('mouseleave', () => {
-            anim5.stop(); // o anim.goToAndStop(0, true); para reiniciar
-          });
-        } else {
-          console.warn("No se encontró #watermark_ico después de cargar el menú");
-        }
-        const $comments = document.getElementById('comments_ico');
-        if ($comments) {
-          const anim6 = lottie.loadAnimation({
-            container: $comments,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            path: '/json/comments.json' // the path to the animation json
-          });
-          // ▶️ Reproducir cuando pasa el cursor
-          $comments.addEventListener('mouseenter', () => {
-            anim6.play();
-          });
-
-          // ⏹️ Detener cuando sale el cursor
-          $comments.addEventListener('mouseleave', () => {
-            anim6.stop(); // o anim.goToAndStop(0, true); para reiniciar
-          });
-        } else {
-          console.warn("No se encontró #comments_ico después de cargar el menú");
-        }
-        const $donate = document.getElementById('donate_ico');
-        if ($donate) {
-          const anim7 = lottie.loadAnimation({
-            container: $donate,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            path: '/json/donate.json' // the path to the animation json
-          });
-          // ▶️ Reproducir cuando pasa el cursor
-          $donate.addEventListener('mouseenter', () => {
-            anim7.play();
-          });
-
-          // ⏹️ Detener cuando sale el cursor
-          $donate.addEventListener('mouseleave', () => {
-            anim7.stop(); // o anim.goToAndStop(0, true); para reiniciar
-          });
-        } else {
-          console.warn("No se encontró #donate_ico después de cargar el menú");
-        }
-      })
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        console.error("Error al cargar el menú:", errorThrown);
-        console.error(jqXHR);
-        console.error(textStatus);
-      });
+    // Agregar eventos
+    element.addEventListener('mouseenter', () => animation.play());
+    element.addEventListener('mouseleave', () => animation.stop());
   }
+
+  // Cargar menú y configurar animaciones
+  $.get("menu.html")
+    .done(function(data) {
+      $menuContainer.html(data);
+      animationConfigs.forEach(createAnimation);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      console.error("Error al cargar el menú:", errorThrown, jqXHR, textStatus);
+    });
 });
