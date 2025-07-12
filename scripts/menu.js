@@ -8,19 +8,7 @@ $(document).ready(function() {
     { id: 'utr_ico', path: '/json/utr.json' },
     { 
       id: 'qr_ico', 
-      path: '/json/qr_white.json',
-      rendererSettings: {
-        scaleMode: 'noScale',
-        preserveAspectRatio: 'xMidYMid meet',
-        clearCanvas: false,
-        progressiveLoad: false,
-        hideOnTransparent: true
-      },
-      customStyles: {
-        transformOrigin: 'top left',
-        width: '48px',
-        height: '48px'
-      }
+      path: '/json/qr.json',
     },
     { id: 'pc_ico', path: '/json/pc.json' },
     { id: 'watermark_ico', path: '/json/watermark.json' },
@@ -42,13 +30,18 @@ $(document).ready(function() {
       loop: true,
       autoplay: false,
       path: config.path,
-      ...(config.rendererSettings && { rendererSettings: config.rendererSettings })
+      rendererSettings: config.rendererSettings || {}
     });
 
-    // Aplicar estilos personalizados si existen
-    if (config.customStyles) {
-      Object.assign(element.style, config.customStyles);
-    }
+    Object.assign(element.style, config.customStyles || {});
+
+    // Eventos de depuración
+    animation.addEventListener('data_ready', () => {
+      console.log(`${config.id} cargado`, animation);
+    });
+    animation.addEventListener('error', (err) => {
+      console.error(`Error en ${config.id}`, err);
+    });
 
     // Agregar eventos
     element.addEventListener('mouseenter', () => animation.play());
