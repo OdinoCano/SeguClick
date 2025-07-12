@@ -19,17 +19,64 @@
         <div id="menu-container" class="col-sm-auto sticky-top"></div>
         <!-- Main content -->
         <main id="main" class="col ms-sm-auto mt-3">
-          <div id="message" class="alert message" role="alert" style="display: none;"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
-          <h1 id="title_img2pdf"><i class="bi bi-images"></i> </h1>
-          <form id="imageToPdfForm" class="mb-4">
-            <div class="mb-3">
-              <label id="description_img2pdf" for="images" class="form-label"></label>
-              <input class="form-control w-100" type="file" id="images" name="images" accept="image/*" multiple required style="max-width:100%;">
+          <!-- Mensaje de estado -->
+          <div id="message" class="alert message" role="alert" style="display: none;">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          
+          <!-- Título -->
+          <h1 id="title_img2pdf">
+            <i class="bi bi-images"></i> 
+          </h1>
+          
+          <!-- Formulario principal -->
+          <form id="imageToPdfForm" class="my-4">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <i class="bi bi-upload"></i>
+                  <span id="description_img2pdf"></span>
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="drag-drop-zone text-center border rounded py-5 px-3" id="dragDropZone">
+                  <i class="bi bi-cloud-upload fs-1 text-primary d-block mb-3"></i>
+                  <h5>Arrastra tus imágenes aquí</h5>
+                  <p class="text-muted">o haz clic para seleccionar archivos</p>
+                  <input type="file" id="images" name="images" accept="image/*" multiple class="d-none">
+                </div>
+              </div>
             </div>
-            <button id="btn_cnv_img2pdf" type="submit" class="btn btn-primary"></button>
+            
+            <button id="btn_cnv_img2pdf" type="submit" class="btn btn-primary" style="display: none;">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </button>
           </form>
+          
+          <!-- Área de vista previa (se genera dinámicamente) -->
+          <div id="previewArea"></div>
+          
+          <!-- Botón de descarga -->
           <div class="mt-3">
-            <a id="btn_dl_img2pdf" download="imagenes.pdf" class="btn btn-success" style="display:none;"></a>
+            <a id="btn_dl_img2pdf" download="imagenes.pdf" class="btn btn-success" style="display:none;">
+              <i class="bi bi-download"></i>
+            </a>
+          </div>
+          
+          <!-- Información adicional -->
+          <div class="mt-4">
+            <div class="alert alert-info">
+              <h6 class="alert-heading">
+                <i class="bi bi-lightbulb"></i>
+                Instrucciones de uso:
+              </h6>
+              <ul class="mb-0">
+                <li><strong>Seleccionar:</strong> Haz clic en "Seleccionar archivos" o arrastra las imágenes</li>
+                <li><strong>Editar:</strong> Usa los controles para rotar y escalar cada imagen</li>
+                <li><strong>Reordenar:</strong> Arrastra las imágenes para cambiar su orden</li>
+                <li><strong>Generar:</strong> Haz clic en "Convertir" para crear el PDF</li>
+              </ul>
+            </div>
           </div>
         </main>
       </div>

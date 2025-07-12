@@ -6,10 +6,7 @@ $(document).ready(function() {
   const animationConfigs = [
     { id: 'img2pdf_ico', path: '/json/img2pdf.json' },
     { id: 'utr_ico', path: '/json/utr.json' },
-    { 
-      id: 'qr_ico', 
-      path: '/json/qr.json',
-    },
+    { id: 'qr_ico', path: '/json/qr.json' },
     { id: 'pc_ico', path: '/json/pc.json' },
     { id: 'watermark_ico', path: '/json/watermark.json' },
     { id: 'comments_ico', path: '/json/comments.json' },
@@ -53,6 +50,16 @@ $(document).ready(function() {
     .done(function(data) {
       $menuContainer.html(data);
       animationConfigs.forEach(createAnimation);
+      // Resaltar botón activo según la URL
+      const currentPage = location.pathname.split("/").pop();
+      $('#menu-container a.nav-link').each(function () {
+        const $link = $(this);
+        const href = $link.attr('href');
+      
+        if (href === currentPage) {
+          $link.addClass('active');
+        }
+      });
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.error("Error al cargar el menú:", errorThrown, jqXHR, textStatus);
