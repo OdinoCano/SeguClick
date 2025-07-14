@@ -107,9 +107,8 @@ $(document).ready(async function () {
     
     CONFIG.SCRIPTS.forEach(src => {
       const script = document.createElement("script");
-      script.src = src;
-      script.defer = true;
-      fragment.appendChild(script);
+      Object.assign(script, { src, async: false });
+      document.head.appendChild(script);
     });
     
     document.head.appendChild(fragment);

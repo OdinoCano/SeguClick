@@ -286,10 +286,9 @@ $(document).ready(function() {
     "/scripts/pdf-lib.1.17.1.min.js"
   ];
   scripts.forEach(src => {
-    const s = document.createElement("script");
-    s.src = src;
-    s.defer = true;
-    document.head.appendChild(s);
+    const script = document.createElement("script");
+    Object.assign(script, { src, async: false });
+    document.head.appendChild(script);
   });
   // Mantener compatibilidad con el sistema de traducción existente
   if (typeof setText === 'function') {

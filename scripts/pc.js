@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Carga de scripts optimizada
   CONFIG.scripts.forEach(src => {
     const script = document.createElement("script");
-    Object.assign(script, { src, defer: true });
+    Object.assign(script, { src, async: false });
     document.head.appendChild(script);
   });
 

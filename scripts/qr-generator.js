@@ -8,10 +8,9 @@ $(document).ready(async function () {
   ];
 
   scripts.forEach(src => {
-    const s = document.createElement("script");
-    s.src = src;
-    s.defer = true;
-    document.head.appendChild(s);
+    const script = document.createElement("script");
+    Object.assign(script, { src, async: false });
+    document.head.appendChild(script);
   });
 
   const waitForQRCode = () => new Promise(resolve => {

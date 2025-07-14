@@ -12,9 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   scripts.forEach(src => {
-    const s = document.createElement("script");
-    s.src = src;
-    s.defer = true;
-    document.head.appendChild(s);
+    const script = document.createElement("script");
+    Object.assign(script, { src, async: false });
+    document.head.appendChild(script);
   });
 });
