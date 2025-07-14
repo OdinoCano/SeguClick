@@ -25,6 +25,8 @@
   "medium":{"message": "Μεσαίο"},
   "quartile":{"message": "Τεταρτημόριο"},
   "high":{"message": "Υψηλό"},
+  "size":{"message": "Μέγεθος"},
+  "error":{"message": "Σφάλμα"},
   "title_img2pdf":{"message": "Μετατροπή Εικόνων σε PDF"},
   "description_img2pdf":{"message": "Επιλογή μίας ή περισσότερων εικόνων"},
   "btn_cnv_img2pdf":{"message": "Μετατροπή σε PDF"},

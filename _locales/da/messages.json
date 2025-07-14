@@ -25,6 +25,8 @@
   "medium":{"message": "Mellem"},
   "quartile":{"message": "Kvartil"},
   "high":{"message": "Høj"},
+  "size":{"message": "Størrelse"},
+  "error":{"message": "Fejl"},
   "title_img2pdf":{"message": "Konverter billeder til PDF"},
   "description_img2pdf":{"message": "Vælg et eller flere billeder"},
   "btn_cnv_img2pdf":{"message": "Konverter til PDF"},

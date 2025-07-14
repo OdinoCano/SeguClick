@@ -25,6 +25,8 @@
   "medium":{"message": "Mittel"},
   "quartile":{"message": "Quartil"},
   "high":{"message": "Hoch"},
+  "Größe": {"message": "Größe"},
+  "Fehler": {"message": "Fehler"},
   "title_img2pdf":{"message": "Bilder in PDF konvertieren"},
   "description_img2pdf":{"message": "Ein oder mehrere Bilder auswählen"},
   "btn_cnv_img2pdf":{"message": "In PDF konvertieren"},
