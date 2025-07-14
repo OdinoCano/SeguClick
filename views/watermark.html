@@ -23,7 +23,6 @@
           <!-- Watermark text configuration -->
           <div class="card mb-4">
             <div class="card-body">
-              <h5 class="card-title">Configuración de Marca de Agua</h5>
               <div class="mb-3">
                 <label id="txt_wmk" for="watermarkText" class="form-label"></label>
                 <div class="input-group">
@@ -35,19 +34,19 @@
               <!-- Advanced options -->
               <div class="row">
                 <div class="col-md-4">
-                  <label for="fontSize" class="form-label">Tamaño de fuente</label>
+                  <label id="font_size_wmk" for="fontSize" class="form-label"></label>
                   <input type="range" class="form-range p-1" id="fontSize" min="20" max="120" value="78">
-                  <small class="text-muted">Tamaño: <span id="fontSizeValue">78</span>px</small>
+                  <small class="text-muted"><span id="size"></span>: <span id="fontSizeValue">78</span>px</small>
                 </div>
                 <div class="col-md-4">
-                  <label for="opacity" class="form-label">Opacidad</label>
+                  <label for="opacity" class="form-label op_wmk"></label>
                   <input type="range" class="form-range p-1" id="opacity" min="0.1" max="1" step="0.1" value="0.3">
-                  <small class="text-muted">Opacidad: <span id="opacityValue">0.3</span></small>
+                  <small class="text-muted"><span class="op_wmk"></span>: <span id="opacityValue">0.3</span></small>
                 </div>
                 <div class="col-md-4">
-                  <label for="rotation" class="form-label">Rotación</label>
+                  <label id="rotation_wmk" for="rotation" class="form-label"></label>
                   <input type="range" class="form-range p-1" id="rotation" min="0" max="90" value="45">
-                  <small class="text-muted">Ángulo: <span id="rotationValue">45</span>°</small>
+                  <small class="text-muted"><span id="ang_wmk"></span>: <span id="rotationValue">45</span>°</small>
                 </div>
               </div>
             </div>
@@ -56,31 +55,31 @@
           <!-- File upload area -->
           <div class="card mb-4">
             <div class="card-body">
-              <h5 class="card-title">Seleccionar Archivos PDF</h5>
+              <h5 id="sel_pdf_files_wmk" class="card-title"></h5>
               <div class="drag-drop-zone" id="dropZone">
                 <i class="bi bi-cloud-upload fs-1 text-muted"></i>
-                <p class="mb-2">Arrastra y suelta archivos PDF aquí</p>
-                <p class="text-muted">o haz clic para seleccionar archivos</p>
+                <p id="drag_pdf_wmk" class="mb-2"></p>
+                <p id="click_n_sel_wmk" class="text-muted"></p>
                 <input type="file" class="d-none" id="pdfInput" accept="application/pdf" multiple>
               </div>
             </div>
           </div>
 
           <!-- Files list -->
-          <div class="card" id="filesCard" style="display: none;">
+          <div class="card mb-3" id="filesCard" style="display: none;">
             <div class="card-body">
               <div class="batch-actions">
                 <div class="d-flex justify-content-between align-items-center">
-                  <h5 class="card-title mb-0">Archivos Seleccionados (<span id="fileCount">0</span>)</h5>
+                  <h5 class="card-title mb-0"><span id="sel_files_wmk"></span> (<span id="fileCount">0</span>)</h5>
                   <div>
                     <button id="btn_cnv_wmk" class="btn btn-primary me-2">
-                      <i class="bi bi-magic"></i> Procesar Todos
+                      <i class="bi bi-magic"></i> 
                     </button>
-                    <button id="btn_dl_all" class="btn btn-success me-2" style="display: none;">
-                      <i class="bi bi-download"></i> Descargar Todos
+                    <button id="btn_dl_all_wmk" class="btn btn-success me-2" style="display: none;">
+                      <i class="bi bi-download"></i> 
                     </button>
-                    <button id="btn_clear" class="btn btn-outline-danger">
-                      <i class="bi bi-trash"></i> Limpiar Lista
+                    <button id="btn_clear_wmk" class="btn btn-outline-danger">
+                      <i class="bi bi-trash"></i> 
                     </button>
                   </div>
                 </div>

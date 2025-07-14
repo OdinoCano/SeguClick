@@ -45,8 +45,8 @@ class WatermarkProcessor {
       $('#rotation').on('input', this.updateRangeValues);
       // Buttons
       $('#btn_cnv_wmk').on('click', () => this.processAllFiles());
-      $('#btn_dl_all').on('click', () => this.downloadAllFiles());
-      $('#btn_clear').on('click', () => this.clearAllFiles());
+      $('#btn_dl_all_wmk').on('click', () => this.downloadAllFiles());
+      $('#btn_clear_wmk').on('click', () => this.clearAllFiles());
     }
     updateRangeValues() {
       $('#fontSizeValue').text($('#fontSize').val());
@@ -57,7 +57,7 @@ class WatermarkProcessor {
       const pdfFiles = files.filter(file => file.type === 'application/pdf');
       
       if (pdfFiles.length === 0) {
-        alert('Por favor selecciona solo archivos PDF válidos');
+        alert(getText('pdf_valid_alert_wmk'));
         return;
       }
       pdfFiles.forEach(file => {
@@ -80,7 +80,7 @@ class WatermarkProcessor {
               <small class="text-muted">${fileSize}</small>
             </div>
             <div class="d-flex align-items-center">
-              <span class="badge bg-secondary me-2 status-badge">Pendiente</span>
+              <span class="badge bg-secondary me-2 status-badge">${getText('pending_msg_wmk')}</span>
               <button class="btn btn-sm btn-outline-primary me-2 process-single" data-file-name="${file.name}">
                 <i class="bi bi-magic"></i>
               </button>
@@ -89,7 +89,7 @@ class WatermarkProcessor {
               </button>
             </div>
           </div>
-          <div class="progress-container">
+          <div class="progress-container my-3">
             <div class="progress">
               <div class="progress-bar" role="progressbar" style="width: 0%"></div>
             </div>
@@ -106,7 +106,7 @@ class WatermarkProcessor {
       if (!file || this.isProcessing) return;
       const watermarkText = $('#watermarkText').val().trim();
       if (!watermarkText) {
-        alert('Por favor ingresa un texto para la marca de agua');
+        alert(getText('watermark_input_msg'));
         return;
       }
       const fileItem = $(`.file-item[data-file-id="${this.generateFileId(fileName)}"]`);
@@ -116,7 +116,7 @@ class WatermarkProcessor {
       try {
         // Update UI
         fileItem.addClass('processing');
-        statusBadge.removeClass('bg-secondary bg-success bg-danger').addClass('bg-warning').text('Procesando...');
+        statusBadge.removeClass('bg-secondary bg-success bg-danger').addClass('bg-warning').text(getText('processing_msg_wmk'));
         progressContainer.show();
         progressBar.css('width', '20%');
         // Read file
@@ -161,7 +161,7 @@ class WatermarkProcessor {
         progressBar.css('width', '100%');
         // Update UI
         fileItem.removeClass('processing').addClass('completed');
-        statusBadge.removeClass('bg-warning').addClass('bg-success').text('Completado');
+        statusBadge.removeClass('bg-warning').addClass('bg-success').text(getText('completed_msg_wmk'));
         
         // Add download button
         const downloadBtn = $(`
@@ -175,9 +175,9 @@ class WatermarkProcessor {
       } catch (error) {
         console.error('Error processing file:', error);
         fileItem.removeClass('processing').addClass('error');
-        statusBadge.removeClass('bg-warning').addClass('bg-danger').text('Error');
+        statusBadge.removeClass('bg-warning').addClass('bg-danger').text(getText('error'));
         progressContainer.hide();
-        alert(`Error al procesar ${fileName}: ${error.message}`);
+        alert(`${getText('file_error_alert')} ${fileName}: ${error.message}`);
       }
     }
     async processAllFiles() {
@@ -186,7 +186,7 @@ class WatermarkProcessor {
       console.log('B');
       const watermarkText = $('#watermarkText').val().trim();
       if (!watermarkText) {
-        alert('Por favor ingresa un texto para la marca de agua');
+        alert(getText('watermark_input_msg'));
         return;
       }
       this.isProcessing = true;
@@ -245,7 +245,7 @@ class WatermarkProcessor {
       
       $('#fileCount').text(fileCount);
       $('#filesCard').toggle(fileCount > 0);
-      $('#btn_dl_all').toggle(processedCount > 0);
+      $('#btn_dl_all_wmk').toggle(processedCount > 0);
       
       if (fileCount === 0) {
         $('#globalProgress').hide();
@@ -293,18 +293,18 @@ $(document).ready(function() {
   // Mantener compatibilidad con el sistema de traducción existente
   if (typeof setText === 'function') {
     [
-      "title_wmk", "description_wmk", "txt_wmk", "btn_cnv_wmk", "btn_dl_wmk"
+      "title_wmk", "txt_wmk", "font_size_wmk", "size", "op_wmk", 
+      "rotation_wmk", "ang_wmk", "sel_pdf_files_wmk", "drag_pdf_wmk", "click_n_sel_wmk",
+      "sel_files_wmk", "btn_cnv_wmk", "btn_dl_all_wmk", "btn_clear_wmk"
     ].forEach(element => {
       setText(element);
     });
-  }
-  if (typeof setInputPlaceholder === 'function') {
-    setInputPlaceholder("txt_wmk", "txt_wmk");
+    setTextByClass("op_wmk");
   }
 });
 $('#btn_cnv_wmk').on('click', async function () {
   const file = $('#pdfInput')[0].files[0];
-  if (!file) return alert("Selecciona un archivo PDF");
+  if (!file) return alert(getText('select_pdf_alert'));
   const reader = new FileReader();
   reader.onload = async function () {
     const existingPdfBytes = new Uint8Array(reader.result);
