@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const CONFIG = {
     storage: chrome.storage.local,
     storageKey: 't&c',
-    redirectUrl: '/views/watermark.html',
+    redirectUrl: '/views/img2pdf.html',
     scripts: [
       "/scripts/bootstrap.bundle.5.3.6.min.js",
       "/scripts/lottie-web.5.13.0.min.js",

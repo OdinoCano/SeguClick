@@ -66,7 +66,7 @@ $(document).ready(function() {
 
     $dropZone.on('click', function(e) {
       if (e.target !== $fileInput[0]) {
-        $fileInput.trigger('click');
+        $fileInput[0].click();
       }
     });
   }
@@ -85,7 +85,7 @@ $(document).ready(function() {
     const validFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
     
     if (validFiles.length === 0) {
-      showMessage('Por favor selecciona solo archivos de imagen.', 'warning');
+      showMessage(getText('only_img_img2pdf'), 'warning');
       hideProgress();
       return;
     }
@@ -105,7 +105,7 @@ $(document).ready(function() {
       
     } catch (error) {
       console.error('Error al procesar imágenes:', error);
-      showMessage('Error al procesar las imágenes.', 'danger');
+      showMessage(getText('err_proc_img2pdf'), 'danger');
       hideProgress();
     }
   }
@@ -153,13 +153,13 @@ $(document).ready(function() {
     if ($container.length === 0) {
       const previewHTML = `
         <div class="mt-4">
-          <h5>Vista Previa y Edición</h5>
+          <h5>${getText('preview_img2pdf')} y Edición</h5>
           <div class="mb-3">
             <button type="button" class="btn btn-sm btn-outline-secondary" id="resetAllBtn">
-              <i class="bi bi-arrow-clockwise"></i> Resetear Todo
+              <i class="bi bi-arrow-clockwise"></i> ${getText('reset_all_img2pdf')}
             </button>
             <button type="button" class="btn btn-sm btn-outline-danger ms-2" id="clearAllBtn">
-              <i class="bi bi-trash"></i> Limpiar Todo
+              <i class="bi bi-trash"></i> ${getText('clear_img2pdf')}
             </button>
           </div>
           <div id="imagePreviewContainer" class="row g-3"></div>
@@ -196,32 +196,32 @@ $(document).ready(function() {
             </button>
           </div>
           <div class="card-body p-2 text-center">
-            <img src="${img.src}" class="img-fluid mb-2" style="${transformStyle}" alt="Imagen ${index + 1}">
+            <img src="${img.src}" class="img-fluid mb-2" style="${transformStyle}" alt="Image ${index + 1}">
             
             <div class="mb-2">
-              <label class="form-label small">Rotación: <span class="rotation-value">${img.rotation}°</span></label>
+              <label class="form-label small">${getText('rot_img2pdf')}: <span class="rotation-value">${img.rotation}°</span></label>
               <input type="range" class="form-range rotation-slider" min="0" max="360" step="90" 
-                     value="${img.rotation}" data-index="${index}">
+                value="${img.rotation}" data-index="${index}">
               <div class="btn-group w-100 mt-1">
                 <button type="button" class="btn btn-sm btn-outline-secondary rotate-btn" 
-                        data-index="${index}" data-rotation="-90">
+                  data-index="${index}" data-rotation="-90">
                   <i class="bi bi-arrow-counterclockwise"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-secondary rotate-btn" 
-                        data-index="${index}" data-rotation="90">
+                  data-index="${index}" data-rotation="90">
                   <i class="bi bi-arrow-clockwise"></i>
                 </button>
               </div>
             </div>
             
             <div class="mb-2">
-              <label class="form-label small">Escala: <span class="scale-value">${Math.round(img.scale * 100)}%</span></label>
+              <label class="form-label small">${getText('sc_img2pdf')}: <span class="scale-value">${Math.round(img.scale * 100)}%</span></label>
               <input type="range" class="form-range scale-slider" min="0.1" max="2" step="0.1" 
-                     value="${img.scale}" data-index="${index}">
+                value="${img.scale}" data-index="${index}">
             </div>
             
             <button type="button" class="btn btn-sm btn-outline-primary reset-btn w-100" data-index="${index}">
-              <i class="bi bi-arrow-clockwise"></i> Resetear
+              <i class="bi bi-arrow-clockwise"></i> ${getText('reset_img2pdf')}
             </button>
           </div>
         </div>
@@ -346,7 +346,7 @@ $(document).ready(function() {
 
   // Limpiar todas las imágenes
   function clearAllImages() {
-    if (confirm('¿Estás seguro de que quieres eliminar todas las imágenes?')) {
+    if (confirm(getText('confirm_delete_imgs_img2pdf'))) {
       imageData = [];
       $('#imagePreviewContainer').parent().remove();
       hideControlButtons();
@@ -359,21 +359,21 @@ $(document).ready(function() {
     e.preventDefault();
     
     if (imageData.length === 0) {
-      showMessage('Por favor selecciona al menos una imagen.', 'warning');
+      showMessage(getText('select_one_img_img2pdf'), 'warning');
       return;
     }
 
     const $btn = $('#btn_cnv_img2pdf');
     const originalText = $btn.html();
     
-    $btn.prop('disabled', true).html('<i class="bi bi-hourglass-split"></i> Procesando...');
+    $btn.prop('disabled', true).html('<i class="bi bi-hourglass-split"></i> '+getText('processing_msg'));
     
     try {
       await generatePDF();
-      showMessage('PDF generado exitosamente.', 'success');
+      showMessage(getText('pdf_success_img2pdf'), 'success');
     } catch (error) {
       console.error('Error al generar PDF:', error);
-      showMessage('Error al generar el PDF.', 'danger');
+      showMessage(getText('pdf_error_img2pdf'), 'danger');
     } finally {
       $btn.prop('disabled', false).html(originalText);
     }
@@ -497,7 +497,11 @@ $(document).ready(function() {
 
   // Cargar textos (mantener función original)
   function loadTexts() {
-    ["btn_cnv_img2pdf","title_img2pdf","description_img2pdf","btn_dl_img2pdf"].forEach(element => {
+    [
+      "title_img2pdf", "description_img2pdf", "drag_img_img2pdf", "click_n_sel_img2pdf", "btn_cnv_img2pdf",
+      "btn_dl_img2pdf", "instr_use_img2pdf", "sel_img2pdf", "ed_img2pdf", "ror_img2pdf",
+      "gen_img2pdf"
+    ].forEach(element => {
       if (typeof setText === 'function') {
         setText(element);
       }

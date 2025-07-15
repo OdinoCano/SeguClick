@@ -116,7 +116,7 @@ class WatermarkProcessor {
       try {
         // Update UI
         fileItem.addClass('processing');
-        statusBadge.removeClass('bg-secondary bg-success bg-danger').addClass('bg-warning').text(getText('processing_msg_wmk'));
+        statusBadge.removeClass('bg-secondary bg-success bg-danger').addClass('bg-warning').text(getText('processing_msg'));
         progressContainer.show();
         progressBar.css('width', '20%');
         // Read file
