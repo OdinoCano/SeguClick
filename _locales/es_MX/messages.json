@@ -46,7 +46,7 @@
   "rot_img2pdf":{"message":"Rotación"},
   "sc_img2pdf":{"message":"Escala"},
   "reset_img2pdf":{"message":"Resetear"},
-  "confirm_delete_imgs_img2pdf":{"message":"¿Estás seguro de que quieres eliminar todas las imágenes?¿Estás seguro de que quieres eliminar todas las imágenes?"},
+  "confirm_delete_imgs_img2pdf":{"message":"¿Estás seguro de que quieres eliminar todas las imágenes?"},
   "select_one_img_img2pdf":{"message":"Por favor selecciona al menos una imagen."},
   "pdf_success_img2pdf":{"message":"PDF generado exitosamente."},
   "pdf_error_img2pdf":{"message":"Error al generar el PDF."},
