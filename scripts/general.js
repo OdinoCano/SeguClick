@@ -101,202 +101,42 @@ async function toDataURL(url, allowedTypes = ['image/jpeg', 'image/png', 'image/
   }
 }
 
-class UniversalContextDetector {
-  constructor() {
-    this.isServiceWorker = typeof importScripts === 'function';
-    this.testId = 0;
-    this.keepAlivePort = null;
-    this.isTestingInProgress = false;
-    this.timeouts = new Set();
-  }
+// Función simple para casos específicos conocidos
+function verificarSiNecesitaVentana() {
+  const ua = navigator.userAgent;
+  const manifest = chrome?.runtime?.getManifest?.() || {};
+  const manifestVersion = manifest.manifest_version || 2;
+  const hardwareConcurrency = navigator.hardwareConcurrency || 4;
 
-  mantenerContextoActivo() {
-    if (this.isServiceWorker && !this.keepAlivePort) {
-      this.keepAlivePort = chrome.runtime.connect({ name: "context-keepalive" });
-      this.keepAlivePort.onDisconnect.addListener(() => {
-        this.keepAlivePort = null;
-      });
-    }
-  }
+  // Patrones problemáticos por navegador y SO
+  const problematicPatterns = [
+    // Chrome en Mac (ej: Chrome 100+)
+    /Mac OS X.*Chrome\/1\d{2,}/,
 
-  clearTimeouts() {
-    this.timeouts.forEach(id => clearTimeout(id));
-    this.timeouts.clear();
-  }
+    // Chrome en Linux
+    /Linux.*Chrome/,
 
-  addTimeout(callback, delay) {
-    const id = setTimeout(() => {
-      this.timeouts.delete(id);
-      callback();
-    }, delay);
-    this.timeouts.add(id);
-    return id;
-  }
+    // Chrome en Mac con versiones específicas 120-125
+    /Chrome\/12[0-5].*Mac/,
 
-  async detectarPerdidaContexto(callback) {
-    if (this.isTestingInProgress) {
-      callback(false, { motivo: "Prueba ya en progreso", testId: this.testId });
-      return;
-    }
+    // Safari versiones antiguas o en iOS (puedes ajustar si quieres)
+    /Version\/.*Safari/,
 
-    this.isTestingInProgress = true;
-    this.mantenerContextoActivo();
-    const testId = ++this.testId;
-    const startTime = performance.now();
+    // Firefox en Windows/Mac/Linux (ejemplo de patrón, ajustar si es necesario)
+    /Firefox\/(8[0-9]|9[0-9]|[1-9][0-9]{2,})/,
 
-    // Verificaciones iniciales
-    if (typeof document === 'undefined' || !document.body) {
-      this.isTestingInProgress = false;
-      callback(true, { motivo: "Sin documento o body", testId });
-      return;
-    }
+    // Edge basado en Chromium
+    /Edg\/\d+/,
 
-    // Prueba de manipulación DOM
-    try {
-      const testDiv = document.createElement("div");
-      document.body.appendChild(testDiv);
-      document.body.removeChild(testDiv);
-    } catch (error) {
-      this.isTestingInProgress = false;
-      callback(true, { motivo: "No se puede manipular DOM", error: error.message, testId });
-      return;
-    }
+    // Opera (Chromium-based)
+    /OPR\/\d+/
+  ];
 
-    await this.waitForUserInteraction();
-    this.performFileSelectionTest(callback, testId, startTime);
-  }
+  // Detectar si User Agent es problemático
+  const isProblematicUA = problematicPatterns.some(pattern => pattern.test(ua));
 
-  async performFileSelectionTest(callback, testId, startTime) {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.style.cssText = "position:absolute;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;";
-    
-    let eventoRecibido = false;
-    let userInteracted = false;
-    let blurDetected = false;
+  if (isProblematicUA && manifestVersion === 3) return true; // Problema conocido en MV3
+  if (isProblematicUA && hardwareConcurrency <= 2) return true; // Recursos limitados
 
-    const finalizar = (perdido, detalles = {}) => {
-      if (eventoRecibido) return;
-      eventoRecibido = true;
-      this.isTestingInProgress = false;
-      
-      this.clearTimeouts();
-      this.removeEventListeners();
-      this.cleanupInput(input);
-      
-      callback(perdido, {
-        ...detalles,
-        testId,
-        tiempo: performance.now() - startTime
-      });
-    };
-
-    const handlers = {
-      blur: () => {
-        blurDetected = true;
-        this.addTimeout(() => {
-          if (!userInteracted && !eventoRecibido) {
-            finalizar(false, {evento: 'user_cancelled', blur: true});
-          }
-        }, 500);
-      },
-
-      focus: () => {
-        if (blurDetected && !userInteracted) {
-          this.addTimeout(() => {
-            if (!userInteracted && !eventoRecibido) {
-              finalizar(false, {evento: 'focus_return_cancel'});
-            }
-          }, 100);
-        }
-      },
-
-      change: (e) => {
-        userInteracted = true;
-        finalizar(false, {evento: 'change', files: e.target.files.length});
-      },
-
-      cancel: () => {
-        userInteracted = true;
-        finalizar(false, {evento: 'cancel_event'});
-      }
-    };
-
-    // Configurar event listeners
-    window.addEventListener('blur', handlers.blur);
-    window.addEventListener('focus', handlers.focus);
-    input.addEventListener('change', handlers.change, {once: true});
-    input.addEventListener('cancel', handlers.cancel, {once: true});
-
-    // Timeout principal
-    this.addTimeout(() => {
-      const visible = document.visibilityState === 'visible';
-      const hasBody = !!document.body;
-      
-      if (!hasBody || document.visibilityState === 'hidden') {
-        finalizar(true, {
-          motivo: "Contexto realmente perdido",
-          visibilityState: document.visibilityState,
-          hasBody
-        });
-      } else {
-        finalizar(false, {
-          motivo: "Timeout pero contexto aparentemente funcional",
-          visibilityState: document.visibilityState
-        });
-      }
-    }, 5000);
-
-    // Ejecutar prueba
-    try {
-      document.body.appendChild(input);
-      input.click();
-    } catch (error) {
-      finalizar(true, { motivo: "Error al abrir selector", error: error.message });
-    }
-  }
-
-  removeEventListeners() {
-    // Los event listeners se limpian automáticamente con {once: true} o en finalizar()
-  }
-
-  cleanupInput(input) {
-    try {
-      if (input.parentNode) {
-        document.body.removeChild(input);
-      }
-    } catch (e) {
-      console.warn("Error removiendo input:", e);
-    }
-  }
-
-  waitForUserInteraction() {
-    return new Promise((resolve) => {
-      const handleInteraction = () => {
-        document.removeEventListener('click', handleInteraction);
-        document.removeEventListener('keydown', handleInteraction);
-        resolve();
-      };
-
-      document.addEventListener('click', handleInteraction, { once: true });
-      document.addEventListener('keydown', handleInteraction, { once: true });
-    });
-  }
-}
-
-function probarSelectorArchivos(callback) {
-  const detector = new UniversalContextDetector();
-  
-  detector.detectarPerdidaContexto((perdido, detalles) => {
-    console.log(`🔍 Prueba contexto: ${perdido ? "❌ PERDIDO" : "✅ FUNCIONAL"}`, detalles);
-    
-    const realmentePerdido = perdido && (
-      detalles.motivo.includes("Sin documento") ||
-      detalles.motivo.includes("manipular DOM") ||
-      detalles.motivo.includes("Error al") ||
-      detalles.visibilityState === 'hidden'
-    );
-    
-    callback(!realmentePerdido);
-  });
+  return isProblematicUA; // Default: basarse en UA
 }

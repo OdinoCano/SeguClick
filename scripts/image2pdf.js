@@ -515,7 +515,6 @@ $(document).ready(function() {
       "/scripts/lottie-web.5.13.0.min.js",
       "/scripts/menu.js",
       "/scripts/jspdf.umd.3.0.1.min.js",
-      "/scripts/background.js",
     ];
 
     scripts.forEach(src => {
@@ -523,6 +522,24 @@ $(document).ready(function() {
       Object.assign(script, { src, async: false });
       document.head.appendChild(script);
     });
+
+    chrome.windows.getCurrent({}, (windowInfo) => {
+      // Verificación predictiva basada en patrones conocidos
+      if (windowInfo.type === "normal" && verificarSiNecesitaVentana()) {
+        console.log("🚨 Patrón problemático detectado - usando ventana");
+        chrome.windows.create({
+          url: "/views/img2pdf.html", // Si es parte de la extensión
+          type: "popup",
+          width: 800,
+          height: 650
+        }, () => {
+          window.close();
+        });
+      } else {
+        console.log("✅ Patrón seguro - continuando en contexto actual");
+      }
+    });
+    
   }
 
   // Inicializar aplicación

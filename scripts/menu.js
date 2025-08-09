@@ -33,9 +33,9 @@ $(document).ready(function() {
     Object.assign(element.style, config.customStyles || {});
 
     // Eventos de depuración
-    animation.addEventListener('data_ready', () => {
-      console.log(`${config.id} cargado`, animation);
-    });
+    //animation.addEventListener('data_ready', () => {
+    //  console.log(`${config.id} cargado`, animation);
+    //});
     animation.addEventListener('error', (err) => {
       console.error(`Error en ${config.id}`, err);
     });
