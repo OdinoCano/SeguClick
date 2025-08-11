@@ -1,8 +1,14 @@
-document.addEventListener("DOMContentLoaded", function () {
-  [
-    "btn_dnt", "link_dnt"
-  ].forEach(element => {
-      setText(element);
+$(function () {
+  $.each(["btn_dnt", "link_dnt"], function (_, id) {
+    i18nUtils.setText(id);
+  });
+
+  $.each([
+    "am","ar","bg","bn","ca",
+    "cs","da","de","el","en",
+    "es"
+  ], function (_, id) {
+    i18nUtils.setAltTitle(id);
   });
 
   const scripts = [

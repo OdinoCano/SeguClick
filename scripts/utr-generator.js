@@ -175,7 +175,7 @@ $(document).ready(async function () {
     ];
     
     textElements.forEach(element => {
-      if (typeof setText === 'function') setText(element);
+      if (typeof setText === 'function') i18nUtils.setText(element);
     });
     
     // Configurar placeholders
@@ -190,9 +190,9 @@ $(document).ready(async function () {
     
     placeholderConfigs.forEach(({ element, placeholder }) => {
       if (element.startsWith('dd') && typeof setFirstOptionText === 'function') {
-        setFirstOptionText(element, placeholder);
+        i18nUtils.setFirstOptionText(element, placeholder);
       } else if (typeof setSelectPlaceholder === 'function') {
-        setSelectPlaceholder(element, placeholder);
+        i18nUtils.setSelectPlaceholder(element, placeholder);
       }
     });
   }

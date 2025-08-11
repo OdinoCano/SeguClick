@@ -363,7 +363,7 @@ $(document).ready(async function () {
 
   // Update label text based on switch state
   $('#form-shape').on('change', function() {
-    $('#shp_typ_qr').html('').text(this.checked ? setTextById("shp_typ_qr","cir_qr") : setTextById("shp_typ_qr","squ_qr"));
+    $('#shp_typ_qr').html('').text(this.checked ? i18nUtils.setTextById("shp_typ_qr","cir_qr") : i18nUtils.setTextById("shp_typ_qr","squ_qr"));
   }).trigger('change');
 
   $('#form-decoration-top-type').on('change', function() {
@@ -651,44 +651,44 @@ $(document).ready(async function () {
 
   // Add options to top decoration type select
   $('#form-decoration-top-type')
-    .append('<option value="text">' + (getText("text") || "Text") + '</option>')
-    .append('<option value="image">' + (getText("img") || "Image") + '</option>');
+    .append('<option value="text">' + (i18nUtils.getText("text") || "Text") + '</option>')
+    .append('<option value="image">' + (i18nUtils.getText("img") || "Image") + '</option>');
 
   // Add options to bottom decoration type select
   $('#form-decoration-bottom-type')
-    .append('<option value="text">' + (getText("text") || "Text") + '</option>')
-    .append('<option value="image">' + (getText("img") || "Image") + '</option>');
+    .append('<option value="text">' + (i18nUtils.getText("text") || "Text") + '</option>')
+    .append('<option value="image">' + (i18nUtils.getText("img") || "Image") + '</option>');
   
   $("#form-dots-type")
-    .append('<option value="square">' + (getText("squ") || "Square") + '</option>')
-    .append('<option value="dots">' + (getText("dots") || "Dots") + '</option>')
-    .append('<option value="rounded">' + (getText("rnd") || "Rounded") + '</option>')
-    .append('<option value="extra-rounded">' + (getText("xtra_rnd") || "Extra rounded") + '</option>')
-    .append('<option value="classy">' + (getText("cls") || "Classy") + '</option>')
-    .append('<option value="classy-rounded">' + (getText("cls_rnd") || "Classy rounded") + '</option>');
+    .append('<option value="square">' + (i18nUtils.getText("squ") || "Square") + '</option>')
+    .append('<option value="dots">' + (i18nUtils.getText("dots") || "Dots") + '</option>')
+    .append('<option value="rounded">' + (i18nUtils.getText("rnd") || "Rounded") + '</option>')
+    .append('<option value="extra-rounded">' + (i18nUtils.getText("xtra_rnd") || "Extra rounded") + '</option>')
+    .append('<option value="classy">' + (i18nUtils.getText("cls") || "Classy") + '</option>')
+    .append('<option value="classy-rounded">' + (i18nUtils.getText("cls_rnd") || "Classy rounded") + '</option>');
 
   $("#form-corners-square-type")
-    .append('<option value="">' + (getText("none") || "None") + '</option>')
-    .append('<option value="square">' + (getText("squ") || "Square") + '</option>')
-    .append('<option value="dots">' + (getText("dot") || "Dot") + '</option>')
-    .append('<option value="extra-rounded">' + (getText("xtra_rnd") || "Extra rounded") + '</option>')
+    .append('<option value="">' + (i18nUtils.getText("none") || "None") + '</option>')
+    .append('<option value="square">' + (i18nUtils.getText("squ") || "Square") + '</option>')
+    .append('<option value="dots">' + (i18nUtils.getText("dot") || "Dot") + '</option>')
+    .append('<option value="extra-rounded">' + (i18nUtils.getText("xtra_rnd") || "Extra rounded") + '</option>')
   
   $("#form-corners-dot-type")
-    .append('<option value="">' + (getText("none") || "None") + '</option>')
-    .append('<option value="square">' + (getText("squ") || "Square") + '</option>')
-    .append('<option value="dots">' + (getText("dot") || "Dot") + '</option>');
+    .append('<option value="">' + (i18nUtils.getText("none") || "None") + '</option>')
+    .append('<option value="square">' + (i18nUtils.getText("squ") || "Square") + '</option>')
+    .append('<option value="dots">' + (i18nUtils.getText("dot") || "Dot") + '</option>');
 
   $("#form-qr-mode")
-    .append('<option value="Numeric">' + (getText("numeric") || "Numeric") + '</option>')
-    .append('<option value="Alphanumeric">' + (getText("alphanum") || "Alphanumeric") + '</option>')
-    .append('<option value="Byte" selected>' + (getText("byte") || "Byte") + '</option>')
-    .append('<option value="Kanji">' + (getText("kanji") || "Kanji") + '</option>');
+    .append('<option value="Numeric">' + (i18nUtils.getText("numeric") || "Numeric") + '</option>')
+    .append('<option value="Alphanumeric">' + (i18nUtils.getText("alphanum") || "Alphanumeric") + '</option>')
+    .append('<option value="Byte" selected>' + (i18nUtils.getText("byte") || "Byte") + '</option>')
+    .append('<option value="Kanji">' + (i18nUtils.getText("kanji") || "Kanji") + '</option>');
 
   $("#form-qr-error-correction-level")
-    .append('<option value="L">' + (getText("low") || "Low") + '</option>')
-    .append('<option value="M">' + (getText("medium") || "Medium") + '</option>')
-    .append('<option value="Q" selected>' + (getText("quartile") || "Quartile") + '</option>')
-    .append('<option value="H">' + (getText("high") || "High") + '</option>');
+    .append('<option value="L">' + (i18nUtils.getText("low") || "Low") + '</option>')
+    .append('<option value="M">' + (i18nUtils.getText("medium") || "Medium") + '</option>')
+    .append('<option value="Q" selected>' + (i18nUtils.getText("quartile") || "Quartile") + '</option>')
+    .append('<option value="H">' + (i18nUtils.getText("high") || "High") + '</option>');
 
   [
     "title_qr","dl_qr","ext_qr","main_options_qr","data_qr",
@@ -705,14 +705,14 @@ $(document).ready(async function () {
     "bkgd_grad_qr","img_opt_qr","hide_bkgd_dot_qr","img_sz_qr","margin",
     "opt_qr","typ_num_qr","mode","err_corr_lvl_qr"
   ].forEach(element => {
-      setText(element);
+      i18nUtils.setText(element);
   });
-  setTextById("shp_typ_qr","cir_qr");
+  i18nUtils.setTextById("shp_typ_qr","cir_qr");
   [
     "col_typ_qr","sg_col_qr","col_grad_qr","grad_typ_qr","linear",
     "radial","rotation","clear"
   ].forEach(type => {
-    setTextByClass(type)
+    i18nUtils.setTextByClass(type)
   });
   [
     {cls:"rotation", ph:"placeholder_zero_three_hundred_sixty_qr"},

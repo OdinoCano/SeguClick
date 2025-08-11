@@ -57,7 +57,7 @@ class WatermarkProcessor {
       const pdfFiles = files.filter(file => file.type === 'application/pdf');
       
       if (pdfFiles.length === 0) {
-        alert(getText('pdf_valid_alert_wmk'));
+        alert(i18nUtils.getText('pdf_valid_alert_wmk'));
         return;
       }
       pdfFiles.forEach(file => {
@@ -80,7 +80,7 @@ class WatermarkProcessor {
               <small class="text-muted">${fileSize}</small>
             </div>
             <div class="d-flex align-items-center">
-              <span class="badge bg-secondary me-2 status-badge">${getText('pending_msg_wmk')}</span>
+              <span class="badge bg-secondary me-2 status-badge">${i18nUtils.getText('pending_msg_wmk')}</span>
               <button class="btn btn-sm btn-outline-primary me-2 process-single" data-file-name="${file.name}">
                 <i class="bi bi-magic"></i>
               </button>
@@ -106,7 +106,7 @@ class WatermarkProcessor {
       if (!file || this.isProcessing) return;
       const watermarkText = $('#watermarkText').val().trim();
       if (!watermarkText) {
-        alert(getText('watermark_input_msg'));
+        alert(i18nUtils.getText('watermark_input_msg'));
         return;
       }
       const fileItem = $(`.file-item[data-file-id="${this.generateFileId(fileName)}"]`);
@@ -116,7 +116,7 @@ class WatermarkProcessor {
       try {
         // Update UI
         fileItem.addClass('processing');
-        statusBadge.removeClass('bg-secondary bg-success bg-danger').addClass('bg-warning').text(getText('processing_msg'));
+        statusBadge.removeClass('bg-secondary bg-success bg-danger').addClass('bg-warning').text(i18nUtils.getText('processing_msg'));
         progressContainer.show();
         progressBar.css('width', '20%');
         // Read file
@@ -161,7 +161,7 @@ class WatermarkProcessor {
         progressBar.css('width', '100%');
         // Update UI
         fileItem.removeClass('processing').addClass('completed');
-        statusBadge.removeClass('bg-warning').addClass('bg-success').text(getText('completed_msg_wmk'));
+        statusBadge.removeClass('bg-warning').addClass('bg-success').text(i18nUtils.getText('completed_msg_wmk'));
         
         // Add download button
         const downloadBtn = $(`
@@ -175,9 +175,9 @@ class WatermarkProcessor {
       } catch (error) {
         console.error('Error processing file:', error);
         fileItem.removeClass('processing').addClass('error');
-        statusBadge.removeClass('bg-warning').addClass('bg-danger').text(getText('error'));
+        statusBadge.removeClass('bg-warning').addClass('bg-danger').text(i18nUtils.getText('error'));
         progressContainer.hide();
-        alert(`${getText('file_error_alert')} ${fileName}: ${error.message}`);
+        alert(`${i18nUtils.getText('file_error_alert')} ${fileName}: ${error.message}`);
       }
     }
     async processAllFiles() {
@@ -186,7 +186,7 @@ class WatermarkProcessor {
       console.log('B');
       const watermarkText = $('#watermarkText').val().trim();
       if (!watermarkText) {
-        alert(getText('watermark_input_msg'));
+        alert(i18nUtils.getText('watermark_input_msg'));
         return;
       }
       this.isProcessing = true;
@@ -297,14 +297,14 @@ $(document).ready(function() {
       "rotation_wmk", "ang_wmk", "sel_pdf_files_wmk", "drag_pdf_wmk", "click_n_sel_wmk",
       "sel_files_wmk", "btn_cnv_wmk", "btn_dl_all_wmk", "btn_clear_wmk"
     ].forEach(element => {
-      setText(element);
+      i18nUtils.setText(element);
     });
-    setTextByClass("op_wmk");
+    i18nUtils.setTextByClass("op_wmk");
   }
 });
 $('#btn_cnv_wmk').on('click', async function () {
   const file = $('#pdfInput')[0].files[0];
-  if (!file) return alert(getText('select_pdf_alert'));
+  if (!file) return alert(i18nUtils.getText('select_pdf_alert'));
   const reader = new FileReader();
   reader.onload = async function () {
     const existingPdfBytes = new Uint8Array(reader.result);

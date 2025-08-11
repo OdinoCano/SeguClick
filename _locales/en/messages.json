@@ -195,5 +195,17 @@
   "file_error_alert":{"message":"Error processing"},
   "select_pdf_alert":{"message":"Select a PDF file"},
   "btn_dnt":{"message":"Buy me a coffee with PayPal"},
-  "link_dnt":{"message":"You can also donate directly here"}
+  "link_dnt":{"message":"You can also donate directly here"},
+  "lang_dnt":{"message":"Supported languages"},
+  "am": {"message": "Amharic"},
+  "ar": {"message": "Arabic"},
+  "bg": {"message": "Bulgarian"},
+  "bn": {"message": "Bengali"},
+  "ca": {"message": "Catalan"},
+  "cs": {"message": "Czech"},
+  "da": {"message": "Danish"},
+  "de": {"message": "German"},
+  "el": {"message": "Greek"},
+  "en": {"message": "English"},
+  "es": {"message": "Spanish"}
 }

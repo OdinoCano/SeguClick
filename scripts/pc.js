@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Configuración inicial de placeholders
   const initializePlaceholders = () => {
-    setFirstOptionText("cntry_pc", "placeholder_cntry");
-    setFirstOptionText("st_pc", "placeholder_st");
-    setSelectPlaceholder("cty_pc", "placeholder_cty");
-    setSelectPlaceholder("col_pc", "placeholder_col");
+    i18nUtils.setFirstOptionText("cntry_pc", "placeholder_cntry");
+    i18nUtils.setFirstOptionText("st_pc", "placeholder_st");
+    i18nUtils.setSelectPlaceholder("cty_pc", "placeholder_cty");
+    i18nUtils.setSelectPlaceholder("col_pc", "placeholder_col");
   };
 
   // Utilidades para manejo de elementos
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!countryCode) return;
 
         $state.html('').prop('disabled', true);
-        setFirstOptionText("st_pc", "placeholder_st");
+        i18nUtils.setFirstOptionText("st_pc", "placeholder_st");
 
         const countryData = await DataHandlers.loadCountryData();
         if (countryData) {

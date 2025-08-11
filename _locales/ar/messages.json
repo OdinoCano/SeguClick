@@ -1,5 +1,5 @@
 {
-  "chrome_extension_name":{"message": "SeguClick"},
+  "chrome_extension_name":{"message": "سيغوكليك"},
   "chrome_extension_description":{"message": "أدوات لمستشار التأمين"}, 
   "text":{"message": "نص"},
   "img":{"message": "صورة"},
@@ -195,5 +195,17 @@
   "file_error_alert":{"message":"خطأ في المعالجة"},
   "select_pdf_alert":{"message":"اختر ملف PDF"},
   "btn_dnt":{"message":"اشتري لي قهوة عبر PayPal"},
-  "link_dnt":{"message":"يمكنك أيضًا التبرع مباشرة هنا"}
+  "link_dnt":{"message":"يمكنك أيضًا التبرع مباشرة هنا"},
+  "lang_dnt":{"message":"اللغات المدعومة"},
+  "am": {"message": "أمهرية"},
+  "ar": {"message": "العربية"},
+  "bg": {"message": "البلغارية"},
+  "bn": {"message": "البنغالية"},
+  "ca": {"message": "الكتالونية"},
+  "cs": {"message": "التشيكية"},
+  "da": {"message": "الدنماركية"},
+  "de": {"message": "الألمانية"},
+  "el": {"message": "اليونانية"},
+  "en": {"message": "الإنجليزية"},
+  "es": {"message": "الإسبانية"}
 }

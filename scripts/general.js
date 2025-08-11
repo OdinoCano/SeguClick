@@ -66,6 +66,16 @@ const i18nUtils = {
 
   setSelectPlaceholder(selectId, messageKey) {
     $(`#${selectId}`).attr('placeholder', chrome.i18n.getMessage(messageKey));
+  },
+
+  setAltTitle: function (id) {
+    const text = chrome.i18n.getMessage(id);
+    if (text) {
+      $(`#${id}`).attr({
+        alt: text,
+        title: text
+      });
+    }
   }
 };
 
