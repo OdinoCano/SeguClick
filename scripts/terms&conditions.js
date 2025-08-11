@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(function () {
   // Configuración centralizada
   const CONFIG = {
     storage: chrome.storage.local,
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
 
     setupEventListeners() {
-      $(CONFIG.selectors.form).on("click", this.handleFormSubmission.bind(this));
+      $(CONFIG.selectors.form).on("submit", this.handleFormSubmission.bind(this));
     }
   };
 
