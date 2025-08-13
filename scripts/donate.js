@@ -1,5 +1,5 @@
 $(function () {
-  $.each(["btn_dnt", "link_dnt"], function (_, id) {
+  $.each(["btn_dnt", "link_dnt", "lang_dnt"], function (_, id) {
     i18nUtils.setText(id);
   });
 
