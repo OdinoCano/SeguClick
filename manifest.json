@@ -1,7 +1,7 @@
 {
   "name": "__MSG_chrome_extension_name__",
   "description": "__MSG_chrome_extension_description__",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "manifest_version": 3,
   "default_locale": "en",
   "action": {
@@ -15,5 +15,8 @@
     "16": "images/icon16.png",
     "48": "images/icon48.png",
     "128": "images/icon128.png"
-  }
+  },
+  "host_permissions": [
+    "https://docs.google.com/*"
+  ]
 }
